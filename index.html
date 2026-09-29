@@ -374,6 +374,294 @@ input:focus{border-color:#ffc81a;box-shadow:inset 0 3px 0 rgba(40,0,120,.1),0 0 
 /* android app integration */
 #openAppLink{display:none;align-self:center;margin-top:4px;padding:9px 16px;border-radius:22px;background:linear-gradient(180deg,#3ee07a,#18a84c);color:#fff;font-weight:800;font-size:14.5px;text-decoration:none;box-shadow:0 3px 0 #0b6b2e,0 6px 14px rgba(0,0,0,.3)}
 html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
+/* ================= JUNGLE RAAJ ================= */
+html.jungle{background:#0b2612}
+html.jungle body{background:radial-gradient(125% 70% at 50% -8%,#5aa83f 0%,#2f7a30 30%,#185021 60%,#0b2612 100%) fixed}
+html.jungle body::before{opacity:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='%23062a0e' fill-opacity='.28'%3E%3Cpath d='M30 40c20-18 46-10 50 8-20 14-44 12-50-8z'/%3E%3Cpath d='M150 30c6 22-8 44-26 44-6-22 8-40 26-44z'/%3E%3Cpath d='M120 140c22-6 42 10 40 28-22 6-40-8-40-28z'/%3E%3Cpath d='M20 150c12-20 38-24 50-10-12 20-38 24-50 10z'/%3E%3C/g%3E%3Cg fill='%23a8ff7a' fill-opacity='.07'%3E%3Cpath d='M90 90c14-12 32-6 34 6-14 10-30 8-34-6z'/%3E%3Cpath d='M170 110c4 14-6 28-18 28-4-14 6-26 18-28z'/%3E%3C/g%3E%3C/svg%3E") 0 0/230px 230px}
+#jBg{display:none;position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+html.jungle #jBg{display:block}
+#jBg .vt{position:absolute;left:0;right:0;top:-4px;height:78px;opacity:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 78'%3E%3Cpath d='M0 6Q60 26 120 8T240 6' fill='none' stroke='%23184d17' stroke-width='5'/%3E%3Cpath d='M40 16q2 24-4 44M150 12q-3 20 3 38M205 10q2 14-2 26' fill='none' stroke='%23215e1f' stroke-width='2.5'/%3E%3Cg fill='%232e8a2c' stroke='%23123f12' stroke-width='1.2'%3E%3Cpath d='M20 12c8-10 20-8 22 0-8 8-18 8-22 0z'/%3E%3Cpath d='M70 22c8-10 20-8 22 0-8 8-18 8-22 0z'/%3E%3Cpath d='M110 10c8-10 20-8 22 0-8 8-18 8-22 0z'/%3E%3Cpath d='M175 12c8-10 20-8 22 0-8 8-18 8-22 0z'/%3E%3Cpath d='M36 58c-8-6-8-16 0-18 6 6 6 14 0 18z'/%3E%3Cpath d='M153 48c-8-6-8-16 0-18 6 6 6 14 0 18z'/%3E%3Cpath d='M203 36c-7-5-7-14 0-16 5 5 5 12 0 16z'/%3E%3C/g%3E%3Cg fill='%2352b848'%3E%3Cpath d='M92 18c6-7 14-6 16 0-6 6-12 6-16 0z'/%3E%3Cpath d='M220 8c6-7 14-6 16 0-6 6-12 6-16 0z'/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0/240px 78px}
+#jBg .lf{position:absolute;width:210px;height:210px;bottom:-50px;opacity:.6;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%230c3a10' stroke-width='2'%3E%3Cpath d='M10 200C20 120 70 70 150 50C120 110 80 160 10 200z' fill='%23217a2a'/%3E%3Cpath d='M0 200C0 150 20 100 60 70C60 120 40 170 0 200z' fill='%232f9a36'/%3E%3Cpath d='M30 200C70 170 130 150 200 160C150 190 90 205 30 200z' fill='%231a6522'/%3E%3C/g%3E%3Cpath d='M10 200C60 140 100 90 150 50M30 200C90 175 140 165 200 160' fill='none' stroke='%237ad66a' stroke-width='1.5' stroke-opacity='.6'/%3E%3C/svg%3E") no-repeat center/contain}
+#jBg .lf.l{left:-40px}#jBg .lf.r{right:-40px;transform:scaleX(-1)}
+#jBg .ff{position:absolute;width:5px;height:5px;border-radius:50%;background:#f6ff9a;box-shadow:0 0 8px 3px rgba(220,255,110,.65);opacity:0;animation:jff 8s ease-in-out infinite}
+@keyframes jff{0%,100%{opacity:0;transform:translate(0,0)}25%{opacity:.9}50%{opacity:.25;transform:translate(26px,-38px)}75%{opacity:.8;transform:translate(-14px,-60px)}}
+html.jungle .box{background:linear-gradient(180deg,#3d8f3c,#23632b 55%,#164520);border-color:#f2c34a}
+html.jungle .sheetIn{background:linear-gradient(180deg,#3d8f3c,#164520)}
+html.jungle .rays{background:repeating-conic-gradient(from 0deg,rgba(255,255,200,.12) 0 9deg,transparent 9deg 18deg)}
+/* board frame */
+html.jungle #boardWrap{background:linear-gradient(145deg,#b07a42 0%,#80501f 35%,#5d3513 70%,#3f220a 100%);
+  box-shadow:0 5px 0 #2a1605,0 16px 30px rgba(0,0,0,.55),inset 0 2px 0 rgba(255,220,160,.55),inset 0 -2px 0 rgba(0,0,0,.3)}
+html.jungle #boardIn{background:#23491b;box-shadow:0 0 0 2px #1d3d12,0 0 0 3.5px rgba(120,210,80,.55)}
+#jglows{position:absolute;inset:0;pointer-events:none;display:none}
+html.jungle #jglows{display:block}
+#jglows i{position:absolute;width:8.6%;height:8.6%;margin:-4.3% 0 0 -4.3%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,170,.75),rgba(150,255,90,.35) 45%,transparent 70%);animation:jglow 2.2s ease-in-out infinite;will-change:opacity,transform}
+@keyframes jglow{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
+.jleaves{display:none;position:absolute;inset:0;pointer-events:none;z-index:450}
+html.jungle .jleaves{display:block}
+.jleaves svg{position:absolute;width:15%;height:15%;max-width:64px;max-height:64px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.35))}
+.jleaves .c1{left:-3.5%;top:-3.5%}.jleaves .c2{right:-3.5%;top:-3.5%;transform:scaleX(-1)}.jleaves .c3{left:-3.5%;bottom:-3.5%;transform:scaleY(-1)}.jleaves .c4{right:-3.5%;bottom:-3.5%;transform:scale(-1,-1)}
+#pwBadge{display:none;position:absolute;left:50%;top:-11px;transform:translateX(-50%);z-index:460;font-size:11px;font-weight:900;letter-spacing:.3px;padding:1px 10px 0;border-radius:10px;white-space:nowrap;
+  background:linear-gradient(180deg,#ffe96a,#f5a80a);color:#4a2500;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.45),0 0 10px rgba(255,220,80,.7);animation:pwb 1.8s ease-in-out infinite alternate;pointer-events:none}
+@keyframes pwb{to{box-shadow:0 2px 6px rgba(0,0,0,.45),0 0 18px rgba(255,220,80,1)}}
+html.jungle .shake2{animation:shake2 .5s}
+@keyframes shake2{10%{transform:translate(-8px,3px) rotate(-1deg)}25%{transform:translate(8px,-4px) rotate(1deg)}40%{transform:translate(-6px,-2px) rotate(-.6deg)}55%{transform:translate(5px,2px)}70%{transform:translate(-3px,1px)}85%{transform:translate(2px,-1px)}}
+#boardWrap.pwring::after{content:"";position:absolute;inset:-4px;border-radius:18px;pointer-events:none;z-index:455;animation:pwr 1.2s ease-out forwards}
+@keyframes pwr{0%{box-shadow:0 0 0 0 rgba(255,230,90,.95),inset 0 0 30px rgba(255,230,90,.8)}100%{box-shadow:0 0 0 16px rgba(255,230,90,0),inset 0 0 0 rgba(255,230,90,0)}}
+/* wooden dice */
+html.jungle #dice{background:linear-gradient(180deg,#c9904f,#9a5f2c 55%,#6a3b15);border:3px solid var(--pc);
+  box-shadow:0 0 0 2px #fff,0 4px 0 #3e2208,0 8px 14px rgba(0,0,0,.45),inset 0 2px 0 rgba(255,230,180,.5)}
+html.jungle #dice .face{background:repeating-linear-gradient(8deg,rgba(110,60,20,.13) 0 1.5px,transparent 1.5px 5px),radial-gradient(circle at 30% 25%,#f8dcae,#e3b87c 60%,#c48c52);
+  box-shadow:inset 0 0 0 1.5px rgba(90,50,18,.55),inset 0 -3px 5px rgba(90,50,18,.35);border-radius:9px}
+html.jungle #dice .face i{background:radial-gradient(circle at 35% 35%,#6b3a17,#2a1405);box-shadow:inset 0 1px 1px rgba(0,0,0,.5)}
+html.jungle #dice .f1 i.on{background:radial-gradient(circle at 35% 35%,#8ff06a,#1f7a1a)}
+/* animal tokens */
+.tok .spd{display:none}
+html.jungle .tok{transition:left var(--sdt,.13s) linear,top var(--sdt,.13s) linear,transform .2s}
+html.jungle .tok .sd{left:17%;right:17%;top:84%;height:11%;transition:transform .2s,opacity .2s}
+html.jungle .tok .tb{transition:transform .2s}
+.jz,.ji{position:absolute;inset:0;transform-origin:50% 88%}
+.ji{animation:jbr 2.8s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.tok svg.an{transform:scale(1.24);transform-origin:50% 88%}
+@keyframes jbr{0%,100%{transform:none}50%{transform:scale(1.035,.965)}}
+svg.an g{transform-box:view-box}
+svg.an .p-ko{opacity:0}
+svg.an .p-eyes{transform-box:fill-box;transform-origin:50% 50%;animation:jBlink 4.6s infinite;animation-delay:var(--dl,0s)}
+@keyframes jBlink{0%,94%,100%{transform:none}97%{transform:scaleY(.1)}}
+[data-an=sher] .p-mane{transform-origin:20px 24px;animation:jMane 3.4s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes jMane{0%,70%,100%{transform:none}80%{transform:scale(1.06) rotate(4deg)}90%{transform:scale(1.02) rotate(-3deg)}}
+[data-an=haathi] .p-earL{transform-origin:12px 21px;animation:jEarL 2.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+[data-an=haathi] .p-earR{transform-origin:28px 21px;animation:jEarR 2.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes jEarL{0%,55%,100%{transform:none}75%{transform:rotate(-12deg) scaleX(1.06)}}
+@keyframes jEarR{0%,55%,100%{transform:none}75%{transform:rotate(12deg) scaleX(1.06)}}
+[data-an=ghoda] .p-mane{transform-origin:20px 12px;animation:jSway 3s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes jSway{0%,60%,100%{transform:none}80%{transform:rotate(-5deg)}}
+[data-an=saanp] .p-tongue{transform-origin:20px 23.5px;animation:jTongue 2.4s infinite;animation-delay:var(--dl,0s)}
+@keyframes jTongue{0%,62%,100%{transform:scaleY(0)}66%,76%{transform:scaleY(1)}71%{transform:scaleY(.55)}}
+[data-an=saanp] .ji{animation-name:jSnake}
+@keyframes jSnake{0%,100%{transform:none}50%{transform:rotate(-4deg) scale(1.02,.98)}}
+[data-an=bichhu] .p-tail{transform-origin:26px 33px;animation:jTail 2s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes jTail{0%,100%{transform:none}50%{transform:rotate(-9deg)}}
+[data-an=bhaalu] .p-head{transform-origin:20px 32px;animation:jTilt 3.4s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes jTilt{0%,100%{transform:none}30%{transform:rotate(-5deg)}70%{transform:rotate(5deg)}}
+[data-an=magarmachh] .p-jaw{animation:jJaw 3.6s infinite;animation-delay:var(--dl,0s)}
+@keyframes jJaw{0%,78%,100%{transform:none}84%,92%{transform:translateY(1.8px)}}
+[data-an=bandar] .ji{animation-name:jBob;animation-duration:1.6s}
+@keyframes jBob{0%,100%{transform:none}50%{transform:translateY(-4%) rotate(3deg)}}
+[data-an=cheel] .p-wingL{transform-origin:14px 26px;animation:jWingL 2.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+[data-an=cheel] .p-wingR{transform-origin:26px 26px;animation:jWingR 2.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes jWingL{0%,68%,100%{transform:none}80%{transform:rotate(14deg)}90%{transform:rotate(-4deg)}}
+@keyframes jWingR{0%,68%,100%{transform:none}80%{transform:rotate(-14deg)}90%{transform:rotate(4deg)}}
+[data-an=cheetah] .ji{animation-duration:2.2s}
+.tok.camo .ji{opacity:.62;filter:saturate(.55) hue-rotate(20deg)}
+.tok.camo::before{content:"🌿";position:absolute;right:-10%;top:-8%;font-size:11px;z-index:2;filter:drop-shadow(0 1px 1px #000)}
+.tok.shld::before{content:"";position:absolute;left:3%;right:3%;top:2%;height:72%;border-radius:50%;border:1.5px solid rgba(160,230,255,.95);box-shadow:0 0 6px rgba(120,210,255,.9),inset 0 0 7px rgba(120,210,255,.55);pointer-events:none}
+.tok.shpop::before{animation:shpop .6s ease-out forwards}
+@keyframes shpop{0%{transform:scale(1);opacity:1}40%{transform:scale(1.5);opacity:1;border-width:3px}100%{transform:scale(1.9);opacity:0}}
+/* per-animal move steps (on .jz) */
+.tok.mvg-sher .jz.st{animation:stSher var(--sd) ease-out}
+@keyframes stSher{0%{transform:scale(1.05,.92)}50%{transform:translateY(-12%) rotate(calc(var(--dx)*5deg)) scale(1.02,.98)}100%{transform:none}}
+.tok.mvg-cheetah .jz.st{animation:stChee var(--sd) linear}
+@keyframes stChee{0%{transform:skewX(calc(var(--dx)*-14deg)) translateY(-6%)}100%{transform:skewX(calc(var(--dx)*-10deg))}}
+.tok.mvg-cheetah .jz{transform:skewX(calc(var(--dx)*-10deg))}
+.tok.mvg-cheetah .spd{display:block;position:absolute;left:50%;top:52%;width:150%;height:34%;transform-origin:0 50%;transform:rotate(var(--ang)) translateX(-100%) translateY(-50%);
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.95) 0 1.5px,transparent 1.5px 5px);-webkit-mask:linear-gradient(90deg,transparent,#000);mask:linear-gradient(90deg,transparent,#000);opacity:.9}
+.tok.mvg-haathi .jz.st{animation:stHaa var(--sd) ease-in}
+@keyframes stHaa{0%{transform:none}40%{transform:translateY(-15%) rotate(calc(var(--dx)*-3deg))}70%{transform:translateY(0) scale(1.12,.84)}100%{transform:none}}
+.tok.mvg-ghoda .jz.st{animation:stGho var(--sd) ease-out}
+@keyframes stGho{0%{transform:scale(1.05,.9)}45%{transform:translateY(-44%) rotate(calc(var(--dx)*-12deg))}100%{transform:none}}
+.tok.mvg-saanp .jz{transform:scale(1.04,.9)}
+.tok.mvg-saanp .jz.st{animation:stSaa var(--sd) ease-in-out}
+@keyframes stSaa{0%{transform:scale(1.04,.9) skewX(14deg)}50%{transform:scale(1.1,.86) skewX(-14deg)}100%{transform:scale(1.04,.9) skewX(8deg)}}
+.tok.mvg-bichhu .jz.st{animation:stBic var(--sd) linear}
+@keyframes stBic{0%{transform:none}25%{transform:translateY(-10%) rotate(-7deg)}50%{transform:none}75%{transform:translateY(-8%) rotate(7deg)}100%{transform:none}}
+.tok.mvg-bhaalu .jz.st{animation:stBha var(--sd) ease-in-out}
+@keyframes stBha{0%{transform:rotate(-8deg)}50%{transform:translateY(-12%) rotate(0)}100%{transform:rotate(8deg)}}
+.tok.mvg-magarmachh .jz{transform:scale(1.08,.84)}
+.tok.mvg-magarmachh .jz.st{animation:stMag var(--sd) ease-in-out}
+@keyframes stMag{0%{transform:scale(1.08,.84) rotate(-4deg)}50%{transform:scale(1.12,.8) translateY(3%)}100%{transform:scale(1.08,.84) rotate(4deg)}}
+.tok.mvg-bandar .jz.st{animation:stBan var(--sd) cubic-bezier(.3,.6,.4,1)}
+@keyframes stBan{0%{transform:scale(1.12,.84)}45%{transform:translateY(-85%) rotate(calc(var(--dx)*25deg)) scale(.96,1.06)}85%{transform:translateY(0) scale(1.12,.86)}100%{transform:none}}
+.tok.flying .tb{transform:translateY(-62%)}
+.tok.flying .sd{transform:scale(.5);opacity:.3}
+.tok.flying .p-wingL{animation:flapL .2s ease-in-out infinite alternate!important}
+.tok.flying .p-wingR{animation:flapR .2s ease-in-out infinite alternate!important}
+@keyframes flapL{from{transform:rotate(45deg)}to{transform:rotate(-20deg)}}
+@keyframes flapR{from{transform:rotate(-45deg)}to{transform:rotate(20deg)}}
+.tok.mvg-cheel .jz.st{animation:stChe var(--sd) ease-in-out}
+@keyframes stChe{50%{transform:translateY(-6%) rotate(calc(var(--dx)*6deg))}}
+/* attack (wind-up + lunge) */
+.tok.atk{z-index:330!important}
+.tok.atk .jz{animation:atkGen .43s ease-in forwards}
+@keyframes atkGen{0%{transform:none}45%{transform:translate(calc(var(--ax)*-.35),calc(var(--ay)*-.35)) scale(.9,1.08)}100%{transform:translate(var(--ax),var(--ay)) scale(1.28)}}
+.tok.atk[data-an=sher] .jz{animation-name:atkSher}
+@keyframes atkSher{0%{transform:none}40%{transform:translate(calc(var(--ax)*-.4),calc(var(--ay)*-.4)) scale(1.1,.85)}75%{transform:translate(calc(var(--ax)*.6),calc(var(--ay)*.6 - 14px)) scale(1.35) rotate(10deg)}100%{transform:translate(var(--ax),var(--ay)) scale(1.3)}}
+.tok.atk[data-an=haathi] .jz{animation-name:atkHaa}
+@keyframes atkHaa{0%{transform:none}55%{transform:translateY(-48%) scale(1.18) rotate(-8deg)}100%{transform:translate(var(--ax),var(--ay)) scale(1.35,.78)}}
+.tok.atk[data-an=ghoda] .jz{animation-name:atkGho}
+@keyframes atkGho{0%{transform:none}50%{transform:rotate(-24deg) translateY(-16%)}100%{transform:translate(var(--ax),var(--ay)) rotate(18deg) scale(1.2)}}
+.tok.atk[data-an=cheel] .jz{animation-name:atkChe}
+@keyframes atkChe{0%{transform:none}55%{transform:translateY(-180%) scale(1.2)}100%{transform:translate(var(--ax),var(--ay)) scale(1.3)}}
+.tok.atk[data-an=cheel] .p-wingL{animation:flapL .12s infinite alternate!important}.tok.atk[data-an=cheel] .p-wingR{animation:flapR .12s infinite alternate!important}
+.tok.atk[data-an=bandar] .jz{animation-name:atkBan}
+@keyframes atkBan{0%{transform:none}50%{transform:translateY(-95%) rotate(-200deg)}100%{transform:translate(var(--ax),var(--ay)) rotate(-360deg) scale(1.25)}}
+.tok.atk[data-an=cheetah] .jz{animation-name:atkChee}
+@keyframes atkChee{0%{transform:none}40%{transform:translate(calc(var(--ax)*-.3),calc(var(--ay)*-.3)) skewX(12deg) scale(1.1,.9)}100%{transform:translate(calc(var(--ax)*1.1),calc(var(--ay)*1.1)) skewX(-16deg) scale(1.25)}}
+.tok.atk[data-an=saanp] .jz{animation-name:atkSaa}
+@keyframes atkSaa{0%{transform:none}65%{transform:scale(.9,.78)}100%{transform:translate(var(--ax),var(--ay)) scale(1.12,1.38)}}
+.tok.atk[data-an=saanp] .p-hood,.tok.pose[data-an=saanp] .p-hood{transform-origin:20px 24px;animation:pHood .85s ease-out}
+.tok.atk[data-an=magarmachh] .jz{animation-name:atkMag}
+@keyframes atkMag{0%{transform:none}50%{transform:scale(1.06,.85)}100%{transform:translate(var(--ax),var(--ay)) scale(1.32,.95)}}
+.tok.atk[data-an=magarmachh] .p-jaw{animation:jawChomp .43s ease-in}
+@keyframes jawChomp{0%{transform:none}70%{transform:translateY(5px)}100%{transform:none}}
+.tok.atk[data-an=bichhu] .p-tail{transform-origin:26px 33px;animation:tailJab .43s ease-in}
+@keyframes tailJab{0%{transform:none}55%{transform:rotate(-22deg)}100%{transform:rotate(28deg) scale(1.15)}}
+.tok.atk[data-an=bhaalu] .jz{animation-name:atkBha}
+@keyframes atkBha{0%{transform:none}50%{transform:scale(1.1,1.28) translateY(-12%) rotate(-12deg)}100%{transform:translate(var(--ax),var(--ay)) rotate(16deg) scale(1.22)}}
+/* victim: knocked out, dizzy, tossed back to yard */
+.tok.ko svg.an .p-eyes{opacity:0}.tok.ko svg.an .p-ko{opacity:1}
+.tok.ko .jz{animation:koWob .56s ease-out}
+@keyframes koWob{0%{transform:scale(1.3,.55)}35%{transform:scale(.9,1.15) rotate(-14deg)}65%{transform:rotate(9deg)}100%{transform:rotate(-6deg)}}
+.dz{position:absolute;left:50%;top:-10%;width:0;height:0;z-index:3;pointer-events:none}
+.dz i{position:absolute;left:-6px;top:-8px;font-size:14px;font-style:normal;color:#ffe34a;text-shadow:0 0 3px #7a4a00,0 0 2px #000;animation:dzOrb .7s linear infinite}
+.dz i:nth-child(2){animation-delay:-.233s;color:#fff}.dz i:nth-child(3){animation-delay:-.466s}
+@keyframes dzOrb{0%{transform:translate(13px,0) scale(1)}25%{transform:translate(0,4px) scale(1.2)}50%{transform:translate(-13px,0) scale(1)}75%{transform:translate(0,-4px) scale(.7)}100%{transform:translate(13px,0) scale(1)}}
+.tok.tossed{transition:left .76s cubic-bezier(.3,.05,.3,1),top .76s cubic-bezier(.3,.05,.3,1)!important;z-index:260!important}
+.tok.tossed .tb{animation:toss .76s ease-out}
+@keyframes toss{0%{transform:none}40%{transform:translateY(-170%) rotate(320deg) scale(1.15)}75%{transform:translateY(-30%) rotate(640deg)}88%{transform:translateY(0) rotate(720deg) scale(1.1,.85)}100%{transform:rotate(720deg)}}
+/* safe-star poses */
+.tok.pose{z-index:320!important}
+.tok.pose[data-an=sher] .jz{animation:pSher .88s ease-out}
+@keyframes pSher{20%{transform:translateY(-10%) scale(1.32)}35%{transform:translateY(-8%) scale(1.26) rotate(-4deg)}50%{transform:translateY(-9%) scale(1.3) rotate(4deg)}80%{transform:translateY(-6%) scale(1.22)}100%{transform:none}}
+.tok.pose[data-an=haathi] .p-trunk{transform-origin:20px 25.5px;animation:pTrunk .88s ease-out}
+@keyframes pTrunk{25%,78%{transform:rotate(160deg) translateY(-1px)}100%{transform:none}}
+.tok.pose[data-an=haathi] .jz{animation:pLift .88s ease-out}
+@keyframes pLift{25%,78%{transform:translateY(-8%) scale(1.12)}100%{transform:none}}
+@keyframes pHood{25%,78%{transform:scale(1.42,1.25)}100%{transform:none}}
+.tok.pose[data-an=saanp] .jz{animation:pLift .88s ease-out}
+.tok.pose[data-an=cheel] .p-wingL{animation:pWingL .88s ease-out!important}
+.tok.pose[data-an=cheel] .p-wingR{animation:pWingR .88s ease-out!important}
+.tok.pose[data-an=cheel] .jz{animation:pLift .88s ease-out}
+@keyframes pWingL{25%,80%{transform:rotate(62deg)}100%{transform:none}}
+@keyframes pWingR{25%,80%{transform:rotate(-62deg)}100%{transform:none}}
+.tok.pose[data-an=ghoda] .jz{animation:pRear .88s ease-out}
+@keyframes pRear{30%,72%{transform:rotate(-24deg) translateY(-15%) scale(1.1)}50%{transform:rotate(-20deg) translateY(-18%) scale(1.12)}100%{transform:none}}
+.tok.pose[data-an=bhaalu] .jz{animation:pStand .88s ease-out}
+@keyframes pStand{30%,78%{transform:scale(1.14,1.34) translateY(-8%)}100%{transform:none}}
+.tok.pose[data-an=magarmachh] .p-jaw{animation:pSnap .88s ease-out}
+@keyframes pSnap{15%{transform:translateY(5px)}30%{transform:none}45%{transform:translateY(5px)}60%{transform:none}}
+.tok.pose[data-an=magarmachh] .jz{animation:pLift .88s ease-out}
+.tok.pose[data-an=bandar] .jz{animation:pBeat .88s ease-in-out}
+@keyframes pBeat{0%,100%{transform:none}12%,37%,62%,87%{transform:scale(1.18) rotate(-6deg) translateY(-6%)}25%,50%,75%{transform:scale(1.02) rotate(6deg)}}
+.tok.pose[data-an=cheetah] .jz{animation:pCrouch .88s ease-out}
+@keyframes pCrouch{25%,80%{transform:scale(1.18,.78) translateY(6%)}100%{transform:none}}
+.tok.pose[data-an=bichhu] .p-tail{animation:pTail .88s ease-out!important}
+@keyframes pTail{25%,78%{transform:rotate(-20deg) scale(1.14)}100%{transform:none}}
+.tok.pose[data-an=bichhu] .p-clawL{transform-origin:14px 22px;animation:pClawL .88s}.tok.pose[data-an=bichhu] .p-clawR{transform-origin:26px 22px;animation:pClawR .88s}
+@keyframes pClawL{25%,78%{transform:rotate(-18deg)}}@keyframes pClawR{25%,78%{transform:rotate(18deg)}}
+.tok.pose .ji{filter:drop-shadow(0 0 4px #fff7a0) drop-shadow(0 0 7px #9dff6a)}
+.tok.vhop .jz{animation:vhop .76s ease-out}
+@keyframes vhop{0%,33%,66%,100%{transform:none}16%{transform:translateY(-55%) rotate(-10deg)}50%{transform:translateY(-40%) rotate(10deg)}83%{transform:translateY(-25%)}}
+/* fx */
+.jfx{position:absolute;width:0;height:0;pointer-events:none}
+.jsv{position:absolute;left:-24px;top:-24px;width:48px;height:48px;overflow:visible}
+.jslash .jsv{left:-32px;top:-32px;width:64px;height:64px;filter:drop-shadow(0 0 3px #ffae00) drop-shadow(0 0 1px #7a3000)}
+.jslash path{fill:none;stroke:#fff;stroke-width:.2;stroke-linecap:round;stroke-dasharray:2.2;stroke-dashoffset:2.2;animation:jslash .2s ease-out forwards,jfade .72s linear forwards}
+.jslash path:nth-child(2){animation-delay:.06s,0s}.jslash path:nth-child(3){animation-delay:.12s,0s}
+.jslash.talon path{stroke:#fff6d0}
+@keyframes jslash{to{stroke-dashoffset:0}}
+@keyframes jfade{0%,60%{opacity:1}100%{opacity:0}}
+.jchomp i{position:absolute;left:-22px;width:44px;height:18px;background:#5da13c;border:2px solid #1d3a10;animation:jchompU .32s ease-in forwards,jfade .9s linear forwards}
+.jchomp i.u{top:-30px;border-radius:12px 12px 4px 4px;background:linear-gradient(#5da13c,#5da13c) top/100% 60% no-repeat,repeating-linear-gradient(90deg,#fff 0 3px,transparent 3px 6px) bottom/100% 40% no-repeat,#5da13c}
+.jchomp i.d{top:12px;border-radius:4px 4px 12px 12px;background:linear-gradient(#9ccf6e,#9ccf6e) bottom/100% 60% no-repeat,repeating-linear-gradient(90deg,#fff 0 3px,transparent 3px 6px) top/100% 40% no-repeat,#9ccf6e;animation-name:jchompD,jfade}
+@keyframes jchompU{from{transform:translateY(-14px) rotate(-12deg)}to{transform:translateY(12px)}}
+@keyframes jchompD{from{transform:translateY(14px) rotate(12deg)}to{transform:translateY(-12px)}}
+.jbite i{position:absolute;top:-6px;width:7px;height:7px;background:#fff;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);transform:scale(0);animation:jbite .5s .28s ease-out forwards;filter:drop-shadow(0 0 3px #b5ff5a)}
+.jbite i:first-child{left:-9px}.jbite i:last-child{left:3px}
+@keyframes jbite{40%{transform:scale(2.4)}100%{transform:scale(1.2);opacity:0}}
+.jzap path{fill:#ffe94a;stroke:#7a4a00;stroke-width:.05;transform-origin:center;animation:jzap .5s .25s ease-out both}
+@keyframes jzap{0%{opacity:0;transform:scale(.3)}30%{opacity:1;transform:scale(1.2)}100%{opacity:0;transform:scale(1)}}
+.jfoot .jsv{animation:jfoot .45s ease-in both}.jfoot ellipse,.jfoot circle{fill:rgba(60,70,90,.75)}
+@keyframes jfoot{0%{transform:translateY(-40px) scale(2.2);opacity:0}70%{transform:none;opacity:1}100%{opacity:.8}}
+.jpow .jsv{animation:jpow .6s .3s ease-out both}.jpow polygon{fill:#ffe94a;stroke:#b33a00;stroke-width:.08}
+@keyframes jpow{0%{transform:scale(.2) rotate(-30deg);opacity:0}30%{transform:scale(1.3);opacity:1}100%{transform:scale(1.1) rotate(10deg);opacity:0}}
+.jstick i{position:absolute;left:-30px;top:-34px;width:6px;height:34px;border-radius:3px;background:linear-gradient(90deg,#8a5a2b,#c48a4f,#6b3f1a);border:1px solid #3a2210;transform-origin:50% 100%;animation:jstick .42s ease-in forwards,jfade .8s linear forwards}
+@keyframes jstick{from{transform:translate(8px,22px) rotate(-100deg)}to{transform:translate(22px,26px) rotate(15deg)}}
+.jspeed i{position:absolute;left:-40px;height:2px;width:34px;border-radius:2px;background:linear-gradient(90deg,transparent,#fff);animation:jspeed .45s ease-out forwards}
+.jspeed i:nth-child(1){top:-14px}.jspeed i:nth-child(2){top:-6px;animation-delay:.05s}.jspeed i:nth-child(3){top:2px;animation-delay:.1s}.jspeed i:nth-child(4){top:10px;animation-delay:.03s}
+@keyframes jspeed{from{transform:translateX(-20px);opacity:0}40%{opacity:1}to{transform:translateX(30px);opacity:0}}
+.jflash{position:absolute;inset:0;border-radius:9px;background:radial-gradient(circle at var(--fx) var(--fy),rgba(255,255,255,.9),rgba(255,240,170,.5) 16%,rgba(255,255,255,0) 44%);animation:jflash .3s ease-out forwards}
+@keyframes jflash{from{opacity:1}to{opacity:0}}
+.jimp::before,.jimp::after{content:"";position:absolute;left:-18px;top:-18px;width:36px;height:36px;border-radius:50%;border:3px solid rgba(255,255,255,.9);animation:jimp .45s ease-out forwards}
+.jimp::after{border-color:#ffd23f;animation-delay:.08s}
+@keyframes jimp{from{transform:scale(.2);opacity:1}to{transform:scale(2.4);opacity:0}}
+.jword b{position:absolute;left:0;top:0;transform:translate(-50%,-50%) scale(.3);font-family:var(--disp);font-weight:400;font-size:21px;color:#ffe34a;white-space:nowrap;letter-spacing:.5px;
+  text-shadow:2px 0 0 #5a1a00,-2px 0 0 #5a1a00,0 2px 0 #5a1a00,0 -2px 0 #5a1a00,2px 2px 0 #5a1a00,-2px 2px 0 #5a1a00,0 4px 0 #5a1a00,0 6px 8px rgba(0,0,0,.5);animation:jword .95s ease-out forwards}
+@keyframes jword{0%{transform:translate(-50%,-50%) scale(.3) rotate(-10deg);opacity:0}20%{transform:translate(-50%,-60%) scale(1.25) rotate(-6deg);opacity:1}35%{transform:translate(-50%,-60%) scale(1) rotate(-4deg)}80%{opacity:1}100%{transform:translate(-50%,-90%) scale(1) rotate(-4deg);opacity:0}}
+.jp{position:absolute;left:-3px;top:-3px;width:7px;height:7px;animation:jp .85s cubic-bezier(.2,.7,.3,1) forwards}
+.jp.dust{border-radius:50%;background:radial-gradient(circle at 35% 35%,#f3dcae,#b98a4a);width:8px;height:8px}
+.jp.leaf{border-radius:0 100% 0 100%;background:linear-gradient(135deg,#8ff06a,#1f8a2a);width:8px;height:8px}
+.jp.feather{border-radius:50% 50% 50% 50%/80% 80% 20% 20%;background:linear-gradient(#fff,#d9cbb5);width:5px;height:12px}
+@keyframes jp{0%{transform:translate(0,0) rotate(0) scale(1.1)}70%{opacity:1}100%{transform:translate(var(--tx),calc(var(--ty) + 14px)) rotate(var(--r)) scale(.7);opacity:0}}
+.jaura i{position:absolute;left:-28px;top:-30px;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle,rgba(255,252,170,.95),rgba(150,255,100,.5) 42%,rgba(150,255,100,0) 70%);animation:jaura 1.1s ease-out forwards}
+@keyframes jaura{0%{transform:scale(.3);opacity:0}25%{transform:scale(1.15);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.jring i{position:absolute;left:-12px;top:-12px;width:24px;height:24px;border-radius:50%;border:3px solid rgba(255,225,110,.95);animation:jring .85s ease-out forwards;opacity:0}
+.jring i:nth-child(2){animation-delay:.14s}.jring i:nth-child(3){animation-delay:.28s}
+@keyframes jring{0%{transform:scale(.4);opacity:1}100%{transform:scale(3.2);opacity:0}}
+.pwf{position:absolute;left:50%;top:50%;z-index:470;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;padding:6px 18px 7px;border-radius:18px;pointer-events:none;text-align:center;white-space:nowrap;
+  background:linear-gradient(180deg,rgba(28,60,16,.94),rgba(10,28,6,.94));border:3px solid var(--pc);box-shadow:0 0 0 2px rgba(255,255,255,.7),0 0 34px var(--pc),0 10px 24px rgba(0,0,0,.5);animation:pwf 1.45s cubic-bezier(.2,1.4,.4,1) forwards}
+.pwf .pwi{font-size:30px;line-height:1.1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+.pwf b{font-family:var(--disp);font-weight:400;font-size:22px;color:#ffe34a;letter-spacing:.6px;text-shadow:0 2px 0 #5a2a00}
+.pwf small{font-size:12px;font-weight:800;opacity:.92}
+@keyframes pwf{0%{transform:translate(-50%,-50%) scale(.3);opacity:0}14%{transform:translate(-50%,-50%) scale(1.12);opacity:1}24%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{transform:translate(-50%,-62%) scale(.96);opacity:0}}
+/* avatars / picker / chips */
+.jav{display:block;width:100%;height:100%}
+.pcard .emo{display:grid;place-items:center}
+.pcard .emo svg,.jav svg,.anIc svg,.anArt svg,.jkrAv svg.an{width:100%;height:100%;display:block}
+html.jungle .pcard .emo{width:44px;height:44px}
+html.jungle .pcard .av,html.jungle .slot .sav,html.jungle .rank .rav{background:radial-gradient(circle at 35% 30%,#fff,#effbe6 55%,#bfe6a8)}
+.slot .sav .jav{width:42px;height:42px}.rank .rav .jav{width:36px;height:36px}
+.tag.pwt{background:linear-gradient(180deg,rgba(255,226,90,.45),rgba(255,170,0,.35));border:1px solid rgba(255,236,140,.75)}
+.tag.pwt.used{opacity:.55;filter:grayscale(.6)}
+.tag.pois{background:rgba(140,255,80,.35)}
+.anPick{display:flex;align-items:center;gap:10px;text-align:left;font-size:19px;padding:8px 12px 8px 8px;border-radius:18px}
+.anPick .go{margin-left:auto;font-size:24px;opacity:.85}
+.anIc{width:46px;height:46px;flex:0 0 46px;border-radius:50%;padding:2px;background:radial-gradient(circle at 35% 30%,#fff,#effbe6 55%,#b7e6a6);box-shadow:0 0 0 2.5px #fff,0 3px 6px rgba(0,0,0,.35);display:grid;place-items:center}
+.anTx{line-height:1.05}.anTx small{display:block;font-family:var(--font);font-size:12.5px;font-weight:700;letter-spacing:0;opacity:.95}
+.anTx small.al{font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:.4px;margin-bottom:1px}
+.anGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.anCard{display:flex;flex-direction:column;align-items:center;gap:0;padding:7px 6px 8px;border-radius:16px;font-family:var(--font);letter-spacing:0;text-shadow:none;color:#fff;
+  --c1:rgba(255,255,255,.22);--c2:rgba(255,255,255,.07);--c3:rgba(0,0,0,.3)}
+.anCard.sel{--c1:#ffe27a;--c2:#f5b416;--c3:#8a5200;color:#3a1d00;box-shadow:0 0 0 3px #fff,0 5px 0 var(--c3)}
+.anArt{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#effbe6 55%,#b7e6a6);box-shadow:0 0 0 2px #fff,0 3px 6px rgba(0,0,0,.3);padding:2px;margin-bottom:3px}
+.anCard b{font-family:var(--disp);font-weight:400;font-size:17px;line-height:1.05}
+.anCard small{font-size:11px;font-weight:700;opacity:.85;line-height:1.1}
+.anPw{font-size:12px;font-weight:800;background:rgba(0,0,0,.25);padding:1px 8px;border-radius:9px;margin-top:3px}
+.anCard.sel .anPw{background:rgba(90,40,0,.18)}
+.anPd{font-size:10.5px;line-height:1.2;font-weight:600;opacity:.92;margin-top:3px}
+.anCard:disabled{opacity:.38}
+.anCard .tk{position:absolute;top:6px;right:8px;font-size:10px;font-style:normal;font-weight:800;background:rgba(0,0,0,.55);padding:0 5px;border-radius:6px}
+.lan{width:40px;height:40px;flex:0 0 40px;padding:2px;border-radius:50%;--c1:#fff;--c2:#e6f7df;--c3:#5f8f4f}
+.lan::before{display:none}.lan svg{width:100%;height:100%;display:block}
+.lrow:not(.on) .lan{opacity:.4}
+#junglePanel .seg button{font-size:15px}
+.pwOnTxt{color:#ffe34a}
+.jpw{border:2px solid rgba(255,226,90,.55)}
+.jpwHead{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px}
+.jpwHead button{min-width:86px;font-size:18px;padding:8px 14px}
+.jpwRow{font-size:13px;font-weight:700;display:flex;gap:5px;align-items:baseline;flex-wrap:wrap}
+.jpwA{opacity:.9}.jpwA i{font-style:normal;font-size:11px;padding:0 5px;border-radius:6px;background:rgba(0,0,0,.35)}.jpwA i.rdy{background:rgba(80,220,90,.45)}
+.jkr{display:flex;flex-direction:column;align-items:center;gap:1px;margin-top:28px}
+.jkrAv{position:relative;width:98px;height:98px;border-radius:50%;padding:6px;background:radial-gradient(circle at 35% 30%,#fff,#fff2b8 50%,#f3b81f);box-shadow:0 0 0 4px var(--pc),0 0 0 7px #fff,0 0 34px 10px rgba(255,220,80,.75);animation:jkrIn .7s cubic-bezier(.2,1.5,.4,1)}
+.rankScr .jkrAv .crown{position:absolute;left:50%;top:-44px;width:76px;height:54px;margin:0;transform:translateX(-50%);animation:jkrCrown 2.4s ease-in-out infinite}
+@keyframes jkrCrown{0%,100%{transform:translateX(-50%) rotate(-6deg)}50%{transform:translateX(-50%) translateY(-5px) rotate(5deg)}}
+@keyframes jkrIn{from{transform:scale(.2) rotate(-30deg);opacity:0}}
+.jkrT{font-family:var(--disp);font-size:31px;color:#ffe34a;margin-top:8px;text-shadow:0 3px 0 #6a3a00,0 6px 14px rgba(0,0,0,.45);letter-spacing:.5px}
+.jkrN{font-weight:800;font-size:15px;opacity:.95}
+@media (prefers-reduced-motion:reduce){.ji,svg.an g,svg.an .p-eyes,#jglows i,#jBg .ff{animation:none!important}}
+#jglows i.st{background:radial-gradient(circle,transparent 42%,rgba(255,255,180,.85) 52%,rgba(160,255,100,.35) 60%,transparent 70%)}
+.lvrow .lan{flex:0 0 42px;width:42px;height:42px;padding:2px;border-radius:50%;margin-left:2px;box-shadow:0 0 0 2px #ffd84a,0 3px 0 var(--c3)}
+html.jungle #heroPins{height:56px}html.jungle #heroPins span{width:40px;height:54px}
+#btnJungle{align-self:center;margin-top:10px;font-size:14.5px;padding:7px 16px;border-radius:20px}
 </style>
 </head>
 <body>
@@ -401,6 +689,7 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
   </symbol>
 </defs></svg>
 <div id="splash"><div class="brand big"><svg class="crown"><use href="#crown"/></svg><div class="word"><div class="ln"><span class="lr">L</span><span class="lg">U</span><span class="ly">D</span><span class="lb">O</span></div><div class="ln"><span class="lr">R</span><span class="lg">A</span><span class="ly">J</span><span class="lb">A</span></div></div></div><div class="bar"><i></i></div></div>
+<div id="jBg"><div class="vt"></div><div class="lf l"></div><div class="lf r"></div><i class="ff" style="left:8%;top:30%;animation-delay:0.0s"></i><i class="ff" style="left:85%;top:22%;animation-delay:1.6s"></i><i class="ff" style="left:20%;top:70%;animation-delay:3.1s"></i><i class="ff" style="left:70%;top:62%;animation-delay:4.4s"></i><i class="ff" style="left:50%;top:40%;animation-delay:2.2s"></i><i class="ff" style="left:92%;top:80%;animation-delay:5.3s"></i><i class="ff" style="left:35%;top:88%;animation-delay:6.1s"></i></div>
 <div id="app">
   <header>
     <div id="title" class="brand sm" aria-label="Ludo Raja"><svg class="crown"><use href="#crown"/></svg><div class="word"><span class="lr">L</span><span class="lg">U</span><span class="ly">D</span><span class="lb">O</span><span class="gap"></span><span class="lr">R</span><span class="lg">A</span><span class="ly">J</span><span class="lb">A</span></div></div>
@@ -415,6 +704,7 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
       <div class="brand big"><svg class="crown"><use href="#crown"/></svg><div class="word"><div class="ln"><span class="lr">L</span><span class="lg">U</span><span class="ly">D</span><span class="lb">O</span></div><div class="ln"><span class="lr">R</span><span class="lg">A</span><span class="ly">J</span><span class="lb">A</span></div></div></div>
       <div id="heroPins"></div>
       <div class="tagline">Play with family &amp; friends – anywhere!</div>
+      <button id="btnJungle" class="green"></button>
     </div>
     <div id="resumeBox" class="card" style="display:none"></div>
     <div class="homeBtns">
@@ -435,6 +725,7 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
       <div class="row"><div class="av0" id="meAv">🙂</div><input id="nameIn" maxlength="14" placeholder="Enter your name" autocomplete="off"></div>
       <div class="lbl">Voice for quick chat</div>
       <div class="vpick"><button data-vp="m">👨 Male</button><button data-vp="f">👩 Female</button></div>
+      <button id="anPickO" class="alt anPick"></button>
     </div>
     <div class="panel">
       <button id="btnCreate" class="gx green"><span class="ic"><svg class="crown"><use href="#crown"/></svg></span><span>Create Room<small>Get a code &amp; invite friends</small></span><span class="go">›</span></button>
@@ -459,6 +750,7 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
       <input id="joinName" maxlength="14" placeholder="Enter your name" autocomplete="off">
       <div class="lbl">Voice for quick chat</div>
       <div class="vpick"><button data-vp="m">👨 Male</button><button data-vp="f">👩 Female</button></div>
+      <button id="anPickJ" class="alt anPick"></button>
       <button id="btnJoin" class="big green">Join Game</button>
       <div class="muted">Rejoining? Use the <b>same name</b> you used before and you get your color back.</div>
     </div>
@@ -485,6 +777,12 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
       <div class="slots" id="slots"></div>
       <div class="muted" id="lobPending"></div>
     </div>
+    <div class="panel" id="junglePanel">
+      <div class="ptitle">🌴 Jungle Raaj</div>
+      <div class="seg" id="lobTheme"><button data-th="classic">🎲 Classic board</button><button data-th="jungle">🌴 Jungle board</button></div>
+      <div class="muted center" id="lobThemeNote"></div>
+      <button id="lobAnimal" class="alt anPick"></button>
+    </div>
     <div class="panel" id="betPanel" style="display:none">
       <div class="ptitle">🪙 Place your bet</div>
       <div class="betBal">Your coins: <i class="coin"></i> <b id="myBal">0</b> &nbsp;·&nbsp; Bet: <b id="myBet">–</b></div>
@@ -504,7 +802,8 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
   <section id="scrLocal" class="screen">
     <div class="panel">
       <div class="ptitle">📱 Pass &amp; Play</div>
-      <div class="muted center">Tap a circle to add/remove a player (2–4).</div>
+      <div class="seg" id="locTheme"><button data-th="classic">🎲 Classic board</button><button data-th="jungle">🌴 Jungle Raaj</button></div>
+      <div class="muted center">Tap a circle to add/remove a player (2–4). Tap 🐾 to pick each player's animal.</div>
       <div id="localRows"></div>
       <div class="lbl center">🪙 Bet for all players</div>
       <div class="chips" id="lChips"></div>
@@ -520,7 +819,7 @@ html.in-app #btnApp,html.in-app #openAppLink{display:none!important}
     <div id="banner"></div>
     <div id="potBar"><span>POT</span><i class="coin"></i><b id="potAmt">0</b><span id="potRule"></span></div>
     <div class="pRow"><div class="pcard left" id="pc-red"></div><div class="pcard right" id="pc-green"></div></div>
-    <div id="boardWrap"><div id="boardIn"><div id="board"></div><div id="tokens"></div><div id="fx"></div></div></div>
+    <div id="boardWrap"><div id="boardIn"><div id="board"></div><div id="jglows"></div><div id="tokens"></div><div id="fx"></div></div><div class="jleaves"><svg viewBox='0 0 64 64' class='c1'><g stroke='#0e3d12' stroke-width='1.6' stroke-linejoin='round'><path d='M4 4C30 2 50 12 58 30C40 32 16 24 4 4Z' fill='#2f9a36'/><path d='M4 4C6 28 16 46 32 58C38 40 26 18 4 4Z' fill='#217a2a'/><path d='M4 4C22 10 30 18 36 30C24 28 12 18 4 4Z' fill='#52c24a'/></g><path d='M6 6C24 14 40 22 56 30M6 6C14 22 22 38 31 56' fill='none' stroke='#9be87a' stroke-width='1.3' stroke-opacity='.7'/><circle cx='44' cy='40' r='4' fill='#ff5a7a' stroke='#8a1a3a' stroke-width='1'/><circle cx='44' cy='40' r='1.5' fill='#ffd21a'/></svg><svg viewBox='0 0 64 64' class='c2'><g stroke='#0e3d12' stroke-width='1.6' stroke-linejoin='round'><path d='M4 4C30 2 50 12 58 30C40 32 16 24 4 4Z' fill='#2f9a36'/><path d='M4 4C6 28 16 46 32 58C38 40 26 18 4 4Z' fill='#217a2a'/><path d='M4 4C22 10 30 18 36 30C24 28 12 18 4 4Z' fill='#52c24a'/></g><path d='M6 6C24 14 40 22 56 30M6 6C14 22 22 38 31 56' fill='none' stroke='#9be87a' stroke-width='1.3' stroke-opacity='.7'/><circle cx='44' cy='40' r='4' fill='#ff5a7a' stroke='#8a1a3a' stroke-width='1'/><circle cx='44' cy='40' r='1.5' fill='#ffd21a'/></svg><svg viewBox='0 0 64 64' class='c3'><g stroke='#0e3d12' stroke-width='1.6' stroke-linejoin='round'><path d='M4 4C30 2 50 12 58 30C40 32 16 24 4 4Z' fill='#2f9a36'/><path d='M4 4C6 28 16 46 32 58C38 40 26 18 4 4Z' fill='#217a2a'/><path d='M4 4C22 10 30 18 36 30C24 28 12 18 4 4Z' fill='#52c24a'/></g><path d='M6 6C24 14 40 22 56 30M6 6C14 22 22 38 31 56' fill='none' stroke='#9be87a' stroke-width='1.3' stroke-opacity='.7'/><circle cx='44' cy='40' r='4' fill='#ff5a7a' stroke='#8a1a3a' stroke-width='1'/><circle cx='44' cy='40' r='1.5' fill='#ffd21a'/></svg><svg viewBox='0 0 64 64' class='c4'><g stroke='#0e3d12' stroke-width='1.6' stroke-linejoin='round'><path d='M4 4C30 2 50 12 58 30C40 32 16 24 4 4Z' fill='#2f9a36'/><path d='M4 4C6 28 16 46 32 58C38 40 26 18 4 4Z' fill='#217a2a'/><path d='M4 4C22 10 30 18 36 30C24 28 12 18 4 4Z' fill='#52c24a'/></g><path d='M6 6C24 14 40 22 56 30M6 6C14 22 22 38 31 56' fill='none' stroke='#9be87a' stroke-width='1.3' stroke-opacity='.7'/><circle cx='44' cy='40' r='4' fill='#ff5a7a' stroke='#8a1a3a' stroke-width='1'/><circle cx='44' cy='40' r='1.5' fill='#ffd21a'/></svg></div><div id="pwBadge">🐾 POWERS ON</div></div>
     <div class="pRow"><div class="pcard left" id="pc-blue"></div><div class="pcard right" id="pc-yellow"></div></div>
     <div id="dock">
       <div id="dockText"><div id="turnName">–</div><div id="msg"></div></div>
@@ -650,8 +949,8 @@ const Music={on:false,step:0,next:0,timer:null,
     musBus.gain.cancelScheduledValues(a.currentTime);musBus.gain.setValueAtTime(musBus.gain.value,a.currentTime);musBus.gain.linearRampToValueAtTime(.6,a.currentTime+1.2);
     this.timer=setInterval(()=>this.tick(),30);},
   stop(){if(!this.on)return;this.on=false;clearInterval(this.timer);if(actx&&musBus){musBus.gain.cancelScheduledValues(actx.currentTime);musBus.gain.setTargetAtTime(0,actx.currentTime,.08);}},
-  tick(){if(!actx)return;const e8=60/TUNE.bpm/2;while(this.next<actx.currentTime+.2){this.play(this.step,this.next-actx.currentTime,e8);this.next+=e8;this.step++;}},
-  play(st,w,e8){const bar=Math.floor(st/8)%8,e=st%8,loop=Math.floor(st/64)%4,ch=TUNE.chords[bar],B=musBus;
+  tick(){if(!actx)return;const jt=curTheme()==='jungle',e8=60/(jt?JTUNE.bpm:TUNE.bpm)/2;if(jt)jAmbient();while(this.next<actx.currentTime+.2){this.play(this.step,this.next-actx.currentTime,e8);this.next+=e8;this.step++;}},
+  play(st,w,e8){if(curTheme()==='jungle')return jPlay(st,w,e8);const bar=Math.floor(st/8)%8,e=st%8,loop=Math.floor(st/64)%4,ch=TUNE.chords[bar],B=musBus;
     // drums
     if(e===0||e===4)tone(140,.16,.22,'sine',w,B,{f2:48});
     if(e===2||e===6)noise(.12,.12,w,1800,'bandpass',.8,B);
@@ -672,17 +971,19 @@ document.addEventListener('pointerdown',unlockAudio,true);document.addEventListe
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')Music.stop();else if(MUSIC&&App.audioOk)Music.start();});
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(b&&!b.closest('.abtns'))sfx.tap();},true);
 function showSettings(){
-  const lbl=()=>{$('setMusic').textContent=MUSIC?'🎵 Music: On':'🎵 Music: Off';$('setMusic').className=MUSIC?'green':'alt';
+  const lbl=()=>{const tc=jThemeCtl();$('setTheme').innerHTML=(tc.v==='jungle'?'🌴 Board: Jungle Raaj':'🎲 Board: Classic')+(tc.can?'':' <small>(host decides)</small>');$('setTheme').className=tc.v==='jungle'?'green':'blue';$('setTheme').disabled=!tc.can;
+    $('setMusic').textContent=MUSIC?'🎵 Music: On':'🎵 Music: Off';$('setMusic').className=MUSIC?'green':'alt';
     $('setSfx').textContent=SFX?'🔊 Sound effects: On':'🔇 Sound effects: Off';$('setSfx').className=SFX?'green':'alt';
     $('setVoice').textContent=VOICE_ON?'🗣️ Voice chat: On':'🔇 Voice chat: Muted';$('setVoice').className=VOICE_ON?'green':'alt';
     const v=curVp();$('setMyVp').textContent=v==='f'?'👩 My voice: Female':'👨 My voice: Male';$('setMyVp').className=v==='f'?'purple':'blue';
     const n=Object.keys(OWN).length;$('setOwn').textContent=`🎙️ Record my own pack (${n}/20)`;$('setOwn').className='orange';$('setOwn').style.display=REC_OK?'':'none';
     $('setPtt').textContent=LV.ptt?'✋ Live mic: Push-to-talk':'🎚️ Live mic: Tap on / off';$('setPtt').className=LV.ptt?'purple':'alt';$('setPtt').style.display=LV_OK?'':'none';};
-  modal(`<h2>⚙️ Settings</h2><button id="setMusic"></button><button id="setSfx"></button><button id="setVoice"></button><button id="setMyVp"></button><button id="setOwn"></button><button id="setPtt"></button><button class="purple" id="setRules">📖 How to Play</button><button class="alt" id="setClose">Close</button>`);lbl();
+  modal(`<h2>⚙️ Settings</h2><button id="setTheme"></button><button id="setMusic"></button><button id="setSfx"></button><button id="setVoice"></button><button id="setMyVp"></button><button id="setOwn"></button><button id="setPtt"></button><button class="purple" id="setRules">📖 How to Play</button><button class="alt" id="setClose">Close</button>`);lbl();
   $('setMusic').onclick=()=>{setMusic(!MUSIC);lbl();};$('setSfx').onclick=()=>{setSfx(!SFX);lbl();if(SFX)sfx.coin();};
   $('setVoice').onclick=()=>{VOICE_ON=!VOICE_ON;LS.set('ludo-voice',VOICE_ON);if(!VOICE_ON&&curAudio)curAudio.pause();lbl();};
   $('setMyVp').onclick=()=>{setMyVp(curVp()==='f'?'m':'f');lbl();};
   $('setOwn').onclick=showOwnPack;$('setPtt').onclick=()=>{LV.ptt=!LV.ptt;LS.set('ludo-ptt',LV.ptt);LV.pttDown=false;lvSyncAll();renderMic();lbl();};
+  $('setTheme').onclick=()=>{const tc=jThemeCtl();if(!tc.can)return;setTheme(tc.v==='jungle'?'classic':'jungle');lbl();};
   $('setRules').onclick=showRules;$('setClose').onclick=closeModal;
 }
 /* ================= VIRTUAL COINS (host / local device is the bank) ================= */
@@ -989,9 +1290,464 @@ function pinSVG(c){return `<svg viewBox="0 0 40 54" aria-hidden="true"><path d="
   `<circle cx="20" cy="19" r="9" fill="url(#tw)" stroke="${DARK[c]}" stroke-opacity=".55" stroke-width="1.4"/><circle cx="20" cy="19" r="4.6" fill="url(#tg-${c})"/>`+
   `<ellipse cx="13.5" cy="10.5" rx="5.5" ry="3.2" fill="#fff" opacity=".7" transform="rotate(-38 13.5 10.5)"/><ellipse cx="27" cy="33" rx="2" ry="4" fill="#fff" opacity=".25" transform="rotate(25 27 33)"/></svg>`;}
 function injectDefs(){const g=COLORS.map(c=>`<radialGradient id="tg-${c}" cx=".35" cy=".25" r=".9"><stop offset="0" stop-color="${LIGHT[c]}"/><stop offset=".5" stop-color="${HEX[c]}"/><stop offset="1" stop-color="${DARK[c]}"/></radialGradient>`).join('');
-  const d=document.createElement('div');d.innerHTML=`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${g}<radialGradient id="tw" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d9dbe8"/></radialGradient></defs></svg>`;
+  const d=document.createElement('div');d.innerHTML=`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${g}${jDefs()}<radialGradient id="tw" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d9dbe8"/></radialGradient></defs></svg>`;
   document.body.insertBefore(d.firstChild,document.body.firstChild);}
 function shareLink(){return location.origin+location.pathname+'?room='+App.code;}
+
+/* ================= JUNGLE RAAJ: theme, animals, powers ================= */
+const AN_IDS=['sher','cheetah','haathi','ghoda','saanp','bichhu','bhaalu','magarmachh','bandar','cheel'];
+const ANIMALS={
+  sher:{n:'Sher',en:'Lion',pi:'👑',pn:'Roar',once:'roar',word:'ROAR!',pd:'Once per game: capture even on a ★ safe star (not start squares).'},
+  cheetah:{n:'Cheetah',en:'Cheetah',pi:'⚡',pn:'Dash',word:'TAKEDOWN!',pd:'15% chance a move gets +1 bonus step (if legal).'},
+  haathi:{n:'Haathi',en:'Elephant',pi:'🛡️',pn:'Shield',once:'shield',word:'STOMP!',pd:'Once per game: the first time you would be captured, you survive.'},
+  ghoda:{n:'Ghoda',en:'Horse',pi:'🐎',pn:'Gallop',word:'KICK!',pd:'Roll a 6 → choose to move 6 or 7.'},
+  saanp:{n:'Saanp',en:'Snake',pi:'🧪',pn:'Venom',word:'SSNAP!',pd:'Your captures poison the owner: their next 6 gives no extra roll.'},
+  bichhu:{n:'Bichhu',en:'Scorpion',pi:'🦂',pn:'Stinger',once:'sting',word:'ZAP!',pd:'Once per game: capture an opponent 1 square ahead of where you land.'},
+  bhaalu:{n:'Bhaalu',en:'Bear',pi:'⏰',pn:'Early riser',word:'SWIPE!',pd:'Tokens leave the yard on a 5 or a 6.'},
+  magarmachh:{n:'Magarmachh',en:'Crocodile',pi:'🌿',pn:'Camouflage',word:'CHOMP!',pd:'A token resting for 2+ of your turns can’t be captured until it moves.'},
+  bandar:{n:'Bandar',en:'Monkey',pi:'🍌',pn:'Leap',word:'BONK!',pd:'Roll a 1 → choose to move 1 or 3.'},
+  cheel:{n:'Cheel',en:'Eagle',pi:'🦅',pn:'Fly',once:'fly',word:'SWOOP!',pd:'Once per game: move a token 2× the roll (exact, no overshoot).'}};
+const OL='#2a170a';
+const jE=(x,y,r,iris,slit)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${slit?iris:'#fff'}" stroke="${OL}" stroke-width=".7"/>`+
+  (slit?`<ellipse cx="${x}" cy="${y}" rx="${(r*.28).toFixed(2)}" ry="${(r*.85).toFixed(2)}" fill="#111"/>`:
+  (iris?`<circle cx="${(x+.2).toFixed(2)}" cy="${(y+.25).toFixed(2)}" r="${(r*.64).toFixed(2)}" fill="${iris}"/>`:'')+`<circle cx="${(x+.3).toFixed(2)}" cy="${(y+.3).toFixed(2)}" r="${(r*(iris?.36:.55)).toFixed(2)}" fill="#111"/>`)+
+  `<circle cx="${(x-.45).toFixed(2)}" cy="${(y-.55).toFixed(2)}" r="${(r*.27).toFixed(2)}" fill="#fff"/>`;
+const jX=(x,y,r)=>{const k=(r*.62).toFixed(2);return `<circle cx="${x}" cy="${y}" r="${r+.15}" fill="#fff" stroke="${OL}" stroke-width=".7"/><path d="M${x-k} ${y-k}L${+x+ +k} ${+y+ +k}M${+x+ +k} ${y-k}L${x-k} ${+y+ +k}" stroke="${OL}" stroke-width="1.05" stroke-linecap="round"/>`;};
+const jEyes=(a,b,r,iris,slit)=>`<g class="p-eyes">${jE(a[0],a[1],r,iris,slit)}${jE(b[0],b[1],r,iris,slit)}</g><g class="p-ko">${jX(a[0],a[1],r)}${jX(b[0],b[1],r)}</g>`;
+const jBr=(x1,y1,x2,y2,w=1.5)=>`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${OL}" stroke-width="${w}" stroke-linecap="round"/>`;
+const jS=(w=1)=>`stroke="${OL}" stroke-width="${w}" stroke-linejoin="round"`;
+function jSpikes(cx,cy,R,r,n,rot=0){const p=[];for(let k=0;k<n*2;k++){const a=(rot+k*180/n-90)*Math.PI/180,q=k%2?r:R;p.push((cx+q*Math.cos(a)).toFixed(2)+','+(cy+q*Math.sin(a)).toFixed(2));}return p.join(' ');}
+const jMir=d=>d.replace(/M|L|C|Q|Z|[-\d.]+[ ,][-\d.]+/g,m=>{if(/^[A-Z]$/.test(m))return m;const [x,y]=m.split(/[ ,]/);return (40-+x).toFixed(2)+' '+y;});
+const ART={
+ sher:()=>`<g class="p-mane"><polygon points="${jSpikes(20,24,16.2,12.6,14)}" fill="#b4501a" ${jS()}/><polygon points="${jSpikes(20,24.4,13.4,10.9,14,13)}" fill="#e2822c"/></g>
+  <circle cx="12.6" cy="15.2" r="3.1" fill="#f2b548" ${jS()}/><circle cx="12.6" cy="15.2" r="1.5" fill="#c9793a"/><circle cx="27.4" cy="15.2" r="3.1" fill="#f2b548" ${jS()}/><circle cx="27.4" cy="15.2" r="1.5" fill="#c9793a"/>
+  <path d="M20 14.5C26.5 14.5 29 19 29 24C29 30 25 33.6 20 33.6C15 33.6 11 30 11 24C11 19 13.5 14.5 20 14.5Z" fill="#f7c65a" ${jS()}/>
+  <path d="M18.2 16.4L20 19L21.8 16.4" fill="none" stroke="#d9902f" stroke-width=".9" stroke-linecap="round"/>
+  ${jBr(13.8,19.4,18,20.8)}${jBr(26.2,19.4,22,20.8)}${jEyes([16.4,22.8],[23.6,22.8],2,'#c07a10')}
+  <ellipse cx="17.5" cy="28.5" rx="3" ry="2.4" fill="#fff3d2" ${jS(.7)}/><ellipse cx="22.5" cy="28.5" rx="3" ry="2.4" fill="#fff3d2" ${jS(.7)}/>
+  <circle cx="16.4" cy="28.2" r=".35" fill="${OL}"/><circle cx="17.8" cy="29.3" r=".35" fill="${OL}"/><circle cx="23.6" cy="28.2" r=".35" fill="${OL}"/><circle cx="22.2" cy="29.3" r=".35" fill="${OL}"/>
+  <path d="M18.3 30.5L19 32.1L19.7 30.8ZM20.3 30.8L21 32.1L21.7 30.5Z" fill="#fff" ${jS(.5)}/>
+  <path class="p-jaw" d="M17 30.3Q20 32.9 23 30.3" fill="none" stroke="${OL}" stroke-width=".85" stroke-linecap="round"/>
+  <path d="M17.5 25.6Q20 24.5 22.5 25.6Q21.5 27.7 20 28.1Q18.5 27.7 17.5 25.6Z" fill="#6a2c14" ${jS(.6)}/>`,
+ cheetah:()=>`<circle cx="12.4" cy="14.2" r="3.3" fill="#f0b544" ${jS()}/><circle cx="12.4" cy="14.2" r="1.6" fill="#3a2410"/><circle cx="27.6" cy="14.2" r="3.3" fill="#f0b544" ${jS()}/><circle cx="27.6" cy="14.2" r="1.6" fill="#3a2410"/>
+  <path d="M20 13.4C27.6 13.4 31 18.5 30.5 24.5C30 30.6 25.5 34.6 20 34.6C14.5 34.6 10 30.6 9.5 24.5C9 18.5 12.4 13.4 20 13.4Z" fill="#f4c055" ${jS()}/>
+  <path d="M20 25C24.6 25 26.1 27.5 25.6 30C25.1 32.6 22.6 33.9 20 33.9C17.4 33.9 14.9 32.6 14.4 30C13.9 27.5 15.4 25 20 25Z" fill="#fff6e0"/>
+  <g fill="#4a2a12"><circle cx="15" cy="17.4" r=".95"/><circle cx="19" cy="16.1" r=".8"/><circle cx="23.4" cy="17" r=".95"/><circle cx="26.9" cy="19.6" r=".8"/><circle cx="12.6" cy="21" r=".8"/><circle cx="27.8" cy="23.8" r=".7"/><circle cx="12" cy="25.2" r=".7"/><circle cx="21.3" cy="18.8" r=".55"/><circle cx="17" cy="19.4" r=".5"/><circle cx="28.4" cy="27.5" r=".6"/><circle cx="11.7" cy="28.6" r=".6"/></g>
+  <path d="M15.1 24.4C14.5 27 15.2 29.1 17 30.7M24.9 24.4C25.5 27 24.8 29.1 23 30.7" fill="none" stroke="#2b1a0c" stroke-width="1.3" stroke-linecap="round"/>
+  ${jBr(13.7,20,17.6,21.4)}${jBr(26.3,20,22.4,21.4)}${jEyes([16.3,23],[23.7,23],2,'#e3a019')}
+  <path d="M18.1 26.3L21.9 26.3L20 28.4Z" fill="#2b1a0c" ${jS(.6)}/>
+  <path class="p-jaw" d="M20 28.4L20 29.7M17.7 30.2Q20 31.7 22.3 30.2" fill="none" stroke="${OL}" stroke-width=".85" stroke-linecap="round"/>`,
+ haathi:()=>{const e='M12.8 16.8C5 14 1.4 20 2.4 26C3.4 31.6 8 34.2 12.8 31Z',ei='M11.6 19C7 17.4 4.8 21.5 5.5 25.5C6.2 29 9 30.6 11.6 28.8Z';
+  return `<g class="p-earL"><path d="${e}" fill="#98a2b8" ${jS()}/><path d="${ei}" fill="#f3b7c7"/></g><g class="p-earR"><path d="${jMir(e)}" fill="#98a2b8" ${jS()}/><path d="${jMir(ei)}" fill="#f3b7c7"/></g>
+  <path d="M20 11.4C27 11.4 30 16 30 21.5C30 26.5 27 29.6 24 30.6L16 30.6C13 29.6 10 26.5 10 21.5C10 16 13 11.4 20 11.4Z" fill="#aab3c8" ${jS()}/>
+  <path d="M18.4 11.8Q18.9 9.2 20 11.3Q21.1 9 21.6 11.8" fill="none" stroke="${OL}" stroke-width=".8" stroke-linecap="round"/>
+  <ellipse cx="13.8" cy="25" rx="1.8" ry="1.1" fill="#f59ab0" opacity=".75"/><ellipse cx="26.2" cy="25" rx="1.8" ry="1.1" fill="#f59ab0" opacity=".75"/>
+  ${jBr(13.7,17.5,17.4,18.6)}${jBr(26.3,17.5,22.6,18.6)}${jEyes([16,20.7],[24,20.7],1.9)}
+  <path d="M15.8 27.4Q13.9 31 15.2 33.2Q16.4 31.1 17.5 28.3Z" fill="#fffbef" ${jS(.7)}/><path d="M24.2 27.4Q26.1 31 24.8 33.2Q23.6 31.1 22.5 28.3Z" fill="#fffbef" ${jS(.7)}/>
+  <g class="p-trunk"><path d="M17 24.4C16.6 30 17 35 18.8 38.7C20.2 41.6 23.7 41.7 24.9 39.4C25.6 38 24.6 36.7 23.4 37.3C22.6 38.6 21.4 38.5 20.9 37C20.2 34.5 21.6 30 23 24.4Z" fill="#aab3c8" ${jS()}/><path d="M17.6 29H22M17.9 32H21.3M18.5 35H20.9" stroke="#7d869b" stroke-width=".6"/></g>`;},
+ ghoda:()=>`<path class="p-ear" d="M13.6 15L12.9 7.2L18.2 12.4Z" fill="#a8622b" ${jS()}/><path d="M14.4 13.4L14.2 9.9L16.6 12.2Z" fill="#e7b48a"/><path class="p-ear" d="M26.4 15L27.1 7.2L21.8 12.4Z" fill="#a8622b" ${jS()}/><path d="M25.6 13.4L25.8 9.9L23.4 12.2Z" fill="#e7b48a"/>
+  <path d="M20 10.4C26.5 10.4 29 15.5 28.5 22C28.2 27 27.5 32 25.5 35.6C24 38.4 16 38.4 14.5 35.6C12.5 32 11.8 27 11.5 22C11 15.5 13.5 10.4 20 10.4Z" fill="#b36d34" ${jS()}/>
+  <path d="M19 13.4Q20 12.7 21 13.4L21.3 24Q20 25.6 18.7 24Z" fill="#fff8ec"/>
+  <ellipse cx="20" cy="33.2" rx="6.1" ry="4.3" fill="#e3b58c" ${jS(.8)}/><ellipse cx="17.7" cy="33" rx=".9" ry="1.35" fill="#5a3218"/><ellipse cx="22.3" cy="33" rx=".9" ry="1.35" fill="#5a3218"/>
+  <path class="p-jaw" d="M17.9 36Q20 37.1 22.1 36" fill="none" stroke="${OL}" stroke-width=".75" stroke-linecap="round"/>
+  <g class="p-mane"><path d="M13.8 13.6C15.4 8.8 21.2 7.3 25.2 9.8C23.1 10.2 22.1 11 21.9 12.6C20.6 11.2 18.5 11.5 17.5 13.4C16.6 12.6 15.2 12.8 13.8 13.6Z" fill="#3b2211" ${jS(.8)}/><path d="M27.9 13.8C31.2 17 31.7 22 30.1 27.2C29.3 24.6 28.9 22 28.7 20Z" fill="#3b2211" ${jS(.8)}/></g>
+  ${jBr(13.7,18.8,17.2,19.9)}${jBr(26.3,18.8,22.8,19.9)}${jEyes([15.8,21.9],[24.2,21.9],1.9,'#5a3218')}`,
+ saanp:()=>`<ellipse cx="20" cy="39.2" rx="13.2" ry="4.6" fill="#2e9a43" ${jS()}/><path d="M9 39.5l2-1.4l2 1.4l2-1.4l2 1.4l2-1.4l2 1.4l2-1.4l2 1.4l2-1.4l2 1.4l2-1.4" fill="none" stroke="#1d6a2c" stroke-width=".6"/>
+  <ellipse cx="20" cy="36.4" rx="10.2" ry="3.6" fill="#3cb453" ${jS(.9)}/>
+  <g class="p-hood"><path d="M20 9C30 9.5 32.6 18 31.1 25.5C30 31 25.5 34.6 20 34.6C14.5 34.6 10 31 8.9 25.5C7.4 18 10 9.5 20 9Z" fill="#2e9a43" ${jS()}/><path d="M20 12C27 12.5 28.6 19 27.6 25C26.8 29 24 32.1 20 32.1C16 32.1 13.2 29 12.4 25C11.4 19 13 12.5 20 12Z" fill="#8fdc6a"/><path d="M15.4 26.6C16.4 24.4 18.6 24.4 19.3 26.6M20.7 26.6C21.4 24.4 23.6 24.4 24.6 26.6" fill="none" stroke="#1d6a2c" stroke-width="1.15" stroke-linecap="round"/></g>
+  <path d="M16.4 22H23.6L24.1 34.8H15.9Z" fill="#f0e27a" ${jS(.8)}/><path d="M16.3 25.6H23.7M16.2 28.6H23.8M16.1 31.6H23.9" stroke="#c9b64a" stroke-width=".6"/>
+  <path d="M20 12.4C25 12.4 27.3 15.5 26.9 19C26.5 22 23.6 23.9 20 23.9C16.4 23.9 13.5 22 13.1 19C12.7 15.5 15 12.4 20 12.4Z" fill="#45c25b" ${jS()}/>
+  <path d="M18 14.2L20 16L22 14.2" fill="none" stroke="#2b8a3e" stroke-width=".8" stroke-linecap="round"/>
+  ${jBr(14.5,15.3,18,16.4)}${jBr(25.5,15.3,22,16.4)}${jEyes([16.9,17.7],[23.1,17.7],2,'#ffd21a',1)}
+  <circle cx="18.9" cy="21.1" r=".4" fill="${OL}"/><circle cx="21.1" cy="21.1" r=".4" fill="${OL}"/>
+  <g class="p-tongue"><path d="M20 23.5V26.5L18.8 28.1M20 26.5L21.2 28.1" fill="none" stroke="#e8283a" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/></g>`,
+ bichhu:()=>{const arm='M14.4 22.4C10.4 21.4 8.4 18.6 8.8 15.6',pin='M9.6 16.3C5 15.3 3.9 10.2 7.5 8C7.2 10.6 8.5 11.9 10.4 11.6C9.9 10 10.5 8.6 12.1 8.3C12.9 11.6 12.1 15.2 9.6 16.3Z';
+  return `<path d="M13.2 27L7.8 29.6M13.3 30.2L8.4 33.3M14 33L10 36.8M26.8 27L32.2 29.6M26.7 30.2L31.6 33.3M26 33L30 36.8" stroke="${OL}" stroke-width="1.15" stroke-linecap="round"/>
+  <g class="p-tail"><g fill="#c64a22" ${jS(.9)}><circle cx="27" cy="31.6" r="3.2"/><circle cx="30.4" cy="27" r="3"/><circle cx="32" cy="21.5" r="2.8"/><circle cx="31" cy="16" r="2.6"/><circle cx="28" cy="11.8" r="2.4"/></g>
+   <path d="M25.9 10.4C24 8.9 21.7 9.1 20.7 10.8C22.6 10.3 23.6 11.4 23.2 13.1Z" fill="#2c140a" ${jS(.7)}/><circle cx="21" cy="10.8" r=".85" fill="#ffd21a"/></g>
+  <g class="p-clawL"><path d="${arm}" fill="none" stroke="${OL}" stroke-width="3.8" stroke-linecap="round"/><path d="${arm}" fill="none" stroke="#c64a22" stroke-width="2.3" stroke-linecap="round"/><path d="${pin}" fill="#d9542a" ${jS(.9)}/></g>
+  <g class="p-clawR"><path d="${jMir(arm)}" fill="none" stroke="${OL}" stroke-width="3.8" stroke-linecap="round"/><path d="${jMir(arm)}" fill="none" stroke="#c64a22" stroke-width="2.3" stroke-linecap="round"/><path d="${jMir(pin)}" fill="#d9542a" ${jS(.9)}/></g>
+  <ellipse cx="20" cy="29.2" rx="7.6" ry="8.1" fill="#c64a22" ${jS()}/><path d="M13.5 27Q20 29 26.5 27M13.3 30.6Q20 32.6 26.7 30.6M14.5 34.1Q20 35.9 25.5 34.1" fill="none" stroke="#8e2f14" stroke-width=".7"/>
+  <ellipse cx="20" cy="21.6" rx="7.1" ry="5.7" fill="#dc5a2c" ${jS()}/>
+  ${jBr(15.1,18.8,18.3,19.9)}${jBr(24.9,18.8,21.7,19.9)}${jEyes([17.3,21.7],[22.7,21.7],1.9)}
+  <path class="p-jaw" d="M18.3 24.6Q20 25.8 21.7 24.6" fill="none" stroke="${OL}" stroke-width=".8" stroke-linecap="round"/>`;},
+ bhaalu:()=>`<circle cx="11.7" cy="14.3" r="4" fill="#7c4a26" ${jS()}/><circle cx="11.7" cy="14.3" r="2.1" fill="#c48d5a"/><circle cx="28.3" cy="14.3" r="4" fill="#7c4a26" ${jS()}/><circle cx="28.3" cy="14.3" r="2.1" fill="#c48d5a"/>
+  <g class="p-head"><path d="M20 12.4C27.6 12.4 31 17.5 31 23.5C31 30 26 34.6 20 34.6C14 34.6 9 30 9 23.5C9 17.5 12.4 12.4 20 12.4Z" fill="#8c5631" ${jS()}/>
+  <ellipse cx="20" cy="28.6" rx="6.1" ry="4.8" fill="#dcb17f" ${jS(.8)}/><ellipse cx="20" cy="26.6" rx="2.8" ry="1.95" fill="#1f120a"/><ellipse cx="19.2" cy="26" rx=".9" ry=".5" fill="#fff" opacity=".75"/>
+  <path class="p-jaw" d="M20 28.5V29.9M17.7 30Q20 32.1 22.3 30" fill="none" stroke="${OL}" stroke-width=".85" stroke-linecap="round"/>
+  ${jBr(13.5,18.8,17.4,20.1)}${jBr(26.5,18.8,22.6,20.1)}${jEyes([16,22.2],[24,22.2],1.85)}</g>`,
+ magarmachh:()=>{const t=(x,y,s)=>`<path d="M${x} ${y}l${-1.3*s} .9l${1.3*s} .9Z" fill="#fff" ${jS(.45)}/>`;
+  return `<g class="p-jaw"><path d="M12.7 25L13.5 37.3C14.1 41.6 25.9 41.6 26.5 37.3L27.3 25Z" fill="#9ccf6e" ${jS()}/><path d="M14.3 36.4l1-1.6l1 1.6l1-1.6l1 1.6l1-1.6l1 1.6l1-1.6l1 1.6l1-1.6l1 1.6l1-1.6l.8 1.6" fill="#fff" ${jS(.45)}/></g>
+  <path d="M20 10.4C26 10.4 28.6 14 28.4 18L27 34.6C26.7 38.1 23.5 39.3 20 39.3C16.5 39.3 13.3 38.1 13 34.6L11.6 18C11.4 14 14 10.4 20 10.4Z" fill="#5da13c" ${jS()}/>
+  ${t(12.5,25.6,1)}${t(12.8,29.2,1)}${t(13.1,32.8,1)}${t(27.5,25.6,-1)}${t(27.2,29.2,-1)}${t(26.9,32.8,-1)}
+  <g fill="#3f7f28"><ellipse cx="17" cy="20.4" rx="1.1" ry=".9"/><ellipse cx="23" cy="20.4" rx="1.1" ry=".9"/><ellipse cx="20" cy="23.4" rx="1.1" ry=".9"/><ellipse cx="17.4" cy="26.8" rx="1" ry=".85"/><ellipse cx="22.6" cy="26.8" rx="1" ry=".85"/><ellipse cx="20" cy="30.2" rx=".95" ry=".8"/></g>
+  <circle cx="18.1" cy="36" r=".85" fill="#26420f"/><circle cx="21.9" cy="36" r=".85" fill="#26420f"/>
+  <circle cx="14.9" cy="14.2" r="3.9" fill="#5da13c" ${jS()}/><circle cx="25.1" cy="14.2" r="3.9" fill="#5da13c" ${jS()}/>
+  ${jEyes([14.9,14.4],[25.1,14.4],2.3,'#ffd21a',1)}${jBr(11.4,11.3,16.8,12.4,1.7)}${jBr(28.6,11.3,23.2,12.4,1.7)}`;},
+ bandar:()=>`<g class="p-earL"><circle cx="8.7" cy="23" r="4.6" fill="#8b5a2b" ${jS()}/><circle cx="8.7" cy="23" r="2.8" fill="#f2c79a"/></g><g class="p-earR"><circle cx="31.3" cy="23" r="4.6" fill="#8b5a2b" ${jS()}/><circle cx="31.3" cy="23" r="2.8" fill="#f2c79a"/></g>
+  <path d="M17.4 12.2Q17.9 7.8 20 11.2Q21 7.2 22.1 11.3Q23.7 8.4 23.4 12.4" fill="#8b5a2b" ${jS(.9)}/>
+  <circle cx="20" cy="22.8" r="11.3" fill="#8b5a2b" ${jS()}/>
+  <path d="M20 17C22.5 13.5 29 14 28.5 20C28.3 23 27 25 27.5 28C28 33 24 35.6 20 35.6C16 35.6 12 33 12.5 28C13 25 11.7 23 11.5 20C11 14 17.5 13.5 20 17Z" fill="#f3cfa1" ${jS(.8)}/>
+  ${jBr(14.3,18.6,17.8,19.2)}${jBr(25.7,17.6,22.2,18.8)}${jEyes([16.6,21.3],[23.4,21.3],2)}
+  <circle cx="19" cy="26" r=".55" fill="${OL}"/><circle cx="21" cy="26" r=".55" fill="${OL}"/>
+  <path class="p-jaw" d="M15.4 28.4Q20 33.8 24.6 28.4Q20 30.3 15.4 28.4Z" fill="#fff" ${jS(.8)}/><path d="M18 29.6V30.9M20 29.9V31.5M22 29.6V30.9" stroke="${OL}" stroke-width=".45"/>`,
+ cheel:()=>{const w='M13.6 25C6 23 1.4 28 1.7 37.2C3.6 35.3 5 35.9 6 34.1C6.8 36.1 8.6 35.5 9.2 33.7C10.3 35.1 12.2 34.3 12.8 32.3C14 33.1 15 31.6 15 30Z',wl='M5 30.5Q8 29 11 30M4.2 33.3Q6.5 32 9 32.7';
+  return `<g class="p-wingL"><path d="${w}" fill="#6e3e1b" ${jS()}/><path d="${wl}" fill="none" stroke="#a0663a" stroke-width=".75"/></g><g class="p-wingR"><path d="${jMir(w)}" fill="#6e3e1b" ${jS()}/><path d="${jMir(wl)}" fill="none" stroke="#a0663a" stroke-width=".75"/></g>
+  <path d="M13 30C13 26 27 26 27 30L26 38.6C24 41.2 16 41.2 14 38.6Z" fill="#7a4722" ${jS()}/><path d="M17 33l1.5 1.4l1.5-1.4l1.5 1.4l1.5-1.4M18 36.5l1 1l1-1l1 1" fill="none" stroke="#a0663a" stroke-width=".7"/>
+  <path d="M11 17L8.4 15.8L10.5 19.2M29 17L31.6 15.8L29.5 19.2" fill="#fbfaf4" ${jS(.8)}/>
+  <path d="M20 9C26.8 9 30 13.6 29.6 19.6C29.3 25 26 29.6 20 29.6C14 29.6 10.7 25 10.4 19.6C10 13.6 13.2 9 20 9Z" fill="#fbfaf4" ${jS()}/>
+  <path d="M12.5 16.1L18.5 18.4L18.1 19.7L12.7 17.9Z" fill="#5f5f5f" ${jS(.55)}/><path d="M27.5 16.1L21.5 18.4L21.9 19.7L27.3 17.9Z" fill="#5f5f5f" ${jS(.55)}/>
+  ${jEyes([16.2,20.4],[23.8,20.4],1.9,'#ffb400')}
+  <path class="p-jaw" d="M16.8 22.6C17.8 20.8 22.2 20.8 23.2 22.6C24 24.6 22.6 28.2 20 29.9C20.3 28 19.6 27.2 17.8 26.6C16.7 25.8 16.4 24 16.8 22.6Z" fill="#ffc21a" ${jS(.9)}/><path d="M17.5 24.3Q20 25.2 22.6 24" fill="none" stroke="#c98a00" stroke-width=".6"/><circle cx="18.6" cy="23.1" r=".4" fill="${OL}"/>`;}};
+const jMemo={};
+function jValidA(a){return AN_IDS.includes(a)?a:null;}
+function jTokSVG(c,id){const k='t'+c+id;if(jMemo[k])return jMemo[k];id=jValidA(id)||'sher';
+  return jMemo[k]=`<svg viewBox="0 0 40 54" class="an an-${id}" aria-hidden="true"><ellipse cx="20" cy="47.7" rx="12.6" ry="4.2" fill="${DARK[c]}"/><path d="M14.6 37.5H25.4L24 46.2H16Z" fill="${DARK[c]}"/>`+
+  `<ellipse cx="20" cy="46.4" rx="12.6" ry="4.1" fill="url(#tg-${c})" stroke="${DARK[c]}" stroke-width="1.1"/><ellipse cx="17" cy="45.3" rx="5.5" ry="1.3" fill="#fff" opacity=".45"/>`+
+  `<circle cx="20" cy="24" r="16.9" fill="url(#tg-${c})" stroke="${DARK[c]}" stroke-width="1.5"/><circle cx="20" cy="24" r="14.1" fill="url(#jin-${c})"/><circle cx="20" cy="24" r="14.1" fill="none" stroke="#fff" stroke-width="1.1" stroke-opacity=".9"/>`+
+  `<path d="M7.4 17.6A14 14 0 0 1 17 8.4" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/><g class="ab">${ART[id]()}</g></svg>`;}
+function jAvSVG(id){id=jValidA(id)||'sher';const k='a'+id;return jMemo[k]||(jMemo[k]=`<svg viewBox="1 5.5 38 38" class="an an-${id}" aria-hidden="true"><g class="ab">${ART[id]()}</g></svg>`);}
+function jDefs(){return COLORS.map(c=>`<radialGradient id="jin-${c}" cx=".4" cy=".3" r=".85"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#fff"/><stop offset="1" stop-color="${LIGHT[c]}"/></radialGradient>`).join('');}
+/* ---- jungle board (same geometry as classic; visuals only) ---- */
+function jH(i){let h=(Math.imul(i+11,2654435761))>>>0;h^=h>>>13;h=Math.imul(h,1274126177)>>>0;return h^(h>>>16);}
+function jLeafStar(cx,cy,st,col){let s=`<circle cx="${cx}" cy="${cy}" r=".47" fill="url(#jglw)"/>`;
+  for(let k=0;k<5;k++)s+=`<path d="M0 0C.14 -.1 .15 -.3 0 -.43C-.15 -.3 -.14 -.1 0 0Z" transform="translate(${cx} ${cy}) rotate(${k*72})${st?' scale(.82)':''}" fill="${st?'#fffbe6':'url(#jleaf)'}" stroke="${st?DARK[col]:'#17621f'}" stroke-width=".03"/><path d="M0 -.05V-.36" transform="translate(${cx} ${cy}) rotate(${k*72})" stroke="${st?'rgba(0,0,0,.25)':'#d7ff9a'}" stroke-width=".018" stroke-linecap="round"/>`;
+  return s+`<circle cx="${cx}" cy="${cy}" r=".075" fill="#ffd21a" stroke="#8a5a00" stroke-width=".02"/>`;}
+function jStone(c,r,fill,i,tex){const h=jH(i*7+r*31+c);let s=`<rect x="${c+.055}" y="${r+.055}" width=".89" height=".89" rx=".17" fill="${fill}" stroke="#2c3a18" stroke-opacity=".55" stroke-width=".035"/>`;
+  if(tex)s+=`<rect x="${c+.055}" y="${r+.055}" width=".89" height=".89" rx=".17" fill="url(#jstx)"/><rect x="${c+.11}" y="${r+.11}" width=".78" height=".78" rx=".13" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width=".03"/>`;
+  s+=`<path d="M${c+.22} ${r+.14}H${c+.78}" stroke="#fff" stroke-opacity="${tex?.35:.55}" stroke-width=".045" stroke-linecap="round"/>`;
+  if(!tex){if(h%3===0)s+=`<path d="M${c+.06} ${r+.93}q.06 -.26 .3 -.2q.12 -.15 .3 -.02q.1 .12 .02 .22Z" fill="#6ea83a" opacity=".9"/><circle cx="${c+.2}" cy="${r+.78}" r=".05" fill="#9bd65a"/>`;
+    if(h%5===1)s+=`<path d="M${c+.94} ${r+.07}q-.24 .03 -.22 .22q-.1 .06 -.02 .16q.18 .02 .24 -.12Z" fill="#5f9a33" opacity=".85"/>`;
+    if(h%4===2)s+=`<path d="M${c+.58} ${r+.1}l-.09 .2l.11 .13l-.07 .2" fill="none" stroke="#6d7358" stroke-width=".028" stroke-linecap="round"/>`;}
+  return s;}
+function jVine(x1,y1,x2,y2){const L=Math.hypot(x2-x1,y2-y1),ux=(x2-x1)/L,uy=(y2-y1)/L,nx=-uy,ny=ux;let d=`M${x1} ${y1}`,lv='';
+  for(let t=0;t<L;t+=.6){const a=x1+ux*(t+.3)+nx*.09*(t/.6%2?1:-1),b=y1+uy*(t+.3)+ny*.09*(t/.6%2?1:-1);d+=` Q${a.toFixed(2)} ${b.toFixed(2)} ${(x1+ux*(t+.6)).toFixed(2)} ${(y1+uy*(t+.6)).toFixed(2)}`;
+    const sgn=(Math.round(t/.6)%2)?1:-1,px=x1+ux*(t+.3),py=y1+uy*(t+.3),ang=Math.atan2(uy,ux)*180/Math.PI+(sgn>0?55:-55);
+    lv+=`<ellipse cx="0" cy="-.13" rx=".075" ry=".15" fill="${t%1.2<.6?'#3fae3a':'#62c94a'}" stroke="#155a1a" stroke-width=".02" transform="translate(${px.toFixed(2)} ${py.toFixed(2)}) rotate(${(ang+90).toFixed(0)})"/>`;}
+  return `<path d="${d}" fill="none" stroke="#1f6a22" stroke-width=".06" stroke-linecap="round"/>${lv}`;}
+function jRock(x,y,s,f='#8d8883'){return `<path d="M${x-s} ${y+s*.5}L${x-s*.7} ${y-s*.35}L${x-s*.1} ${y-s*.7}L${x+s*.65} ${y-s*.4}L${x+s} ${y+s*.5}Z" fill="${f}" stroke="#3a3430" stroke-width=".05" stroke-linejoin="round"/><path d="M${x-s*.6} ${y-s*.2}L${x-s*.1} ${y-s*.5}L${x+s*.4} ${y-s*.3}" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".05" stroke-linecap="round"/>`;}
+function jCanopy(x,y,s){return `<circle cx="${x-s*.5}" cy="${y+s*.1}" r="${s*.55}" fill="#1f8a3a" stroke="#0e4a1c" stroke-width=".04"/><circle cx="${x+s*.45}" cy="${y+s*.15}" r="${s*.5}" fill="#1f8a3a" stroke="#0e4a1c" stroke-width=".04"/><circle cx="${x}" cy="${y-s*.25}" r="${s*.6}" fill="#34b04f" stroke="#0e4a1c" stroke-width=".04"/><circle cx="${x-s*.15}" cy="${y-s*.4}" r="${s*.22}" fill="#6ddc72" opacity=".8"/>`;}
+function jTuft(x,y,s=1,f='#6f8f1f'){return `<path d="M${x-.18*s} ${y}L${x-.1*s} ${y-.3*s}L${x-.03*s} ${y}L${x+.02*s} ${y-.38*s}L${x+.08*s} ${y}L${x+.15*s} ${y-.26*s}L${x+.2*s} ${y}Z" fill="${f}" stroke="#3e5410" stroke-width=".02" stroke-linejoin="round"/>`;}
+function jYardDeco(col,c0,r0){const cx=c0+3,cy=r0+3,L=[];
+  if(col==='red'){ // rocky lion cave
+    L.push(jRock(c0+.8,r0+.75,.5),jRock(c0+5.2,r0+.8,.45,'#9a948e'),jRock(c0+.85,r0+5.25,.55,'#7f7a75'),jRock(c0+5.15,r0+5.2,.6));
+    L.push(`<g fill="#5a1208" opacity=".55">${[[c0+5.2,r0+2.1],[c0+.7,r0+3.6]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx=".16" ry=".13"/><circle cx="${x-.15}" cy="${y-.18}" r=".055"/><circle cx="${x-.05}" cy="${y-.24}" r=".055"/><circle cx="${x+.06}" cy="${y-.24}" r=".055"/><circle cx="${x+.16}" cy="${y-.18}" r=".055"/>`).join('')}</g>`);
+    L.push(`<circle cx="${cx}" cy="${cy}" r="2.34" fill="#6f6862" stroke="#3a3430" stroke-width=".06"/><circle cx="${cx}" cy="${cy}" r="2.08" fill="url(#jcave)"/>`);
+    for(let k=0;k<13;k++){const a=(-160+k*(140/12))*Math.PI/180,x=cx+2.2*Math.cos(a),y=cy+2.2*Math.sin(a);L.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${(.2+(jH(k)%3)*.04).toFixed(2)}" fill="#8f8882" stroke="#3a3430" stroke-width=".035"/>`);}
+    for(let k=0;k<5;k++){const x=cx-1.1+k*.55,y=cy-1.95+Math.abs(k-2)*.13;L.push(`<path d="M${x-.12} ${y}L${x} ${y+.34}L${x+.12} ${y}Z" fill="#7a736d" opacity=".9"/>`);}
+  } else if(col==='green'){ // treehouse
+    L.push(`<rect x="${c0+5.05}" y="${r0+4.3}" width=".42" height="1.5" rx=".08" fill="#7a4a22" stroke="#3a2210" stroke-width=".04"/>`,jCanopy(c0+.9,r0+.85,.8),jCanopy(c0+5.15,r0+.85,.75),jCanopy(c0+.85,r0+5.2,.7),jCanopy(c0+5.25,r0+4.45,.72));
+    L.push(`<circle cx="${cx}" cy="${cy}" r="2.34" fill="url(#jwood)" stroke="#4a2c10" stroke-width=".12"/>`);
+    for(const dy of [-1.56,-.78,0,.78,1.56]){const hw=Math.sqrt(2.28*2.28-dy*dy);L.push(`<path d="M${(cx-hw).toFixed(2)} ${cy+dy+.39}H${(cx+hw).toFixed(2)}" stroke="#5e3a18" stroke-width=".05" opacity=".8"/>`);}
+    L.push(`<path d="M${c0+1.1} ${r0+.1}V${r0+1.1}M${c0+1.3} ${r0+.1}V${r0+1.1}" stroke="#c9a060" stroke-width=".04" opacity=".7"/>`);
+  } else if(col==='yellow'){ // savanna
+    L.push(`<circle cx="${c0+.9}" cy="${r0+.9}" r=".45" fill="#ff8a1a" stroke="#b34d00" stroke-width=".04"/>`);
+    for(let k=0;k<8;k++){const a=k*Math.PI/4;L.push(`<path d="M${(c0+.9+.55*Math.cos(a)).toFixed(2)} ${(r0+.9+.55*Math.sin(a)).toFixed(2)}L${(c0+.9+.72*Math.cos(a)).toFixed(2)} ${(r0+.9+.72*Math.sin(a)).toFixed(2)}" stroke="#ff8a1a" stroke-width=".07" stroke-linecap="round"/>`);}
+    L.push(`<path d="M${c0+5.1} ${r0+1.7}L${c0+5.15} ${r0+.95}M${c0+5.13} ${r0+1.2}L${c0+4.85} ${r0+.95}M${c0+5.13} ${r0+1.2}L${c0+5.45} ${r0+.9}" stroke="#5a3a1a" stroke-width=".09" stroke-linecap="round"/><ellipse cx="${c0+5.12}" cy="${r0+.78}" rx=".75" ry=".22" fill="#6f9a2a" stroke="#3e5a12" stroke-width=".04"/>`);
+    L.push(jTuft(c0+.7,r0+5.6,1.4),jTuft(c0+1.1,r0+5.7,1),jTuft(c0+5.2,r0+5.65,1.3),jTuft(c0+4.85,r0+5.7,.9));
+    L.push(`<circle cx="${cx}" cy="${cy}" r="2.34" fill="url(#jsand)" stroke="#a07a2a" stroke-width=".1"/>`);
+    for(let k=0;k<12;k++){const a=k*Math.PI/6+.2,x=cx+2.12*Math.cos(a),y=cy+2.12*Math.sin(a)+.1;L.push(jTuft(x,y,.8,'#8a9a2a'));}
+  } else { // blue: jungle lake
+    L.push(`<path d="M${c0+.5} ${r0+5.8}V${r0+4.7}M${c0+.75} ${r0+5.8}V${r0+4.5}M${c0+1} ${r0+5.8}V${r0+4.85}" stroke="#2e7d32" stroke-width=".06" stroke-linecap="round"/><ellipse cx="${c0+.75}" cy="${r0+4.55}" rx=".07" ry=".2" fill="#6b3f1a"/><ellipse cx="${c0+.5}" cy="${r0+4.75}" rx=".06" ry=".17" fill="#6b3f1a"/>`);
+    L.push(`<path d="M${c0+5.1} ${r0+1.4}V${r0+.3}M${c0+5.35} ${r0+1.4}V${r0+.45}" stroke="#2e7d32" stroke-width=".06" stroke-linecap="round"/><ellipse cx="${c0+5.1}" cy="${r0+.35}" rx=".07" ry=".2" fill="#6b3f1a"/>`);
+    L.push(`<g transform="translate(${c0+.85} ${r0+.85})">${[0,72,144,216,288].map(a=>`<ellipse cx="0" cy="-.22" rx=".13" ry=".25" fill="#ff8fc8" stroke="#b0306e" stroke-width=".025" transform="rotate(${a})"/>`).join('')}<circle r=".1" fill="#ffd21a"/></g>`);
+    L.push(`<ellipse cx="${c0+5.2}" cy="${r0+5.2}" rx=".55" ry=".4" fill="#3fae4a" stroke="#1f6e2a" stroke-width=".04"/>`);
+    L.push(`<circle cx="${cx}" cy="${cy}" r="2.34" fill="url(#jwater)" stroke="#0d4a8a" stroke-width=".1"/>`);
+    for(const [dx,dy,rx] of [[-1.3,-.2,.35],[1.2,.3,.3],[0,-1.4,.3],[.1,1.45,.35],[0,0,.4]])L.push(`<ellipse cx="${cx+dx}" cy="${cy+dy}" rx="${rx}" ry="${rx*.4}" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".035"/>`);
+    for(const [dy,dx] of YSPOT){const x=c0+dx,y=r0+dy,R=.74;L.push(`<path d="M${x} ${y}L${(x+R*Math.cos(-.62)).toFixed(3)} ${(y+R*Math.sin(-.62)).toFixed(3)}A${R} ${R} 0 1 0 ${(x+R).toFixed(3)} ${y}Z" fill="#2f9468" stroke="#145638" stroke-width=".045"/><path d="M${x} ${y}L${(x-R*.7).toFixed(2)} ${(y+R*.45).toFixed(2)}M${x} ${y}L${(x-R*.2).toFixed(2)} ${(y+R*.8).toFixed(2)}" stroke="#2a8a36" stroke-width=".035"/>`);}
+  }
+  return L.join('');}
+function boardSVGJ(){
+  const L=[],D=[],starts=Object.values(START);
+  for(const col of COLORS){
+    D.push(`<radialGradient id="yg-${col}" cx=".3" cy=".25" r=".95"><stop offset="0" stop-color="${LIGHT[col]}"/><stop offset=".55" stop-color="${HEX[col]}"/><stop offset="1" stop-color="${DARK[col]}"/></radialGradient>`);
+    D.push(`<linearGradient id="hg-${col}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${LIGHT[col]}"/><stop offset=".6" stop-color="${HEX[col]}"/><stop offset="1" stop-color="${DARK[col]}"/></linearGradient>`);
+    D.push(`<radialGradient id="sg-${col}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="${LIGHT[col]}"/><stop offset=".6" stop-color="${HEX[col]}"/><stop offset="1" stop-color="${DARK[col]}"/></radialGradient>`);}
+  D.push(`<linearGradient id="jst" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e8d2"/><stop offset=".55" stop-color="#c4c9a9"/><stop offset="1" stop-color="#9ca386"/></linearGradient>`);
+  D.push(`<pattern id="jstx" width=".5" height=".5" patternUnits="userSpaceOnUse"><circle cx=".12" cy=".14" r=".05" fill="#000" opacity=".12"/><circle cx=".36" cy=".34" r=".04" fill="#fff" opacity=".18"/><path d="M.3 .06l.08 .08" stroke="#000" stroke-opacity=".12" stroke-width=".02"/></pattern>`);
+  D.push(`<pattern id="jmoss" width=".7" height=".7" patternUnits="userSpaceOnUse"><circle cx=".2" cy=".2" r=".06" fill="#3d7a2a"/><circle cx=".55" cy=".48" r=".05" fill="#1a3d12"/><circle cx=".5" cy=".12" r=".03" fill="#5e9e3a"/></pattern>`);
+  D.push(`<pattern id="jyt" width="1.2" height="1.2" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><path d="M.1 .3q.25 -.28 .5 0q-.25 .28 -.5 0Z" fill="#000" opacity=".09"/><path d="M.7 .9q.2 -.22 .4 0q-.2 .22 -.4 0Z" fill="#fff" opacity=".1"/></pattern>`);
+  D.push(`<radialGradient id="jglw"><stop offset="0" stop-color="#fffbb0" stop-opacity=".95"/><stop offset=".55" stop-color="#b8ff6a" stop-opacity=".5"/><stop offset="1" stop-color="#6aff5a" stop-opacity="0"/></radialGradient>`);
+  D.push(`<linearGradient id="jleaf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2aa83a"/><stop offset="1" stop-color="#a8ff72"/></linearGradient>`);
+  D.push(`<radialGradient id="jcave" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#1e120d"/><stop offset=".7" stop-color="#3f2a20"/><stop offset="1" stop-color="#5f4535"/></radialGradient>`);
+  D.push(`<linearGradient id="jwood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d49a5a"/><stop offset="1" stop-color="#8f5a2c"/></linearGradient>`);
+  D.push(`<radialGradient id="jsand" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff0c4"/><stop offset="1" stop-color="#e2bd6a"/></radialGradient>`);
+  D.push(`<radialGradient id="jwater" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#a8ecff"/><stop offset=".55" stop-color="#34a3ea"/><stop offset="1" stop-color="#1363b6"/></radialGradient>`);
+  D.push(`<linearGradient id="jgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a8"/><stop offset=".5" stop-color="#f2b61c"/><stop offset="1" stop-color="#a86a00"/></linearGradient>`);
+  D.push(`<filter id="bsh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy=".07" stdDeviation=".07" flood-color="#000" flood-opacity=".45"/></filter>`);
+  L.push(`<rect x="0" y="0" width="15" height="15" fill="#23491b"/><rect x="0" y="0" width="15" height="15" fill="url(#jmoss)"/>`);
+  TRACK.forEach(([r,c],i)=>{let col=null;for(const cc of COLORS)if(START[cc]===i)col=cc;L.push(jStone(c,r,col?`url(#hg-${col})`:'url(#jst)',i,!!col));
+    if(SAFE.has(i))L.push(jLeafStar(c+.5,r+.5,starts.includes(i),col));});
+  for(const col of COLORS)HOMECOL[col].forEach(([r,c],k)=>L.push(jStone(c,r,`url(#hg-${col})`,100+k,true)));
+  const ENTRY={red:[7,0,0],green:[0,7,90],yellow:[7,14,180],blue:[14,7,270]};
+  for(const col of COLORS){const [r,c,a]=ENTRY[col];
+    L.push(`<path d="M-.36,-.12 L.04,-.12 L.04,-.32 L.38,0 L.04,.32 L.04,.12 L-.36,.12 Z" fill="${HEX[col]}" stroke="${DARK[col]}" stroke-width=".045" stroke-linejoin="round" transform="translate(${c+.5},${r+.5}) rotate(${a})"/>`);}
+  for(const col of COLORS){const [r0,c0]=YARD[col];
+    L.push(`<rect x="${c0}" y="${r0}" width="6" height="6" fill="url(#yg-${col})"/><rect x="${c0}" y="${r0}" width="6" height="6" fill="url(#jyt)"/>`);
+    L.push(`<rect x="${c0+.14}" y="${r0+.14}" width="5.72" height="5.72" rx=".35" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width=".06" stroke-dasharray=".5 .12"/>`);
+    L.push(jYardDeco(col,c0,r0));
+    for(const [dy,dx] of YSPOT){const x=c0+dx,y=r0+dy;
+      L.push(`<circle cx="${x}" cy="${y}" r=".62" fill="url(#sg-${col})" stroke="${DARK[col]}" stroke-width=".06"/><circle cx="${x}" cy="${y}" r=".32" fill="#fff" fill-opacity=".95"/><circle cx="${x}" cy="${y}" r=".32" fill="none" stroke="${DARK[col]}" stroke-opacity=".4" stroke-width=".04"/>`);}}
+  const C=[7.5,7.5],sc=(pts,k)=>pts.map(([x,y])=>`${(C[0]+(x-C[0])*k).toFixed(3)},${(C[1]+(y-C[1])*k).toFixed(3)}`).join(' ');
+  for(const [col,pts] of [['red',[[6,6],[6,9],[7.5,7.5]]],['green',[[6,6],[9,6],[7.5,7.5]]],['yellow',[[9,6],[9,9],[7.5,7.5]]],['blue',[[6,9],[9,9],[7.5,7.5]]]]){
+    L.push(`<polygon points="${sc(pts,1)}" fill="url(#yg-${col})" stroke="#3a2a14" stroke-width=".06" stroke-linejoin="round"/>`);
+    for(const k of [.7,.42])L.push(`<polygon points="${sc(pts,k)}" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".05" stroke-linejoin="round"/><polygon points="${sc(pts,k-.05)}" fill="none" stroke="#000" stroke-opacity=".2" stroke-width=".035" stroke-linejoin="round"/>`);}
+  L.push(`<rect x="6" y="6" width="3" height="3" fill="none" stroke="#3a2a14" stroke-width=".07"/>`);
+  L.push(`<rect x="7.06" y="7.06" width=".88" height=".88" rx=".08" transform="rotate(45 7.5 7.5)" fill="url(#jgold)" stroke="#6a4a10" stroke-width=".05"/><use href="#crown" x="7.14" y="7.22" width=".72" height=".52"/>`);
+  for(const [a,b,cc,d] of [[.1,.16,5.9,.16],[9.1,.16,14.9,.16],[.1,14.84,5.9,14.84],[9.1,14.84,14.9,14.84],[.16,.3,.16,5.9],[.16,9.1,.16,14.8],[14.84,.3,14.84,5.9],[14.84,9.1,14.84,14.8]])L.push(jVine(a,b,cc,d));
+  L.push(`<rect x="0" y="0" width="15" height="15" fill="url(#gloss)" opacity=".6" pointer-events="none"/>`);
+  D.push(`<linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>`);
+  return `<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:100%"><defs>${D.join('')}</defs>${L.join('')}</svg>`;}
+/* ---- theme state ---- */
+let J_THEME=null;
+function jPref(){return LS.get('ludo-theme','classic')==='jungle'?'jungle':'classic';}
+function curTheme(){return J_THEME||'classic';}
+function applyTheme(t){t=t==='jungle'?'jungle':'classic';if(t===J_THEME)return;J_THEME=t;const j=t==='jungle';
+  document.documentElement.classList.toggle('jungle',j);
+  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=j?'#1d5a26':'#2a1275';
+  $('board').innerHTML=j?boardSVGJ():boardSVG();
+  $('jglows').innerHTML=j?[...SAFE].map(i=>{const [r,c]=TRACK[i];return `<i class="${Object.values(START).includes(i)?'st':''}" style="left:${((c+.5)/15*100).toFixed(3)}%;top:${((r+.5)/15*100).toFixed(3)}%;animation-delay:${(-(i%4)*.55).toFixed(2)}s"></i>`;}).join(''):'';
+  refreshTokArt(App.view||{seats:[]});
+  $('heroPins').innerHTML=j?['sher','haathi','cheel','magarmachh'].map((a,k)=>`<span>${jTokSVG(COLORS[k],a)}</span>`).join(''):COLORS.map(c=>`<span>${pinSVG(c)}</span>`).join('');
+  if(App.view&&App.screen==='scrGame')renderGame(App.view);
+  if(Music.on){Music.stop();Music.start();}}
+function animalOf(S,c){const x=S&&S.seats&&S.seats.find(y=>y.color===c);return (x&&jValidA(x.animal))||null;}
+function refreshTokArt(s){const j=curTheme()==='jungle';for(const c of COLORS){const an=j?(animalOf(s,c)||'sher'):null,k=j?'j'+an:'c';
+  for(let i=0;i<4;i++){const el=$(`t-${c}-${i}`);if(!el||el._k===k)continue;el._k=k;const tb=el.querySelector('.tb');
+    tb.innerHTML=j?`<div class="jz"><div class="ji">${jTokSVG(c,an)}</div></div>`:pinSVG(c);
+    if(j){el.dataset.an=an;el.style.setProperty('--dl',(-(i*.83+COLORS.indexOf(c)*.41)).toFixed(2)+'s');}else delete el.dataset.an;}}}
+function jEmo(el,s,c,emo){const a=curTheme()==='jungle'&&animalOf(s,c),k=a?'j'+a:'e'+emo;if(el._k===k)return;el._k=k;if(a)el.innerHTML=jAvSVG(a);else el.textContent=emo;}
+function jSav(s,c,emo){const a=curTheme()==='jungle'&&animalOf(s,c);return a?`<span class="jav">${jAvSVG(a)}</span>`:emo;}
+const jRav=jSav;
+function setTheme(t){t=t==='jungle'?'jungle':'classic';LS.set('ludo-theme',t);
+  if((App.role==='host'||App.role==='local')&&App.S){App.S.theme=t;commit();}else applyTheme(t);jHomeBtn();
+  toast(t==='jungle'?'🌴 Jungle Raaj board':'🎲 Classic board');}
+function jThemeCtl(){if(App.role==='guest')return {v:(App.view&&App.view.theme)==='jungle'?'jungle':'classic',can:false};
+  if((App.role==='host'||App.role==='local')&&App.S)return {v:App.S.theme==='jungle'?'jungle':'classic',can:true};return {v:jPref(),can:true};}
+/* ---- animal choice (per player, remembered per name) ---- */
+function jNameKey(n){return cleanName(n).toLowerCase();}
+function jDefAnimal(n){const k=jNameKey(n),m=LS.get('ludo-anim',{});if(k&&jValidA(m[k]))return m[k];
+  let h=7;for(const ch of k||'?')h=(h*31+ch.codePointAt(0))>>>0;return AN_IDS[h%AN_IDS.length];}
+function jRememberName(n,a){const k=jNameKey(n);if(!k||!jValidA(a))return;const m=LS.get('ludo-anim',{});m[k]=a;LS.set('ludo-anim',m);}
+function jRemember(){if(!App.myAnimal)App.myAnimal=jDefAnimal(App.myName);jRememberName(App.myName,App.myAnimal);}
+function ensureAnimals(S){if(!S||!S.seats||App.role==='guest')return;const used=new Set();
+  for(const x of S.seats){let a=jValidA(x.animal);
+    if(!a){const pref=x.clientId==='me'&&App.role==='host'?App.myAnimal:((App.conns.get(x.clientId)||{}).animal);a=jValidA(pref)||jDefAnimal(x.name);}
+    if(used.has(a)){let h=AN_IDS.indexOf(a);for(let k=0;k<10&&used.has(AN_IDS[h]);k++)h=(h+1)%10;a=AN_IDS[h];}
+    x.animal=a;used.add(a);}}
+function setAnimal(cid,a){a=jValidA(a);const S=App.S;if(!a||!S)return;const g=App.conns.get(cid);if(g)g.animal=a;
+  if(cid==='me'){App.myAnimal=a;jRememberName(App.myName,a);}
+  const seat=S.seats.find(x=>x.clientId===cid);if(!seat||S.phase!=='lobby'){commit();return;}
+  if(S.seats.some(x=>x!==seat&&x.animal===a)){const m='That animal is already taken';if(cid==='me')toast(m);else g&&sendTo(g.conn,{t:'error',msg:m});return;}
+  seat.animal=a;commit();}
+function jPickInner(a,lbl){const A=ANIMALS[a]||ANIMALS.sher;return `<span class="anIc">${jAvSVG(a)}</span><span class="anTx">${lbl?`<small class="al">${lbl}</small>`:''}${A.n}<small>${A.en} · ${A.pi} ${A.pn}</small></span><span class="go">›</span>`;}
+function animalPicker(cur,taken,onPick,title){
+  modal(`<h2>🐾 ${esc(title||'Choose your animal')}</h2><div class="muted center" style="margin-top:-6px">All 4 of your tokens become this animal. Powers work when the host switches <b>Animal Powers</b> ON.</div>
+    <div class="anGrid">${AN_IDS.map(id=>{const A=ANIMALS[id],tk=taken.includes(id)&&id!==cur;return `<button class="anCard${id===cur?' sel':''}" data-a="${id}" ${tk?'disabled':''} title="${esc(A.pn+': '+A.pd)}"><span class="anArt">${jAvSVG(id)}</span><b>${A.n}</b><small>${A.en}</small><span class="anPw">${A.pi} ${A.pn}${A.once?' · once':''}</span><span class="anPd">${esc(A.pd)}</span>${tk?'<i class="tk">taken</i>':''}</button>`;}).join('')}</div>
+    <button class="alt" id="anClose">Close</button>`);
+  $('ovBox').querySelectorAll('.anCard').forEach(b=>b.onclick=()=>{closeModal();onPick(b.dataset.a);});$('anClose').onclick=closeModal;}
+function jRenderPickBtns(){for(const [id,inp] of [['anPickO','nameIn'],['anPickJ','joinName']]){const b=$(id);if(!b)continue;b.innerHTML=jPickInner(App.myAnimal||jDefAnimal($(inp).value),'Your jungle animal');}}
+function jOpenMyPicker(inp){animalPicker(App.myAnimal||jDefAnimal($(inp).value),[],a=>{App.myAnimal=a;App.animalPicked=true;const n=cleanName($(inp).value);if(n)jRememberName(n,a);jRenderPickBtns();});}
+function jLobby(s,myColor,isHost){const th=s.theme==='jungle'?'jungle':'classic';
+  document.querySelectorAll('#lobTheme button').forEach(b=>{b.classList.toggle('sel',b.dataset.th===th);b.disabled=!isHost;});
+  $('lobThemeNote').innerHTML=(isHost?'You choose the board for everyone.':'The host chooses the board.')+(pwOn(s)?' <b class="pwOnTxt">🐾 Animal Powers ON</b>':'');
+  const my=s.seats.find(x=>x.color===myColor),a=(my&&my.animal)||App.myAnimal||jDefAnimal(App.myName);
+  $('lobAnimal').innerHTML=jPickInner(a,'My animal (tap to change)');}
+function jLobbyPick(){const s=App.view;if(!s||s.phase!=='lobby')return;const isHost=App.role==='host',myColor=isHost?(App.S.seats.find(x=>x.clientId==='me')||{}).color:App.myColor;
+  const my=s.seats.find(x=>x.color===myColor),cur=(my&&my.animal)||App.myAnimal;
+  animalPicker(cur,s.seats.filter(x=>x.color!==myColor).map(x=>x.animal).filter(Boolean),a=>{if(isHost)setAnimal('me',a);else{App.myAnimal=a;jRememberName(App.myName,a);sendHost({t:'animal',a});}});}
+const localAnim={};
+function jLocalAnims(){const used=new Set();for(const c of COLORS){if(!localSel[c])continue;const n=cleanName(($('ln-'+c)||{}).value)||LS.get('ludo-ln-'+c,CNAME[c]);let a=jValidA(localAnim[c])||jDefAnimal(n);
+  if(used.has(a)){let h=AN_IDS.indexOf(a);while(used.has(AN_IDS[h]))h=(h+1)%10;a=AN_IDS[h];}localAnim[c]=a;used.add(a);}}
+function jRenderLocalTheme(){const t=jPref();document.querySelectorAll('#locTheme button').forEach(b=>b.classList.toggle('sel',b.dataset.th===t));}
+function jBadge(s){const b=$('pwBadge');if(b)b.style.display=pwOn(s)?'block':'none';}
+function jPwTag(s,c){if(!pwOn(s))return '';const a=animalOf(s,c);if(!a)return '';const A=ANIMALS[a],used=A.once&&pwUsed(s,c,A.once);
+  let h=`<span class="tag pwt${used?' used':''}" title="${esc(A.pn+': '+A.pd)}">${A.pi} ${A.pn}${A.once?(used?' ✓':' ●'):''}</span>`;
+  if(s.pw&&s.pw.poison&&s.pw.poison[c])h+=`<span class="tag pois" title="Venom: next 6 gives no extra roll">🧪</span>`;return h;}
+function jWinHead(s){if(s.theme!=='jungle'||!s.rank.length)return '<svg class="crown"><use href="#crown"/></svg><h2>🏆 Results</h2>';
+  const c=s.rank[0],seat=s.seats.find(x=>x.color===c),a=animalOf(s,c)||'sher';
+  return `<div class="jkr" style="--pc:${HEX[c]}"><div class="jkrAv">${jAvSVG(a)}<svg class="crown"><use href="#crown"/></svg></div><div class="jkrT">Jungle ka Raja 👑</div><div class="jkrN">${esc(seat?seat.name:CNAME[c])} · ${ANIMALS[a].n} the ${ANIMALS[a].en}</div></div>`;}
+function jAdminHTML(){const S=App.S,on=!!S.powers,j=S.theme==='jungle';
+  const list=ordered(S).map(x=>{const a=jValidA(x.animal);if(!a)return '';const A=ANIMALS[a],u=A.once&&pwUsed(S,x.color,A.once);
+    return `<div class="jpwRow"><span style="color:${HEX[x.color]}">●</span> <b>${esc(x.name)}</b> <span class="jpwA">${A.n} ${A.pi} ${A.pn}${A.once?(u?' <i>used</i>':' <i class="rdy">ready</i>'):''}</span></div>`;}).join('');
+  return `<div class="arow jpw"><div class="jpwHead"><b>🐾 Animal Powers</b><button id="apPw" class="${on?'green':'alt'}">${on?'ON':'OFF'}</button></div>
+    <div class="muted">${j?(on?'Powers are active for every animal. All players see a “Powers ON” badge.':'OFF = 100% classic rules. Turn ON to give each animal its special power.'):'Works on the 🌴 Jungle board – switch the board in Settings.'}</div>${list}</div>`;}
+function jBindAdmin(){const b=$('apPw');if(b)b.onclick=()=>{const S=App.S;if(!S)return;S.powers=!S.powers;pwS(S);commit();renderAdmin();
+  toast(S.powers?(S.theme==='jungle'?'🐾 Animal Powers ON':'🐾 Powers ON – switch to the Jungle board to use them'):'Animal Powers OFF – classic rules');};}
+function jHomeBtn(){const b=$('btnJungle');if(!b)return;const j=jPref()==='jungle';b.textContent=j?'🌴 Jungle Raaj: ON':'🌴 Try Jungle Raaj mode';b.className=j?'orange':'green';}
+function jInitUI(){
+  $('btnJungle').onclick=()=>{setTheme(jPref()==='jungle'?'classic':'jungle');jHomeBtn();};jHomeBtn();
+  document.querySelectorAll('#lobTheme button').forEach(b=>b.onclick=()=>{if(App.role==='host')setTheme(b.dataset.th);});
+  document.querySelectorAll('#locTheme button').forEach(b=>b.onclick=()=>{LS.set('ludo-theme',b.dataset.th);applyTheme(b.dataset.th);jRenderLocalTheme();});
+  $('lobAnimal').onclick=jLobbyPick;$('anPickO').onclick=()=>jOpenMyPicker('nameIn');$('anPickJ').onclick=()=>jOpenMyPicker('joinName');
+  for(const inp of ['nameIn','joinName'])$(inp).addEventListener('input',()=>{const n=cleanName($(inp).value),m=LS.get('ludo-anim',{});if(jValidA(m[jNameKey(n)]))App.myAnimal=m[jNameKey(n)];else if(!App.animalPicked)App.myAnimal=null;jRenderPickBtns();});
+  jRenderPickBtns();}
+/* ---- animal powers (host-authoritative; OFF = classic rules) ---- */
+function pwOn(S){return !!(S&&S.powers&&S.theme==='jungle');}
+function pwAn(S,c){return pwOn(S)?animalOf(S,c):null;}
+function pwS(S){if(!S.pw)S.pw={used:{},poison:{},rest:{},mv:{}};for(const k of ['used','poison','rest','mv'])if(!S.pw[k])S.pw[k]={};return S.pw;}
+function pwUsed(S,c,k){const u=S&&S.pw&&S.pw.used&&S.pw.used[c];return !!(u&&u[k]);}
+function pwUse(S,c,k){const p=pwS(S);(p.used[c]=p.used[c]||{})[k]=1;}
+function pwRand(){const b=new Uint32Array(1);crypto.getRandomValues(b);return b[0]/4294967296;}
+function camoOn(S,c,j){if(pwAn(S,c)!=='magarmachh')return false;const r=S.pw&&S.pw.rest&&S.pw.rest[c],p=S.tokens[c]&&S.tokens[c][j];return !!(r&&r[j]>=2&&p>=0&&p<=50);}
+function moveOpts(S,c,i,d){const p=S.tokens[c][i];if(p===-1)return [d];const o=[d],an=pwAn(S,c);
+  if(an==='ghoda'&&d===6&&p+7<=HOME)o.push(7);
+  if(an==='bandar'&&d===1&&p+3<=HOME)o.push(3);
+  if(an==='cheel'&&!pwUsed(S,c,'fly')&&p+2*d<=HOME)o.push(2*d);
+  return o;}
+function jRest(S){if(!S||!S.turn||pwAn(S,S.turn)!=='magarmachh')return;const pw=pwS(S),c=S.turn,r=pw.rest[c]=pw.rest[c]||[0,0,0,0],m=pw.mv[c]||[];
+  (S.tokens[c]||[]).forEach((p,j)=>{r[j]=(p>=0&&p<=50)?(m[j]?0:(r[j]||0)+1):0;});pw.mv[c]=[0,0,0,0];}
+function chooseSteps(c,i,o){const s=App.view,an=animalOf(s,c),A=ANIMALS[an]||{},d=o[0],alt=o[1];
+  const lbl={ghoda:`🐎 Gallop ${alt}`,bandar:`🍌 Leap ${alt}`,cheel:`🦅 Fly ${alt} (once)`}[an]||`Move ${alt}`;
+  modal(`<h2>${A.pi||''} ${esc(A.pn||'Power')}!</h2><div class="muted center">${esc(A.n||'')}: choose how far this token moves</div><div class="row"><button class="blue" id="csA" style="flex:1">Move ${d}</button><button class="orange" id="csB" style="flex:1.3">${lbl}</button></div><button class="alt" id="csX">Cancel</button>`);
+  $('csA').onclick=()=>{closeModal();sendMove(c,i,d);};$('csB').onclick=()=>{closeModal();sendMove(c,i,alt);};$('csX').onclick=closeModal;}
+function sendMove(c,i,n){const s=App.view;if(!s||!s.awaiting||s.turn!==c||!controls(c))return;
+  if(App.role==='guest'){sendHost({t:'move',i,n});$(`t-${c}-${i}`).classList.remove('mv');}else doMove(seatOf(c).clientId,i,n);}
+function jTokState(s,el,c,i){el.classList.remove('ko','tossed','atk','pose','flying','vhop','shpop');
+  for(const k of [...el.classList])if(k.startsWith('mvg-'))el.classList.remove(k);
+  const dz=el.querySelector('.dz');if(dz)dz.remove();
+  const p=s.tokens[c]?s.tokens[c][i]:-1;
+  el.classList.toggle('camo',camoOn(s,c,i));
+  el.classList.toggle('shld',pwAn(s,c)==='haathi'&&!pwUsed(s,c,'shield')&&p<HOME);}
+/* ---- synthesized jungle sounds (original, WebAudio) ---- */
+function jv(f0,f1,d,v,type,when,o={}){const a=AC();if(!a)return;try{const t=a.currentTime+Math.max(0,when||0),os=a.createOscillator(),g=a.createGain();os.type=type;os.frequency.setValueAtTime(f0,t);
+  if(f1)os.frequency.exponentialRampToValueAtTime(f1,t+d);
+  if(o.vib){const l=a.createOscillator(),lg=a.createGain();l.frequency.value=o.vib[0];lg.gain.value=o.vib[1];l.connect(lg);lg.connect(os.frequency);l.start(t);l.stop(t+d+.05);}
+  let n=os;if(o.bp){const f=a.createBiquadFilter();f.type='bandpass';f.frequency.value=o.bp;f.Q.value=o.q||1.2;n.connect(f);n=f;}
+  if(o.lp){const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=o.lp;n.connect(f);n=f;}
+  const at=o.at||.02;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+at);if(o.hold)g.gain.setValueAtTime(v,t+d*o.hold);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  if(o.trem){const l=a.createOscillator(),lg=a.createGain();l.frequency.value=o.trem[0];lg.gain.value=v*o.trem[1];l.connect(lg);lg.connect(g.gain);l.start(t);l.stop(t+d+.05);}
+  n.connect(g);g.connect(o.bus||sfxBus);os.start(t);os.stop(t+d+.08);}catch(e){}}
+const jsfx={
+  roar(an,k=1){if(!SFX)return;const w=0;switch(an){
+    case 'sher':jv(170,72,1.05,.3*k,'sawtooth',w,{lp:750,vib:[27,16],at:.08,hold:.35});jv(85,46,1.05,.2*k,'square',w,{lp:320,vib:[31,9],at:.08});noise(1,.28*k,w,520,'lowpass');break;
+    case 'cheetah':jv(760,520,.16,.13*k,'triangle',w,{vib:[45,40]});jv(820,560,.16,.12*k,'triangle',w+.2,{vib:[45,40]});jv(140,90,.35,.14*k,'sawtooth',w+.05,{lp:500,trem:[22,.6]});break;
+    case 'haathi':jv(430,720,.34,.15*k,'sawtooth',w,{bp:1250,q:2,vib:[7,25],at:.04});jv(720,520,.55,.15*k,'sawtooth',w+.32,{bp:1300,q:2,vib:[7,32],hold:.4});break;
+    case 'ghoda':jv(1150,480,.95,.12*k,'sawtooth',w,{bp:1500,q:1.4,vib:[13,95],at:.03,hold:.2});noise(.25,.2*k,w+.9,700,'lowpass');break;
+    case 'saanp':noise(.95,.34*k,w,6800,'highpass');noise(.6,.14*k,w+.1,4200,'bandpass',2);break;
+    case 'bichhu':for(let i=0;i<8;i++)jv(3200-i*120,0,.02,.11*k,'square',w+i*.045,{lp:5200,at:.002});jv(1900,260,.22,.12*k,'sawtooth',w+.38,{lp:3000});break;
+    case 'bhaalu':jv(118,78,.95,.26*k,'sawtooth',w,{lp:520,vib:[21,14],trem:[17,.55],at:.06});noise(.9,.18*k,w,420,'lowpass');break;
+    case 'magarmachh':noise(.06,.7*k,w,2600,'bandpass',1.5);jv(130,48,.28,.3*k,'sine',w);noise(.06,.6*k,w+.22,2400,'bandpass',1.5);jv(110,45,.3,.26*k,'sine',w+.22);jv(90,70,.6,.12*k,'sawtooth',w+.3,{lp:300,trem:[14,.6]});break;
+    case 'bandar':jv(420,640,.16,.12*k,'square',w,{lp:1900});jv(450,670,.16,.12*k,'square',w+.2,{lp:1900});jv(720,1150,.36,.13*k,'square',w+.42,{lp:2300,vib:[10,30]});break;
+    case 'cheel':jv(2300,1500,.72,.1*k,'sawtooth',w,{bp:2500,q:3,vib:[31,130],at:.02,hold:.2});break;}},
+  impact(){if(!SFX)return;jv(95,34,.5,.5,'sine',0);jv(55,40,.6,.25,'triangle',0);noise(.35,.7,0,1300,'lowpass');noise(.09,.45,0,4200,'bandpass',1);noise(.5,.12,.05,7000,'highpass');},
+  whoosh(){if(!SFX)return;noise(.45,.22,0,1100,'bandpass',.7);jv(500,1400,.35,.04,'sine',0);},
+  flap(){if(!SFX)return;for(let i=0;i<3;i++)noise(.07,.16,i*.11,900,'bandpass',.8);},
+  aura(){if(!SFX)return;[1319,1568,2093,2637].forEach((f,i)=>jv(f,0,.35,.05,'triangle',i*.06));jv(3136,0,.6,.02,'sine',.26);},
+  power(){if(!SFX)return;jv(400,1800,.35,.08,'sawtooth',0,{lp:3000});[1568,2093].forEach((f,i)=>jv(f,0,.3,.05,'triangle',.25+i*.08));},
+  shield(){if(!SFX)return;jv(1500,3200,.25,.08,'sine',0);noise(.25,.25,.05,8000,'highpass');[2637,3520].forEach((f,i)=>jv(f,0,.2,.04,'triangle',.08+i*.05));},
+  step(an){if(!SFX)return;switch(an){
+    case 'haathi':jv(75,45,.16,.26,'sine',0);noise(.08,.12,0,300,'lowpass');break;
+    case 'ghoda':jv(1000,700,.04,.07,'square',0,{lp:2600});jv(760,520,.04,.06,'square',.06,{lp:2400});break;
+    case 'saanp':noise(.13,.06,0,6200,'highpass');break;
+    case 'bichhu':jv(3000,0,.015,.06,'square',0,{lp:5000});jv(2600,0,.015,.05,'square',.04,{lp:5000});break;
+    case 'bandar':jv(300,760,.14,.08,'sine',0);break;
+    case 'cheetah':noise(.06,.1,0,2500,'bandpass',1);break;
+    case 'cheel':break;
+    case 'magarmachh':noise(.12,.08,0,500,'lowpass');break;
+    default:jv(160,90,.1,.12,'sine',0);noise(.05,.05,0,900,'lowpass');}}};
+/* jungle music variant (original) + ambient birds/insects */
+const JTUNE={bpm:100,roots:['A2','A2','G2','E2','F2','G2','A2','E2'],
+  mel:['A4 - C5 D5 E5 - D5 C5','E5 - G5 E5 D5 C5 A4 -','G4 - B4 D5 G5 - D5 B4','E5 - D5 B4 G4 - A4 B4','C5 - E5 F5 A5 - G5 F5','G5 - D5 G5 B5 - A5 G5','A5 G5 E5 - D5 C5 A4 -','B4 - G#4 B4 E5 - - -'].map(b=>b.split(' '))};
+function jPlay(st,w,e8){const B=musBus,bar=Math.floor(st/8)%8,e=st%8,loop=Math.floor(st/64)%4,root=NOTE(JTUNE.roots[bar]);
+  if(e===0||e===3||(e===6&&bar%2))tone(e===0?120:100,.22,.22,'sine',w,B,{f2:55});
+  if(e===5||(e===7&&bar%4===3))tone(230,.14,.1,'sine',w,B,{f2:150});
+  noise(.05,e%2?.035:.06,w,6500,'highpass',1,B);
+  if(e===2||(e===7&&bar%2===0))tone(1850,.04,.05,'triangle',w,B);
+  tone(e===0?root:e===4?root*1.5:root*2,e8*.9,.12,'triangle',w,B,{lp:800});
+  const m=JTUNE.mel[bar][e];
+  if(m&&m!=='-'){const f=NOTE(m);if(loop===2){tone(f*2,e8*1.8,.03,'sine',w,B,{at:.03});}
+    else{tone(f,.32,.075,'sine',w,B,{at:.004});tone(f*4,.08,.018,'sine',w,B,{at:.002});tone(f*2,.16,.02,'triangle',w,B,{at:.003});}}}
+function jAmbient(){if(!actx||!musBus)return;const B=musBus,r=Math.random();
+  if(r<.006){const f=2400+Math.random()*1500,n=2+Math.floor(Math.random()*3);for(let i=0;i<n;i++)tone(f,.07,.02,'sine',.05+i*.1,B,{f2:f*1.35});}
+  else if(r<.010){for(let i=0;i<7;i++)tone(4700,.02,.007,'sine',i*.035,B);}
+  else if(r<.0115){tone(160,.09,.04,'sawtooth',0,B,{lp:420,f2:120});tone(150,.09,.035,'sawtooth',.14,B,{lp:420,f2:110});}
+  else if(r<.0125){tone(1300,.35,.012,'sine',0,B,{f2:900});tone(1100,.35,.01,'sine',.4,B,{f2:800});}}
+/* ---- jungle animations ---- */
+const STEP_MS={sher:165,cheetah:95,haathi:205,ghoda:125,saanp:150,bichhu:105,bhaalu:185,magarmachh:175,bandar:210,cheel:135};
+const PARTICLE={sher:'dust',cheetah:'dust',haathi:'dust',ghoda:'dust',saanp:'leaf',bichhu:'leaf',bhaalu:'dust',magarmachh:'leaf',bandar:'leaf',cheel:'feather'};
+function jfx(x,y,cls,html,ms){const fx=$('fx');if(!fx)return null;const e=document.createElement('div');e.className='jfx '+cls;e.style.left=(x/15*100)+'%';e.style.top=(y/15*100)+'%';if(html)e.innerHTML=html;fx.appendChild(e);if(ms)setTimeout(()=>e.remove(),ms);return e;}
+function jRestart(el,cls){el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);}
+function jParticles(x,y,type,n=16,mix=true){let h='';for(let k=0;k<n;k++){const a=(360/n)*k+Math.random()*20,d=30+Math.random()*40,t=(mix&&k%3===0)?(type==='feather'?'leaf':type==='leaf'?'dust':'leaf'):type;
+  const tx=(Math.cos(a*Math.PI/180)*d).toFixed(1),ty=(Math.sin(a*Math.PI/180)*d-8).toFixed(1);h+=`<i class="jp ${t}" style="--tx:${tx}px;--ty:${ty}px;--r:${Math.round(Math.random()*540-270)}deg;animation-delay:${(Math.random()*.06).toFixed(2)}s"></i>`;}
+  jfx(x,y,'jps',h,1100);}
+function jCell(){const b=$('boardIn');return b?b.clientWidth/15:26;}
+function pwFlash(k,c){const T={gallop:['🐎','GALLOP!','7 steps instead of 6'],leap:['🍌','MONKEY LEAP!','3 steps instead of 1'],fly:['🦅','FLY!','Double move – once per game'],dash:['⚡','CHEETAH DASH!','+1 bonus step'],
+    roar:['👑','ROAR!','Sher breaks the safe star'],sting:['🦂','STINGER!','Hits the square ahead'],shield:['🛡️','SHIELD!','Haathi survives the attack'],camo:['🌿','CAMOUFLAGE!','Hidden croc can’t be captured'],poison:['🧪','VENOM!','Next 6 gives no extra roll']}[k];
+  if(!T)return;const bw=$('boardWrap');bw.querySelectorAll('.pwf').forEach(e=>e.remove());const e=document.createElement('div');e.className='pwf';e.style.setProperty('--pc',HEX[c]||'#ffd21a');
+  e.innerHTML=`<span class="pwi">${T[0]}</span><b>${T[1]}</b><small>${T[2]}</small>`;bw.appendChild(e);jRestart(bw,'pwring');setTimeout(()=>{e.remove();bw.classList.remove('pwring');},1500);jsfx.power();}
+function jStepFx(el,an,pos){const jz=el.querySelector('.jz');if(jz)jRestart(jz,'st');jsfx.step(an);
+  if(an==='haathi')jParticles(pos.x,pos.y+.3,'dust',6,false);}
+async function animMoveJ(mv){
+  const S=App.lastQueued||App.view||{seats:[]},an=jValidA(mv.an)||animalOf(S,mv.color)||'sher',el=$(`t-${mv.color}-${mv.i}`);if(!el)return;
+  const evs=mv.pw||[],has=k=>evs.some(e=>e.k===k);
+  el.classList.add('moving');el.classList.remove('mv','camo');el.dataset.an=an;
+  for(const k of ['gallop','leap','fly','dash'])if(has(k)){pwFlash(k,mv.color);await sleep(k==='fly'?420:300);}
+  const steps=[];if(mv.from===-1)steps.push(0);else for(let p=mv.from+1;p<=mv.to;p++)steps.push(p);
+  const caps=mv.captured||[],landKill=caps.some(c=>c.by!=='sting');
+  const ms=has('fly')?110:(STEP_MS[an]||150),fly=an==='cheel';
+  el.style.setProperty('--sd',ms+'ms');el.style.setProperty('--sdt',Math.round(ms*.85)+'ms');el.classList.add('mvg-'+an);
+  if(fly){el.classList.add('flying');jsfx.flap();await sleep(170);}
+  let prev=tokXY(mv.color,mv.i,mv.from);
+  for(let k=0;k<steps.length;k++){const pos=tokXY(mv.color,mv.i,steps[k]),last=k===steps.length-1;let tx=pos.x,ty=pos.y;
+    if(last&&landKill){tx=prev.x+(pos.x-prev.x)*.42;ty=prev.y+(pos.y-prev.y)*.42;}
+    el.style.setProperty('--dx',pos.x>=prev.x?1:-1);el.style.setProperty('--ang',Math.atan2(pos.y-prev.y,pos.x-prev.x).toFixed(3)+'rad');
+    placeTok(el,tx,ty,1,300);jStepFx(el,an,pos);if(fly&&k%2===1)jsfx.flap();await sleep(ms);prev=pos;}
+  if(fly){el.classList.remove('flying');await sleep(170);}
+  el.classList.remove('mvg-'+an);
+  const dest=tokXY(mv.color,mv.i,mv.to);
+  if(has('camo')){pwFlash('camo',(evs.find(e=>e.k==='camo')||{}).c);jParticles(dest.x,dest.y,'leaf',10,false);await sleep(500);}
+  if(caps.length)await jKill(mv,an,el,evs);
+  else if((mv.saved||[]).length){await jAttack(el,an,dest,dest,false);jShield(mv.saved);await sleep(650);placeTok(el,dest.x,dest.y,1,300);}
+  else if(mv.to===HOME){const f=FIN[mv.color];jRestart(el,'vhop');jParticles(f[0],f[1],'leaf',12,false);burst(f[0],f[1],'#ffd23f','⭐',14);sfx.home();await sleep(760);}
+  else if(mv.to<=50&&mv.from!==-1&&SAFE.has((START[mv.color]+mv.to)%52)){await jPose(el,an,dest);}
+  if(caps.length&&(mv.saved||[]).length){jShield(mv.saved);await sleep(500);}
+  if(has('poison'))pwFlash('poison',mv.color);
+  el.classList.remove('moving');}
+function jShield(saved){for(const sv of saved){const e=$(`t-${sv.color}-${sv.i}`);if(!e)continue;jRestart(e,'shpop');const p=tokXY(sv.color,sv.i,sv.from!=null?sv.from:0);}
+  if(saved.length){pwFlash('shield',saved[0].color);jsfx.shield();}}
+async function jAttack(el,an,cur,tgt,sting){const cp=jCell(),dx=(tgt.x-cur.x)*cp,dy=(tgt.y-cur.y)*cp;
+  el.style.setProperty('--ax',(sting?dx*.35:dx*.9).toFixed(1)+'px');el.style.setProperty('--ay',(sting?dy*.35:dy*.9).toFixed(1)+'px');
+  el.dataset.atk=an;jRestart(el,'atk');jsfx.roar(an,.8);jAttackFx(an,tgt,cur);await sleep(430);}
+function jAttackFx(an,t,cur){
+  const svg=(vb,body)=>`<svg viewBox="${vb}" class="jsv">${body}</svg>`;
+  switch(an){
+    case 'sher':jfx(t.x,t.y-.25,'jslash',svg('-1 -1 2 2','<path d="M-.7 -.75L.45 .6"/><path d="M-.4 -.85L.75 .5"/><path d="M-.9 -.5L.2 .8"/>'),1300);break;
+    case 'bhaalu':jfx(t.x,t.y-.25,'jslash arc',svg('-1 -1 2 2','<path d="M-.8 -.6Q0 -.1 .7 .7"/><path d="M-.5 -.85Q.25 -.3 .9 .4"/><path d="M-.95 -.25Q-.2 .2 .35 .9"/>'),1300);break;
+    case 'magarmachh':jfx(t.x,t.y-.3,'jchomp','<i class="u"></i><i class="d"></i>',900);break;
+    case 'saanp':jfx(t.x,t.y-.3,'jbite','<i></i><i></i>',900);break;
+    case 'bichhu':jfx(t.x,t.y-.3,'jzap',svg('-1 -1 2 2','<path d="M-.15 -.9L.2 -.15L-.1 -.1L.18 .85L-.3 .05L0 0Z"/>'),800);break;
+    case 'haathi':jfx(t.x,t.y-.1,'jfoot',svg('-1 -1 2 2','<ellipse cx="0" cy=".1" rx=".75" ry=".62"/><circle cx="-.5" cy="-.55" r=".2"/><circle cx="0" cy="-.68" r=".2"/><circle cx=".5" cy="-.55" r=".2"/>'),900);break;
+    case 'ghoda':jfx(t.x,t.y-.3,'jpow',svg('-1 -1 2 2',`<polygon points="${jSpikes(0,0,1,.5,9)}"/>`),800);break;
+    case 'bandar':jfx(t.x,t.y-.3,'jstick','<i></i>',800);break;
+    case 'cheel':jfx(t.x,t.y-.3,'jslash talon',svg('-1 -1 2 2','<path d="M-.45 -.9L-.3 .6"/><path d="M0 -.95L0 .7"/><path d="M.45 -.9L.3 .6"/>'),1300);break;
+    case 'cheetah':jfx(t.x,t.y-.3,'jspeed','<i></i><i></i><i></i><i></i>',800);break;}}
+async function jKill(mv,an,el,evs){
+  const dest=tokXY(mv.color,mv.i,mv.to),caps=mv.captured,sting=caps.every(c=>c.by==='sting');
+  const vict=caps.map(cp=>({cp,el:$(`t-${cp.color}-${cp.i}`),pos:tokXY(cp.color,cp.i,cp.from)})).filter(v=>v.el);
+  const tgt=vict.length?vict[0].pos:dest;
+  if(evs.some(e=>e.k==='roar')){pwFlash('roar',mv.color);jfx(dest.x,dest.y-.4,'jring','<i></i><i></i><i></i>',1000);jsfx.roar('sher',1);await sleep(520);}
+  if(evs.some(e=>e.k==='sting')){pwFlash('sting',mv.color);await sleep(250);}
+  const cur=sting?dest:{x:dest.x-(dest.x-tgt.x)*0,y:dest.y};
+  await jAttack(el,an,sting?dest:cur,tgt,sting);
+  if(!sting)placeTok(el,dest.x,dest.y,1,320);
+  // impact
+  const fx=$('fx');const fl=document.createElement('div');fl.className='jflash';fl.style.setProperty('--fx',(tgt.x/15*100)+'%');fl.style.setProperty('--fy',(tgt.y/15*100)+'%');fx.appendChild(fl);setTimeout(()=>fl.remove(),420);
+  jfx(tgt.x,tgt.y-.3,'jimp','',600);jfx(Math.min(13.1,Math.max(1.9,tgt.x)),(tgt.y<2.2?tgt.y+1.5:tgt.y-1.45),'jword',`<b>${(ANIMALS[an]||{}).word||'POW!'}</b>`,1000);
+  const bw=$('boardWrap');jRestart(bw,'shake2');setTimeout(()=>bw.classList.remove('shake2'),520);
+  jParticles(tgt.x,tgt.y-.2,PARTICLE[an]||'dust',18);jsfx.impact();try{navigator.vibrate&&navigator.vibrate([60,40,120])}catch(e){}
+  const pv=tokXY(mv.color,mv.i,Math.max(0,mv.to-1));let kx=dest.x-pv.x,ky=dest.y-pv.y;const kl=Math.hypot(kx,ky)||1;kx/=kl;ky/=kl;
+  for(const v of vict){v.el.classList.remove('mv');v.el.classList.add('ko');v.el.style.transition='left .22s ease-out,top .22s ease-out';{let sx=-ky,sy=kx;if(v.pos.x+sx*.6<.6||v.pos.x+sx*.6>14.4||v.pos.y+sy*.6<.6||v.pos.y+sy*.6>14.4){sx=-sx;sy=-sy;}placeTok(v.el,v.pos.x+kx*.3+sx*.62,v.pos.y+ky*.3+sy*.62,1,340);}setTimeout(()=>{v.el.style.transition='';},260);if(!v.el.querySelector('.dz'))v.el.insertAdjacentHTML('beforeend','<span class="dz"><i>★</i><i>✦</i><i>★</i></span>');}
+  await sleep(560);
+  jsfx.whoosh();
+  for(const v of vict){const yp=tokXY(v.cp.color,v.cp.i,-1);v.el.classList.add('tossed');placeTok(v.el,yp.x,yp.y,1,260);}
+  el.classList.remove('atk');
+  await sleep(780);
+  for(const v of vict){v.el.classList.remove('ko','tossed');const dz=v.el.querySelector('.dz');if(dz)dz.remove();}}
+async function jPose(el,an,pos){jRestart(el,'pose');jfx(pos.x,pos.y,'jaura','<i></i>',1200);
+  if(an==='sher')jfx(pos.x,pos.y-.45,'jring','<i></i><i></i><i></i>',1000);
+  jsfx.aura();jsfx.roar(an,.55);await sleep(880);el.classList.remove('pose');}
+function jWinFx(s){const c=s.rank[0],a=animalOf(s,c);if(a)setTimeout(()=>jsfx.roar(a,1),650);}
 
 /* ================= BOARD RENDER ================= */
 function starPts(cx,cy,R,r){const p=[];for(let k=0;k<10;k++){const a=-Math.PI/2+k*Math.PI/5,q=k%2?r:R;p.push((cx+q*Math.cos(a)).toFixed(3)+','+(cy+q*Math.sin(a)).toFixed(3));}return p.join(' ');}
@@ -1036,8 +1792,8 @@ function placeTok(el,x,y,scale,z){el.style.left=((x-.495)/15*100)+'%';el.style.t
 function hop(el){const tb=el.querySelector('.tb');if(!tb)return;tb.classList.remove('hop');void tb.offsetWidth;tb.classList.add('hop');}
 function buildTokens(){const box=$('tokens');box.innerHTML='';
   for(const c of COLORS)for(let i=0;i<4;i++){const el=document.createElement('div');el.className='tok';el.id=`t-${c}-${i}`;
-    el.innerHTML=`<span class="sd"></span><span class="rg"></span><div class="tb">${pinSVG(c)}</div>`;el.style.display='none';el.addEventListener('click',()=>onTokenTap(c,i));box.appendChild(el);}}
-function legal(S,color,d){const r=[];(S.tokens[color]||[]).forEach((p,i)=>{if(p===-1){if(d===6)r.push(i);}else if(p<HOME&&p+d<=HOME)r.push(i);});return r;}
+    el.innerHTML=`<span class="sd"></span><span class="rg"></span><span class="spd"></span><div class="tb">${pinSVG(c)}</div>`;el.style.display='none';el.addEventListener('click',()=>onTokenTap(c,i));box.appendChild(el);}}
+function legal(S,color,d){const r=[],bear=pwAn(S,color)==='bhaalu';(S.tokens[color]||[]).forEach((p,i)=>{if(p===-1){if(d===6||(bear&&d===5))r.push(i);}else if(p<HOME&&p+d<=HOME)r.push(i);});return r;}
 function controls(color){
   if(App.role==='guest')return color===App.myColor;
   const s=App.S&&App.S.seats.find(x=>x.color===color);return !!s&&s.clientId==='me';
@@ -1051,7 +1807,7 @@ function renderTokens(s){
   for(const k in groups){const g=groups[k],offs=STACK[Math.min(g.length,4)]||STACK[4],sc=g.length===1?1:(g.length===2?.78:.62);
     g.forEach((o,j)=>{const el=$(`t-${o.c}-${o.i}`);el.style.display='block';const off=offs[j%4];
       const isMv=o.c===s.turn&&mv.includes(o.i),y=o.pos.y+off[1];
-      placeTok(el,o.pos.x+off[0],y,sc,(isMv?100:10)+Math.round(y*4));el.classList.toggle('mv',isMv);el.classList.remove('moving','dead');});}
+      placeTok(el,o.pos.x+off[0],y,sc,(isMv?100:10)+Math.round(y*4));el.classList.toggle('mv',isMv);el.classList.remove('moving','dead');jTokState(s,el,o.c,o.i);});}
 }
 const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
 const FACE_ROT={1:[0,0],2:[-90,0],3:[0,-90],4:[0,90],5:[90,0],6:[0,180]},DSP={x:0,y:0};
@@ -1065,19 +1821,19 @@ function moveDice(color){const d=$('dice'),card=color&&$('pc-'+color);if(!card)r
 function buildCards(){for(const c of COLORS){const el=$('pc-'+c);el.style.setProperty('--pc',HEX[c]);el.dataset.c=c;
   el.innerHTML=`<div class="av"><i class="ring"></i><i class="vring"></i><span class="emo"></span><span class="medal"></span></div><span class="spkBtn" role="button" aria-label="mute this player">🔊</span><div class="pinfo"><div class="pn"></div><div class="pt"></div><div class="pcn"><i class="coin"></i><span class="cv">0</span></div><div class="pdots">${'<b></b>'.repeat(4)}</div></div><div class="dslot"></div>`;}}
 function renderGame(s){
-  const AV=avMap(s.seats);
+  applyTheme(s.theme);refreshTokArt(s);const AV=avMap(s.seats);
   for(const c of COLORS){const el=$('pc-'+c),seat=s.seats.find(x=>x.color===c);
     el.classList.toggle('empty',!seat);if(!seat){el.classList.remove('turn');continue;}
     const rk=s.rank.indexOf(c);
     el.classList.toggle('turn',s.turn===c&&s.phase==='playing');el.classList.toggle('off',!seat.connected);el.classList.toggle('done',rk>=0);
     const tags=[];if(controls(c)&&App.role!=='local')tags.push('YOU');if(seat.isHost)tags.push('HOST');if(!seat.connected)tags.push('⚠ offline');
     el.querySelector('.pn').textContent=seat.name;
-    el.querySelector('.pt').innerHTML=tags.map(t=>`<span class="tag">${t}</span>`).join('');
-    el.querySelector('.emo').textContent=AV[c];
+    el.querySelector('.pt').innerHTML=jPwTag(s,c)+tags.map(t=>`<span class="tag">${t}</span>`).join('');
+    jEmo(el.querySelector('.emo'),s,c,AV[c]);
     el.querySelector('.medal').textContent=rk>=0?['🥇','🥈','🥉','4️⃣'][rk]:'';
     el.querySelector('.cv').textContent=fmt((s.coins||{})[c]);el.querySelector('.pcn').style.display=s.coins?'flex':'none';
     const home=(s.tokens[c]||[]).filter(p=>p===HOME).length;el.querySelectorAll('.pdots b').forEach((b,k)=>b.classList.toggle('on',k<home));}
-  renderTokens(s);
+  renderTokens(s);jBadge(s);
   $('potBar').style.display=(s.pot>0&&s.potBets)?'flex':'none';$('potAmt').textContent=fmt(s.pot);
   $('potRule').textContent=s.phase==='over'&&s.settled?'Paid out!':splitText(s.split);
   if(s.phase!=='over')App.payAnim=false;
@@ -1108,12 +1864,13 @@ async function present(prev,s){
   if(s.phase==='lobby'){App.view=s;if(App.screen!=='scrLobby'){closeModal();showScreen('scrLobby');}renderLobby(s);return;}
   if(App.screen!=='scrGame'){showScreen('scrGame');closeModal();}
   else if(s.phase==='playing'&&App.view&&App.view.phase==='over')closeModal();
+  applyTheme(s.theme);refreshTokArt(s);
   const animate=prev&&prev.phase==='playing'&&App.animPending<=2&&!App.fast;
   if(animate&&s.dice&&(!prev.dice||prev.dice.id!==s.dice.id)){await animDice(s.dice,prev);}
-  if(animate&&s.lastMove&&(!prev.lastMove||prev.lastMove.id!==s.lastMove.id)){await animMove(s.lastMove);}
+  if(animate&&s.lastMove&&(!prev.lastMove||prev.lastMove.id!==s.lastMove.id)){await (s.theme==='jungle'?animMoveJ(s.lastMove):animMove(s.lastMove));}
   const wasMine=App.view&&App.view.phase==='playing'&&controls(App.view.turn);
   App.view=s;renderGame(s);
-  if(prev&&prev.phase==='playing'&&s.phase==='over'){confetti(5000);sfx.win();if(s.payout)setTimeout(()=>coinShower(s.payout),500);}
+  if(prev&&prev.phase==='playing'&&s.phase==='over'){confetti(5000);sfx.win();if(s.theme==='jungle')jWinFx(s);if(s.payout)setTimeout(()=>coinShower(s.payout),500);}
   else if(prev&&prev.phase==='playing'&&s.phase==='playing'&&s.rank.length>(prev.rank||[]).length){confetti(2500);sfx.home();}
   if(s.phase==='playing'&&controls(s.turn)&&!wasMine&&App.role!=='local'){try{navigator.vibrate&&navigator.vibrate(120)}catch(e){}sfx.turn();}
 }
@@ -1142,13 +1899,13 @@ function seatOf(color){return App.S.seats.find(x=>x.color===color);}
 function ordered(S){return COLORS.map(c=>S.seats.find(x=>x.color===c)).filter(Boolean);}
 function pub(S){
   const p=JSON.parse(JSON.stringify(S));
-  p.seats=S.seats.map(x=>({color:x.color,name:x.name,connected:!!x.connected,vp:x.vp==='f'?'f':'m',pid:x.connected&&x.pid||null,mic:!!(x.connected&&x.mic),isHost:App.role==='host'&&x.clientId==='me'}));
+  p.seats=S.seats.map(x=>({color:x.color,name:x.name,connected:!!x.connected,vp:x.vp==='f'?'f':'m',pid:x.connected&&x.pid||null,mic:!!(x.connected&&x.mic),isHost:App.role==='host'&&x.clientId==='me',animal:jValidA(x.animal)}));
   delete p.sixes;
   p.pending=[];if(App.role==='host'&&S.phase==='lobby'){for(const [cid,g] of App.conns)if(!S.seats.find(x=>x.clientId===cid))p.pending.push(g.name);}
   return p; // NOTE: contains only public game data – never any dice-control info
 }
 function commit(){
-  const S=App.S;syncCoins(S);syncVoice(S);S.seq++;
+  const S=App.S;syncCoins(S);syncVoice(S);ensureAnimals(S);S.seq++;
   const P=pub(S);
   if(App.role==='host'){LS.set('ludo-host',{code:App.code,S,name:App.myName,ts:Date.now()});
     for(const [cid,g] of App.conns){const seat=S.seats.find(x=>x.clientId===cid);sendTo(g.conn,{t:'state',s:P,you:seat?seat.color:null});}}
@@ -1160,10 +1917,10 @@ function startGame(){
   potStart(S);
   S.phase='playing';S.tokens={};for(const x of S.seats)S.tokens[x.color]=[-1,-1,-1,-1];
   const os=ordered(S);S.turn=os[rollDie()%os.length].color;
-  Object.assign(S,{rank:[],dice:null,awaiting:false,locked:false,sixes:0,lastMove:null});
+  Object.assign(S,{rank:[],dice:null,awaiting:false,locked:false,sixes:0,lastMove:null});S.pw={used:{},poison:{},rest:{},mv:{}};
   S.msg=`${seatOf(S.turn).name} starts`;commit();
 }
-function advance(S){const alive=ordered(S).filter(x=>!S.rank.includes(x.color));if(!alive.length)return;
+function advance(S){jRest(S);const alive=ordered(S).filter(x=>!S.rank.includes(x.color));if(!alive.length)return;
   const idx=COLORS.indexOf(S.turn);for(let k=1;k<=4;k++){const c=COLORS[(idx+k)%4];if(alive.find(x=>x.color===c)){S.turn=c;break;}}
   S.sixes=0;S.awaiting=false;S.locked=false;}
 function passTurn(expectRoll){const S=App.S;if(S.phase!=='playing'||S.rollId!==expectRoll)return;advance(S);S.msg=`${seatOf(S.turn).name}'s turn`;commit();}
@@ -1172,28 +1929,43 @@ function doRoll(cid){
   const seat=seatOf(S.turn);if(!seat||seat.clientId!==cid)return;
   const forced=Admin.take(S.turn);const v=forced!=null?forced:rollDie();
   S.rollId++;S.dice={v,id:S.rollId,color:S.turn};
-  S.sixes=v===6?S.sixes+1:0;
+  let venom=false;if(v===6&&pwOn(S)&&S.pw&&S.pw.poison&&S.pw.poison[S.turn]){delete S.pw.poison[S.turn];venom=true;S.dice.poison=1;}
+  S.sixes=v===6&&!venom?S.sixes+1:0;
   const rid_=S.rollId;
   if(S.sixes>=3&&forced==null){S.locked=true;S.msg=`${seat.name} rolled three 6s – turn lost`;commit();setTimeout(()=>passTurn(rid_),D(1500));return;}
   const L=legal(S,S.turn,v);
   if(!L.length){S.locked=true;S.msg=`${seat.name} rolled ${v} – no move`;commit();setTimeout(()=>passTurn(rid_),D(1500));return;}
-  S.awaiting=true;S.msg=`${seat.name} rolled ${v}`;commit();
-  if(new Set(L.map(i=>S.tokens[S.turn][i])).size===1){const who=seat.clientId;setTimeout(()=>{if(S.rollId===rid_&&S.awaiting)doMove(who,L[0]);},D(1100));}
+  S.awaiting=true;S.msg=venom?`🧪 ${seat.name} rolled 6 – venom: no bonus roll`:`${seat.name} rolled ${v}`;commit();
+  if(new Set(L.map(i=>S.tokens[S.turn][i])).size===1&&moveOpts(S,S.turn,L[0],v).length===1){const who=seat.clientId;setTimeout(()=>{if(S.rollId===rid_&&S.awaiting)doMove(who,L[0]);},D(1100));}
 }
-function doMove(cid,i){
+function doMove(cid,i,n){
   const S=App.S;if(!S||S.phase!=='playing'||!S.awaiting)return;
   const color=S.turn,seat=seatOf(color);if(!seat||seat.clientId!==cid)return;
   const d=S.dice.v;if(!legal(S,color,d).includes(i))return;
-  const from=S.tokens[color][i],to=from===-1?0:from+d;S.tokens[color][i]=to;
-  const captured=[];
-  if(to<=50){const abs=(START[color]+to)%52;
-    if(!SAFE.has(abs))for(const c of Object.keys(S.tokens)){if(c===color)continue;
-      S.tokens[c].forEach((p,j)=>{if(p>=0&&p<=50&&(START[c]+p)%52===abs){captured.push({color:c,i:j,from:p});S.tokens[c][j]=-1;}});}}
-  S.moveId++;S.lastMove={id:S.moveId,color,i,from,to,captured};S.awaiting=false;
-  let extra=d===6||captured.length>0||to===HOME;
-  let msg=`${seat.name} moved ${d}`;
+  const from=S.tokens[color][i],opts=moveOpts(S,color,i,d),an=pwAn(S,color),evs=[];let steps=opts[0];
+  if(n!=null&&opts.includes(n)&&n!==d){steps=n;evs.push({k:an==='ghoda'?'gallop':an==='bandar'?'leap':'fly',c:color});if(an==='cheel')pwUse(S,color,'fly');}
+  let to=from===-1?0:from+steps;
+  if(an==='cheetah'&&from>=0&&to+1<=HOME&&pwRand()<.15){to++;evs.push({k:'dash',c:color});}
+  S.tokens[color][i]=to;
+  const captured=[],saved=[],pw=pwOn(S);
+  const foes=abs=>{const f=[];for(const c of Object.keys(S.tokens)){if(c===color)continue;S.tokens[c].forEach((p,j)=>{if(p>=0&&p<=50&&(START[c]+p)%52===abs)f.push([c,j,p]);});}return f;};
+  const hit=(abs,by)=>{for(const [c,j,p] of foes(abs)){
+    if(pw&&camoOn(S,c,j)){evs.push({k:'camo',c,i:j});continue;}
+    if(pwAn(S,c)==='haathi'&&!pwUsed(S,c,'shield')){pwUse(S,c,'shield');saved.push({color:c,i:j,from:p});evs.push({k:'shield',c,i:j});continue;}
+    captured.push({color:c,i:j,from:p,by});S.tokens[c][j]=-1;if(S.pw&&S.pw.rest&&S.pw.rest[c])S.pw.rest[c][j]=0;}};
+  if(to<=50){const abs=(START[color]+to)%52,starts=Object.values(START);
+    if(!SAFE.has(abs))hit(abs,'land');
+    else if(an==='sher'&&!pwUsed(S,color,'roar')&&!starts.includes(abs)&&foes(abs).length){pwUse(S,color,'roar');evs.push({k:'roar',c:color});hit(abs,'roar');}
+    if(an==='bichhu'&&!pwUsed(S,color,'sting')&&to+1<=50){const a2=(abs+1)%52;if(!SAFE.has(a2)&&foes(a2).some(([c,j])=>!camoOn(S,c,j))){pwUse(S,color,'sting');evs.push({k:'sting',c:color});hit(a2,'sting');}}}
+  if(an==='saanp'&&captured.length){const pw_=pwS(S);for(const c of new Set(captured.map(x=>x.color))){pw_.poison[c]=1;evs.push({k:'poison',c});}}
+  if(pw&&animalOf(S,color)==='magarmachh'){const p_=pwS(S);(p_.rest[color]=p_.rest[color]||[0,0,0,0])[i]=0;(p_.mv[color]=p_.mv[color]||[0,0,0,0])[i]=1;}
+  S.moveId++;S.lastMove={id:S.moveId,color,i,from,to,captured,an:animalOf(S,color)};if(saved.length)S.lastMove.saved=saved;if(evs.length)S.lastMove.pw=evs;S.awaiting=false;
+  let extra=(d===6&&!S.dice.poison)||captured.length>0||to===HOME;
+  let msg=`${seat.name} moved ${steps}`;
   if(captured.length)msg=`💥 ${seat.name} cut ${[...new Set(captured.map(c=>seatOf(c.color).name))].join(', ')}!`;
   else if(to===HOME)msg=`🏠 ${seat.name}'s token reached home!`;
+  const ek=evs.map(e=>e.k),PM={roar:'👑 ROAR! ',sting:'🦂 STINGER! ',fly:'🦅 FLY! ',gallop:'🐎 GALLOP! ',leap:'🍌 LEAP! ',dash:'⚡ DASH! ',shield:'🛡️ SHIELD! ',camo:'🌿 CAMOUFLAGE! '};
+  const pre=Object.keys(PM).filter(k=>ek.includes(k)).map(k=>PM[k]).join('');if(pre)msg=pre+msg;
   if(S.tokens[color].every(p=>p===HOME)&&!S.rank.includes(color)){
     S.rank.push(color);msg=`🏆 ${seat.name} finished #${S.rank.length}!`;extra=false;
     const alive=ordered(S).filter(x=>!S.rank.includes(x.color));
@@ -1234,6 +2006,7 @@ function renderAdmin(){
       <div class="abtns">${btn(0,'🎲')}${[1,2,3,4,5,6].map(v=>btn(v,v)).join('')}</div>
       <label class="muted"><input type="checkbox" data-al="${seat.color}" ${f&&f.always?'checked':''} style="width:auto"> keep for every roll</label></div>`;}).join('');
   modal(`<div id="adminPanel" style="display:flex;flex-direction:column;gap:10px"><h2>⚙️ Dice control</h2>
+    ${jAdminHTML()}
     <div class="muted">Only on this device. Other players just see a normal roll. 🎲 = random.</div>${rows||'<div class="muted">No players yet.</div>'}
     ${coinAdminHTML()}
     <div class="row"><button class="alt" id="apChg" style="flex:1">Change PIN</button><button class="green" id="apClose" style="flex:1">Close</button></div></div>`);
@@ -1241,7 +2014,7 @@ function renderAdmin(){
     const al=$('ovBox').querySelector(`input[data-al="${c}"]`).checked;if(!v)delete Admin.force[c];else Admin.force[c]={v,always:al};renderAdmin();});
   $('ovBox').querySelectorAll('input[data-al]').forEach(cb=>cb.onchange=()=>{const f=Admin.force[cb.dataset.al];if(f){f.always=cb.checked;renderAdmin();}});
   $('apClose').onclick=()=>{closeModal();if(App.view&&App.view.phase==='over')showGameOver(App.view);};
-  bindCoinAdmin();
+  bindCoinAdmin();jBindAdmin();
   $('apChg').onclick=()=>{const p=prompt('New PIN (4-8 digits):');if(p&&/^\d{4,8}$/.test(p)){LS.set('ludo-apin',p);toast('PIN changed');}else if(p)toast('PIN must be 4-8 digits');};
 }
 
@@ -1250,7 +2023,7 @@ function sendTo(conn,m){try{if(conn&&conn.open)conn.send(m);}catch(e){}}
 function peerReady(cb){if(window.Peer)return cb();let done=false;const f=()=>{if(!done&&window.Peer){done=true;cb();}};
   window.addEventListener('peerjs-ready',f,{once:true});setTimeout(()=>{f();if(!done)toast('Could not load online library. Check internet.',4000);},6000);}
 function hostCreate(){
-  App.role='host';App.code=rid(5);App.S=newState();App.S.code=App.code;
+  App.role='host';App.code=rid(5);App.S=newState();App.S.code=App.code;App.S.theme=jPref();App.S.powers=false;
   pickColor('me',null);showScreen('scrLobby');openHostPeer(0);startHeartbeat();
 }
 function hostResume(saved){
@@ -1287,7 +2060,7 @@ function hostMsg(conn,m){
   if(m.t==='hello'){
     const cid=String(m.clientId||'').slice(0,40),name=cleanName(m.name);if(!cid||cid==='me'||!name)return;
     conn._cid=cid;const old=App.conns.get(cid);if(old&&old.conn!==conn){old.conn._replaced=true;try{old.conn.close()}catch(e){}}
-    App.conns.set(cid,{conn,name,lastSeen:Date.now(),vp:m.vp==='f'?'f':'m',mic:!!m.mic});
+    App.conns.set(cid,{conn,name,lastSeen:Date.now(),vp:m.vp==='f'?'f':'m',mic:!!m.mic,animal:jValidA(m.animal)});
     let seat=S.seats.find(x=>x.clientId===cid);
     if(!seat&&S.phase!=='lobby'){const nm=name.toLowerCase(),cands=S.seats.filter(x=>!x.connected&&x.clientId!=='me'&&x.name.toLowerCase()===nm);
       seat=cands.find(x=>x.color===m.color)||cands[0];if(seat)seat.clientId=cid;}
@@ -1305,7 +2078,8 @@ function hostMsg(conn,m){
     case 'pong':break;
     case 'pick':pickColor(cid,m.color);break;
     case 'roll':doRoll(cid);break;
-    case 'move':doMove(cid,m.i|0);break;
+    case 'move':doMove(cid,m.i|0,m.n==null?null:m.n|0);break;
+    case 'animal':setAnimal(cid,m.a);break;
     case 'bet':setBet(cid,m.amount);break;
     case 'chat':hostChat(cid,m,false);break;
     case 'vp':g.vp=m.vp==='f'?'f':'m';commit();break;
@@ -1349,7 +2123,7 @@ window.addEventListener('pagehide',()=>{if(App.role==='host')for(const g of App.
 
 /* ================= GUEST NETWORKING ================= */
 function guestJoin(code,name){
-  App.role='guest';App.code=code.toUpperCase();App.myName=name;App.myId=getCid();App.left=false;App.everConnected=false;App.retryStart=null;
+  App.role='guest';App.code=code.toUpperCase();App.myName=name;if(!App.myAnimal)App.myAnimal=jDefAnimal(name);App.myId=getCid();App.left=false;App.everConnected=false;App.retryStart=null;
   const prev=LS.get('ludo-guest',{});
   LS.set('ludo-guest',{code:App.code,name,color:prev.code===App.code?prev.color:null,ts:Date.now()});
   $('roomTag').textContent='Room '+App.code;
@@ -1371,7 +2145,7 @@ function connectHost(){
   if(App.left)return;const conn=App.peer.connect(CFG.PEER_PREFIX+App.code,{reliable:true});App.hostConn=conn;let opened=false;
   setTimeout(()=>{if(!opened&&App.hostConn===conn){App.hostConn=null;try{conn.close()}catch(e){}guestConnFailed();}},10000);
   conn.on('open',()=>{opened=true;App.lastHostMsg=Date.now();App.retryStart=null;setNet('online');$('banner').style.display='none';
-    const g=LS.get('ludo-guest',{});conn.send({t:'hello',clientId:App.myId,name:App.myName,color:g.color||null,vp:curVp(),mic:!!LV.micOn});});
+    const g=LS.get('ludo-guest',{});conn.send({t:'hello',clientId:App.myId,name:App.myName,color:g.color||null,vp:curVp(),mic:!!LV.micOn,animal:App.myAnimal||null});});
   conn.on('data',d=>{if(App.hostConn===conn)guestMsg(d);});
   conn.on('close',()=>{if(App.hostConn===conn){App.hostConn=null;if(opened)guestConnFailed();}});
 }
@@ -1428,12 +2202,12 @@ function renderLobbyShare(){
   if(isHost){$('lobLink').textContent=shareLink();$('fileWarn').style.display=location.protocol==='file:'?'block':'none';}
 }
 function renderLobby(s){
-  renderLobbyShare();
+  renderLobbyShare();if(s.theme!==undefined)applyTheme(s.theme);
   const isHost=App.role==='host';const myColor=isHost?(App.S.seats.find(x=>x.clientId==='me')||{}).color:App.myColor;
   const box=$('slots');box.innerHTML='';const AV=avMap(s.seats);
   for(const c of COLORS){const seat=s.seats.find(x=>x.color===c);const el=document.createElement('div');
     el.className=`slot bg-${c}`+(seat?'':' free')+(c===myColor?' mine':'');
-    if(seat){el.innerHTML=`<div class="sav">${AV[c]}<i class="vring"></i></div><span class="spkBtn" data-spk="${c}" role="button">🔊</span><div class="sinfo"><div class="nm">${esc(seat.name)}</div><div class="scoin"><i class="coin"></i>${fmt((s.coins||{})[c])} · ${(s.bets||{})[c]!=null?'Bet '+fmt(s.bets[c]):'No bet yet'}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':'<span class="badge">offline</span>'}</div></div>`+
+    if(seat){el.innerHTML=`<div class="sav">${jSav(s,c,AV[c])}<i class="vring"></i></div><span class="spkBtn" data-spk="${c}" role="button">🔊</span><div class="sinfo"><div class="nm">${esc(seat.name)}</div><div class="scoin"><i class="coin"></i>${fmt((s.coins||{})[c])} · ${(s.bets||{})[c]!=null?'Bet '+fmt(s.bets[c]):'No bet yet'}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':'<span class="badge">offline</span>'}</div></div>`+
       (isHost&&!seat.isHost?`<span class="x" data-k="${c}">✕</span>`:'');}
     else el.innerHTML=`<div class="sav empty">+</div><div class="sinfo"><div class="nm">${CNAME[c]}</div><div class="tp">Tap to pick</div></div>`;
     el.onclick=ev=>{if(ev.target.dataset.k){kickSeat(ev.target.dataset.k);ev.stopPropagation();return;}
@@ -1443,7 +2217,7 @@ function renderLobby(s){
   renderSpk();
   $('lobPending').textContent=s.pending&&s.pending.length?('Choosing color: '+s.pending.join(', ')):'';
   $('lobHead').textContent=myColor?'Players (tap a free color to switch)':'Pick your color';
-  renderBets(s,myColor,isHost);
+  renderBets(s,myColor,isHost);jLobby(s,myColor,isHost);
   const n=s.seats.length;
   $('btnStart').style.display=isHost?'block':'none';$('btnStart').disabled=n<2;
   $('lobStatus').textContent=isHost?(n<2?'Share the link – waiting for at least 1 more player…':`${n} players ready. Press Start when everyone has joined.`)
@@ -1461,20 +2235,20 @@ $('dice').addEventListener('click',()=>{const s=App.view;if(!s||s.phase!=='playi
   if(App.role==='guest'){if(App.rollSentSeq===s.seq)return;App.rollSentSeq=s.seq;sendHost({t:'roll'});$('dice').classList.remove('can');}
   else doRoll(App.S.seats.find(x=>x.color===s.turn).clientId);});
 function onTokenTap(c,i){const s=App.view;if(!s||!s.awaiting||s.turn!==c||!controls(c))return;
-  if(App.role==='guest'){sendHost({t:'move',i});$(`t-${c}-${i}`).classList.remove('mv');}else doMove(seatOf(c).clientId,i);}
+  if(!legal(s,c,s.dice.v).includes(i))return;const o=moveOpts(s,c,i,s.dice.v);if(o.length>1)return chooseSteps(c,i,o);sendMove(c,i,null);}
 $('btnSkip').onclick=()=>{if(App.role==='host'&&confirm('Skip this offline player\'s turn?'))skipTurn();};
 function showGameOver(s){
   const medals=['🥇','🥈','🥉','4️⃣'],AV=avMap(s.seats);
   const list=s.rank.map((c,k)=>{const seat=s.seats.find(x=>x.color===c),nm=seat?seat.name:c;
     const pay=(s.payout||{})[c]||0,bal=(s.coins||{})[c];
-    return `<div class="rank bg-${c}${k===0?' win':''}"><span class="rpos">${medals[k]}</span><span class="rav">${AV[c]||avatarFor(nm)}</span><div class="rnm"><b>${esc(nm)}</b>${bal!=null?`<div class="rbal"><i class="coin"></i>${fmt(bal)}</div>`:''}</div>${k===0?'<span class="rw">RAJA!</span>':''}${pay?`<span class="pay" data-c="${c}" data-v="${pay}">+<i class="coin"></i><span class="pv">${fmt(pay)}</span></span>`:''}</div>`;}).join('');
+    return `<div class="rank bg-${c}${k===0?' win':''}"><span class="rpos">${medals[k]}</span><span class="rav">${jRav(s,c,AV[c]||avatarFor(nm))}</span><div class="rnm"><b>${esc(nm)}</b>${bal!=null?`<div class="rbal"><i class="coin"></i>${fmt(bal)}</div>`:''}</div>${k===0?'<span class="rw">RAJA!</span>':''}${pay?`<span class="pay" data-c="${c}" data-v="${pay}">+<i class="coin"></i><span class="pv">${fmt(pay)}</span></span>`:''}</div>`;}).join('');
   let btns='';
   if(App.role==='host')btns='<button class="green" id="goAgain">Play again (same room)</button><button class="alt" id="goLeave">End room</button>';
   else if(App.role==='local')btns='<button class="green" id="goAgain">Play again</button><button class="alt" id="goLeave">Home</button>';
   else btns='<div class="muted center">Waiting for host to start a new game…</div><button class="alt" id="goLeave">Leave</button>';
   if($('adminPanel'))return;   // don't cover the host's open panel; results re-appear on close
   const potTxt=s.pot>0?`<div class="muted center">Pot <i class="coin"></i> <b>${fmt(s.pot)}</b> · ${splitText(s.split)}</div>`:'';
-  modal(`<div class="rankScr"><svg class="crown"><use href="#crown"/></svg><h2>🏆 Results</h2>${potTxt}${list}</div>${btns}`);
+  modal(`<div class="rankScr">${jWinHead(s)}${potTxt}${list}</div>${btns}`);
   if(!App.payAnim&&!App.fast){App.payAnim=true;document.querySelectorAll('#ovBox .pay').forEach(p=>{const v=+p.dataset.v,pv=p.querySelector('.pv'),t0=performance.now();
     (function f(t){const k=Math.min(1,(t-t0)/1400);pv.textContent=fmt(Math.round(v*k));if(k<1)requestAnimationFrame(f);})(t0);});}
   if($('goAgain'))$('goAgain').onclick=()=>{closeModal();if(App.role==='host'){App.S.phase='lobby';App.S.tokens={};App.S.msg='';commit();}else startGame();};
@@ -1509,7 +2283,7 @@ $('menuBtn').onclick=()=>{
 
 /* ================= LOCAL (pass & play) ================= */
 const localSel={red:true,green:true,yellow:false,blue:false};
-function renderLocalRows(){const box=$('localRows');box.innerHTML='';
+function renderLocalRows(){const box=$('localRows');jLocalAnims();box.innerHTML='';
   for(const c of COLORS){const r=document.createElement('div');r.className='lrow'+(localSel[c]?' on':'');
     const nm0=LS.get('ludo-ln-'+c,CNAME[c]);
     r.innerHTML=`<div class="sw" style="--pc:${HEX[c]}">${localSel[c]?'✔':'+'}</div><input maxlength="14" id="ln-${c}" value="${esc(nm0)}" ${localSel[c]?'':'disabled'}>`+
@@ -1517,17 +2291,19 @@ function renderLocalRows(){const box=$('localRows');box.innerHTML='';
     r.querySelector('#ln-'+c).addEventListener('input',e=>{$('lbal-'+c).textContent=fmt(Coins.peek(cleanName(e.target.value)||CNAME[c]));});
     r.querySelector('#lb-'+c).addEventListener('input',e=>LS.set('ludo-lb-'+c,e.target.value));
     if(!localVp[c]&&vpFor(nm0))localVp[c]=vpFor(nm0);const vr=document.createElement('div');vr.className='lvrow';
-    vr.innerHTML=`<span>Voice:</span><button data-g="m" class="${localVp[c]==='m'?'sel':''}" ${localSel[c]?'':'disabled'}>👨 Male</button><button data-g="f" class="${localVp[c]==='f'?'sel':''}" ${localSel[c]?'':'disabled'}>👩 Female</button>`;
-    vr.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{localVp[c]=bt.dataset.g;vr.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===bt));});r.appendChild(vr);
+    vr.innerHTML=`<span>Voice:</span><button data-g="m" class="${localVp[c]==='m'?'sel':''}" ${localSel[c]?'':'disabled'}>👨 Male</button><button data-g="f" class="${localVp[c]==='f'?'sel':''}" ${localSel[c]?'':'disabled'}>👩 Female</button>`+
+      (localSel[c]?`<button class="lan" data-lan="${c}" title="${esc((ANIMALS[localAnim[c]]||{}).n||'')}: ${esc((ANIMALS[localAnim[c]]||{}).pn||'')}" aria-label="choose animal">${jAvSVG(localAnim[c])}</button>`:'');
+    vr.querySelectorAll('button[data-g]').forEach(bt=>bt.onclick=()=>{localVp[c]=bt.dataset.g;vr.querySelectorAll('button[data-g]').forEach(x=>x.classList.toggle('sel',x===bt));});r.appendChild(vr);
+    const lb=vr.querySelector('.lan');if(lb)lb.onclick=()=>animalPicker(localAnim[c],COLORS.filter(x=>x!==c&&localSel[x]).map(x=>localAnim[x]),a=>{localAnim[c]=a;jRememberName(cleanName($('ln-'+c).value)||CNAME[c],a);renderLocalRows();},`${cleanName($('ln-'+c).value)||CNAME[c]}: choose animal`);
     r.querySelector('.sw').onclick=()=>{localSel[c]=!localSel[c];renderLocalRows();};box.appendChild(r);}}
 function renderLocalBetUI(){const sp=LS.get('ludo-split','win');$('lspWin').className=sp!=='7030'?'sel':'';$('lspSplit').className=sp==='7030'?'sel':'';
   $('lChips').innerHTML=[0,50,100,250,500].map(v=>`<button class="alt" data-v="${v}">${v?fmt(v):'0'}</button>`).join('');
   $('lChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{for(const c of COLORS)if(localSel[c]){$('lb-'+c).value=b.dataset.v;LS.set('ludo-lb-'+c,b.dataset.v);}});}
 $('lspWin').onclick=()=>{LS.set('ludo-split','win');renderLocalBetUI();};$('lspSplit').onclick=()=>{LS.set('ludo-split','7030');renderLocalBetUI();};
-$('btnLocal').onclick=()=>{renderLocalRows();renderLocalBetUI();showScreen('scrLocal');};
+$('btnLocal').onclick=()=>{renderLocalRows();renderLocalBetUI();jRenderLocalTheme();showScreen('scrLocal');};
 $('btnLocalBack').onclick=()=>showScreen('scrHome');
 function updMeAv(){const n=cleanName($('nameIn').value);$('meAv').textContent=n?avatarFor(n):'🙂';}
-$('btnOnline').onclick=()=>{showScreen('scrOnline');updMeAv();};
+$('btnOnline').onclick=()=>{showScreen('scrOnline');updMeAv();const m=LS.get('ludo-anim',{}),k=jNameKey($('nameIn').value);if(jValidA(m[k]))App.myAnimal=m[k];jRenderPickBtns();};
 $('btnOnlineBack').onclick=()=>showScreen('scrHome');
 $('nameIn').addEventListener('input',()=>{updMeAv();const v=vpFor($('nameIn').value);if(v){App.pickVp=v;renderVpick();}});
 $('codeIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('btnJoinCode').onclick();});
@@ -1537,15 +2313,15 @@ $('btnLocalStart').onclick=()=>{const cs=COLORS.filter(c=>localSel[c]);if(cs.len
     if(!isFinite(v)||v<0||v>bal)return toast(`${n}: bet must be between 0 and ${fmt(bal)}`);bets[c]=v;LS.set('ludo-lb-'+c,v);}
   for(const c of cs)if(!localVp[c])return toast(`${cleanName($('ln-'+c).value)||CNAME[c]}: choose a voice (Male / Female)`);
   refundSaved('ludo-local');
-  App.role='local';App.S=newState();App.S.bets=bets;App.S.split=LS.get('ludo-split','win');
-  for(const c of cs){const n=cleanName($('ln-'+c).value)||CNAME[c];LS.set('ludo-ln-'+c,n);App.S.seats.push({color:c,name:n,clientId:'me',connected:true,vp:localVp[c]});saveVpName(n,localVp[c]);}
+  App.role='local';App.S=newState();App.S.bets=bets;App.S.split=LS.get('ludo-split','win');App.S.theme=jPref();App.S.powers=false;jLocalAnims();
+  for(const c of cs){const n=cleanName($('ln-'+c).value)||CNAME[c];LS.set('ludo-ln-'+c,n);App.S.seats.push({color:c,name:n,clientId:'me',connected:true,vp:localVp[c],animal:localAnim[c]});saveVpName(n,localVp[c]);jRememberName(n,localAnim[c]);}
   $('roomTag').textContent='Pass & Play';startGame();};
 
 /* ================= HOME ================= */
 function needName(inp){const n=cleanName($(inp).value);if(!n){toast('Please enter your name');$(inp).focus();return null;}LS.set('ludo-name',n);App.myName=n;return n;}
-$('btnCreate').onclick=()=>{if(!needName('nameIn')||!needVp())return;refundSaved('ludo-host');hostCreate();};
-$('btnJoinCode').onclick=()=>{const code=$('codeIn').value.trim().toUpperCase();if(code.length<4)return toast('Enter the room code');if(!needName('nameIn')||!needVp())return;guestJoin(code,App.myName);};
-$('btnJoin').onclick=()=>{if(!needName('joinName')||!needVp())return;guestJoin(App.pendingCode,App.myName);};
+$('btnCreate').onclick=()=>{if(!needName('nameIn')||!needVp())return;jRemember();refundSaved('ludo-host');hostCreate();};
+$('btnJoinCode').onclick=()=>{const code=$('codeIn').value.trim().toUpperCase();if(code.length<4)return toast('Enter the room code');if(!needName('nameIn')||!needVp())return;jRemember();guestJoin(code,App.myName);};
+$('btnJoin').onclick=()=>{if(!needName('joinName')||!needVp())return;jRemember();guestJoin(App.pendingCode,App.myName);};
 $('btnJoinBack').onclick=()=>{history.replaceState(null,'',location.pathname);initHome();};
 function initHome(){
   showScreen('scrHome');$('nameIn').value=LS.get('ludo-name','');App.pickVp=vpFor($('nameIn').value)||LS.get('ludo-vp',null);renderVpick();
@@ -1560,11 +2336,12 @@ function initHome(){
 }
 injectDefs();buildTokens();buildCards();buildDice();$('board').innerHTML=boardSVG();drawDice(6);
 $('heroPins').innerHTML=COLORS.map(c=>`<span>${pinSVG(c)}</span>`).join('');
+applyTheme(jPref());jInitUI();
 (function boot(){
   const room=(Q.get('room')||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
   if(room){App.pendingCode=room;$('joinCode').textContent=room;const g=LS.get('ludo-guest',{});
     $('joinName').value=(g.code===room&&g.name)||LS.get('ludo-name','');App.pickVp=vpFor($('joinName').value)||LS.get('ludo-vp',null);renderVpick();showScreen('scrJoin');
-    if(g.code===room&&g.name)$('btnJoin').textContent='Rejoin as '+g.name;}
+    if(g.code===room&&g.name)$('btnJoin').textContent='Rejoin as '+g.name;const m=LS.get('ludo-anim',{}),k=jNameKey($('joinName').value);if(jValidA(m[k]))App.myAnimal=m[k];jRenderPickBtns();}
   else initHome();
   if(location.protocol==='file:')$('offlineNote').textContent='Tip: for online play, open this game from its https:// web address.';
   const sp=$('splash');if(sp){if(App.fast)sp.remove();else setTimeout(()=>sp.remove(),1700);}

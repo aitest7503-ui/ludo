@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#1b1f3b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8E%B2%3C/text%3E%3C/svg%3E">
+<title>Ludo – Play Online with Friends</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:#1b1f3b;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overscroll-behavior:none}
+#app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:10px;padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top))}
+#title{font-weight:900;font-size:24px;letter-spacing:3px;user-select:none;-webkit-user-select:none;cursor:default;padding:4px 2px}
+#title b:nth-child(1){color:#e53935}#title b:nth-child(2){color:#43a047}#title b:nth-child(3){color:#fdd835}#title b:nth-child(4){color:#1e88e5}
+#roomTag{font-size:13px;opacity:.8;flex:1}
+#net{width:10px;height:10px;border-radius:50%;background:#777;display:none}
+#net.online{background:#4caf50;display:block}#net.reconnecting{background:#ffb300;display:block}#net.offline{background:#e53935;display:block}
+#menuBtn{background:transparent;font-size:22px;padding:4px 10px;display:none}
+.screen{display:none;flex:1;flex-direction:column;padding:12px;gap:12px}
+.screen.on{display:flex}
+button{font:inherit;border:0;border-radius:12px;padding:12px 16px;font-weight:700;background:#3949ab;color:#fff;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+button.alt{background:#2e3463}button.green{background:#2e7d32}button.red{background:#c62828}
+.big{font-size:18px;padding:16px}
+input{font:inherit;font-size:16px;padding:12px;border-radius:12px;border:2px solid #3a4175;background:#262b52;color:#fff;width:100%;outline:none}
+input:focus{border-color:#7986cb}
+.card{background:#262b52;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:8px;align-items:center}
+.muted{opacity:.7;font-size:13px;line-height:1.4}
+.hero{text-align:center;padding:10px 0 0}
+.hero .logo{font-size:56px;font-weight:900;letter-spacing:6px}
+.hero .logo b:nth-child(1){color:#e53935}.hero .logo b:nth-child(2){color:#43a047}.hero .logo b:nth-child(3){color:#fdd835}.hero .logo b:nth-child(4){color:#1e88e5}
+h2{margin:0;font-size:18px}
+.code{font-size:40px;font-weight:900;letter-spacing:8px;text-align:center;font-family:ui-monospace,Menlo,monospace}
+.link{word-break:break-all;font-size:13px;background:#1b1f3b;padding:8px;border-radius:8px}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slot{border-radius:14px;padding:12px;min-height:74px;display:flex;flex-direction:column;justify-content:center;gap:4px;border:3px solid transparent;position:relative;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.slot.free{opacity:.55;cursor:pointer;border-style:dashed;border-color:#fff}
+.slot.mine{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.3)}
+.slot .nm{font-weight:800;font-size:16px}
+.slot .x{position:absolute;top:4px;right:6px;background:rgba(0,0,0,.35);padding:2px 8px;border-radius:8px;font-size:13px}
+.badge{font-size:11px;background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px;margin-left:4px;font-weight:600}
+.bg-red{background:#e53935}.bg-green{background:#43a047}.bg-yellow{background:#f9a825}.bg-blue{background:#1e88e5}
+/* game */
+#strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.chip{border-radius:10px;padding:6px 6px;font-size:12px;line-height:1.25;opacity:.55;border:2px solid transparent;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.chip.turn{opacity:1;border-color:#fff;box-shadow:0 0 10px rgba(255,255,255,.5)}
+.chip .n{font-weight:800;font-size:13px;overflow:hidden;text-overflow:ellipsis}
+#boardWrap{position:relative;width:min(calc(100vw - 16px),calc(100vh - 270px),536px);width:min(calc(100vw - 16px),calc(100dvh - 270px),536px);min-width:260px;aspect-ratio:1/1;margin:0 auto;border-radius:10px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+#board{position:absolute;inset:0}
+.tok{position:absolute;width:5.333%;height:5.333%;transition:left .13s linear,top .13s linear,transform .2s;z-index:5;pointer-events:none}
+.tok i{display:block;width:100%;height:100%;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 3px rgba(0,0,0,.55),inset 0 -3px 0 rgba(0,0,0,.25)}
+.tok.mv{pointer-events:auto;z-index:30;cursor:pointer}
+.tok.mv::after{content:"";position:absolute;inset:-45%}
+.tok.mv i{animation:pulse .55s infinite alternate}
+.tok.moving{z-index:40}
+@keyframes pulse{from{box-shadow:0 0 0 2px #fff,0 0 6px 2px #fff}to{box-shadow:0 0 0 4px #000,0 0 14px 6px #fff;transform:translateY(-12%)}}
+#dock{display:flex;align-items:center;gap:12px;background:#262b52;border-radius:16px;padding:10px 12px}
+#dice{width:70px;height:70px;flex:0 0 70px;border-radius:16px;background:#fff;display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:9px;border:5px solid #999;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+#dice.can{animation:bob .8s infinite alternate}
+#dice.dim{opacity:.45}
+#dice.rolling{animation:spin .12s linear infinite}
+@keyframes bob{to{transform:translateY(-5px) scale(1.05)}}
+@keyframes spin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(.9)}100%{transform:rotate(360deg) scale(1)}}
+.pip{width:12px;height:12px;border-radius:50%;background:#222;place-self:center;visibility:hidden}
+.pip.on{visibility:visible}
+#dockText{flex:1;min-width:0}
+#turnName{font-weight:800;font-size:17px}
+#msg{font-size:13px;opacity:.85;margin-top:2px;min-height:17px}
+#hostTools{display:none;gap:8px}
+#banner{display:none;background:#ffb300;color:#000;font-weight:700;text-align:center;padding:8px;border-radius:10px;font-size:14px}
+/* overlays */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.ov.on{display:flex}
+.box{background:#262b52;border-radius:18px;padding:18px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:12px;max-height:90vh;overflow:auto}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#000c;padding:10px 16px;border-radius:20px;font-size:14px;z-index:200;display:none;max-width:90vw;text-align:center}
+.arow{display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;background:#1b1f3b}
+.abtns{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.abtns button{padding:8px 0;font-size:15px;background:#3a4175}
+.abtns button.sel{background:#fdd835;color:#000}
+.lrow{display:flex;gap:8px;align-items:center}
+.lrow .sw{width:34px;height:34px;border-radius:50%;flex:0 0 34px;border:3px solid #fff;opacity:.35;cursor:pointer}
+.lrow.on .sw{opacity:1}
+.lrow input:disabled{opacity:.35}
+.rank{display:flex;gap:10px;align-items:center;font-size:18px;padding:6px 10px;border-radius:10px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div id="title"><b>L</b><b>U</b><b>D</b><b>O</b></div>
+    <div id="roomTag"></div>
+    <div id="net" title="connection"></div>
+    <button id="menuBtn" aria-label="menu">⋮</button>
+  </header>
+
+  <!-- HOME -->
+  <section id="scrHome" class="screen">
+    <div class="hero"><div class="logo"><b>L</b><b>U</b><b>D</b><b>O</b></div><div class="muted">Play with family &amp; friends – anywhere</div></div>
+    <div class="card">
+      <label class="muted" for="nameIn">Your name</label>
+      <input id="nameIn" maxlength="14" placeholder="Enter your name" autocomplete="off">
+    </div>
+    <div id="resumeBox" class="card" style="display:none"></div>
+    <div class="card">
+      <h2>🌐 Online (different phones)</h2>
+      <button id="btnCreate" class="big green">Create Room</button>
+      <div class="row"><input id="codeIn" maxlength="6" placeholder="Room code" style="text-transform:uppercase;letter-spacing:3px"><button id="btnJoinCode">Join</button></div>
+    </div>
+    <div class="card">
+      <h2>📱 Pass &amp; Play (one phone)</h2>
+      <button id="btnLocal" class="big alt">Play on this phone</button>
+    </div>
+    <div id="offlineNote" class="muted" style="text-align:center"></div>
+  </section>
+
+  <!-- JOIN (opened from link) -->
+  <section id="scrJoin" class="screen">
+    <div class="card" style="text-align:center">
+      <div class="muted">You are invited to room</div>
+      <div class="code" id="joinCode">-----</div>
+    </div>
+    <div class="card">
+      <label class="muted" for="joinName">Your name</label>
+      <input id="joinName" maxlength="14" placeholder="Enter your name" autocomplete="off">
+      <button id="btnJoin" class="big green">Join Game</button>
+      <div class="muted">Rejoining? Use the <b>same name</b> you used before and you get your color back.</div>
+    </div>
+    <button id="btnJoinBack" class="alt">Back</button>
+  </section>
+
+  <!-- LOBBY -->
+  <section id="scrLobby" class="screen">
+    <div class="card" style="text-align:center">
+      <div class="muted">Room code</div>
+      <div class="code" id="lobCode">-----</div>
+      <div id="shareBox" style="display:flex;flex-direction:column;gap:8px">
+        <div class="link" id="lobLink"></div>
+        <div class="row" style="justify-content:center;flex-wrap:wrap">
+          <button id="btnCopy" class="alt">📋 Copy link</button>
+          <button id="btnWa" class="green">WhatsApp</button>
+          <button id="btnShare" class="alt">Share…</button>
+        </div>
+        <div id="fileWarn" class="muted" style="display:none;color:#ffb300">This file is opened locally (file://). Links only work once the file is hosted on an HTTPS website. Friends can still join by typing the code on the hosted page.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 id="lobHead">Pick your color</h2>
+      <div class="slots" id="slots"></div>
+      <div class="muted" id="lobPending"></div>
+    </div>
+    <div id="lobStatus" class="muted" style="text-align:center"></div>
+    <button id="btnStart" class="big green" style="display:none">Start Game</button>
+    <button id="btnLobLeave" class="alt">Leave</button>
+  </section>
+
+  <!-- LOCAL SETUP -->
+  <section id="scrLocal" class="screen">
+    <div class="card">
+      <h2>Pass &amp; Play – players</h2>
+      <div class="muted">Tap a circle to add/remove a player (2–4).</div>
+      <div id="localRows" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+    <button id="btnLocalStart" class="big green">Start</button>
+    <button id="btnLocalBack" class="alt">Back</button>
+  </section>
+
+  <!-- GAME -->
+  <section id="scrGame" class="screen" style="gap:10px;padding:8px">
+    <div id="banner"></div>
+    <div id="strip"></div>
+    <div id="boardWrap"><div id="board"></div><div id="tokens"></div></div>
+    <div id="dock">
+      <div id="dice"></div>
+      <div id="dockText"><div id="turnName">–</div><div id="msg"></div></div>
+    </div>
+    <div id="hostTools"><button id="btnSkip" class="red" style="flex:1">Skip offline player's turn</button></div>
+  </section>
+</div>
+
+<!-- modal -->
+<div class="ov" id="ov"><div class="box" id="ovBox"></div></div>
+<div id="toast"></div>
+
+<script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js" onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js';s.onload=function(){window.dispatchEvent(new Event('peerjs-ready'))};document.head.appendChild(s)})()"></script>
+<script>
+'use strict';
+/* ================= CONFIG ================= */
+const CFG = {
+  ADMIN_PIN_DEFAULT: '7777',   // default secret PIN (host can change it inside the panel; stored only on the host phone)
+  ADMIN_TAPS: 5,               // tap the "LUDO" title this many times within 3 s to open the PIN prompt
+  PEER_PREFIX: 'srludo26-',    // namespace on the public PeerJS server
+  // WebRTC NAT traversal. Free public STUN servers work for most home Wi-Fi / 4G connections.
+  // Optional: add a TURN relay (e.g. a free Metered.ca or Cloudflare TURN account) for players on very strict
+  // mobile networks, e.g. {urls:'turn:YOUR-HOST:443?transport=tcp', username:'USER', credential:'PASS'}
+  ICE_SERVERS: [
+    {urls:'stun:stun.cloudflare.com:3478'},
+    {urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']},
+    {urls:'stun:global.stun.twilio.com:3478'},
+  ],
+};
+const PEER_OPTS = () => ({debug:1, config:{iceServers:CFG.ICE_SERVERS}});
+/* ================= BOARD GEOMETRY ================= */
+const COLORS = ['red','green','yellow','blue'];
+const CNAME = {red:'Red',green:'Green',yellow:'Yellow',blue:'Blue'};
+const HEX = {red:'#e53935',green:'#43a047',yellow:'#fdd835',blue:'#1e88e5'};
+const START = {red:0,green:13,yellow:26,blue:39};
+const SAFE = new Set([0,8,13,21,26,34,39,47]);
+const TRACK = (()=>{const t=[],a=(r,c)=>t.push([r,c]);
+  for(let c=1;c<=5;c++)a(6,c); for(let r=5;r>=0;r--)a(r,6); a(0,7);a(0,8);
+  for(let r=1;r<=5;r++)a(r,8); for(let c=9;c<=14;c++)a(6,c); a(7,14);a(8,14);
+  for(let c=13;c>=9;c--)a(8,c); for(let r=9;r<=14;r++)a(r,8); a(14,7);a(14,6);
+  for(let r=13;r>=9;r--)a(r,6); for(let c=5;c>=0;c--)a(8,c); a(7,0);a(6,0); return t;})();
+const HOMECOL = {
+  red:[[7,1],[7,2],[7,3],[7,4],[7,5]], green:[[1,7],[2,7],[3,7],[4,7],[5,7]],
+  yellow:[[7,13],[7,12],[7,11],[7,10],[7,9]], blue:[[13,7],[12,7],[11,7],[10,7],[9,7]]};
+const YARD = {red:[0,0],green:[0,9],yellow:[9,9],blue:[9,0]};
+const YSPOT = [[2,2],[2,4],[4,2],[4,4]];
+const FIN = {red:[6.55,7.5],green:[7.5,6.55],yellow:[8.45,7.5],blue:[7.5,8.45]};
+const HOME = 56; // progress: -1 yard, 0..50 track, 51..55 home column, 56 finished
+
+/* ================= UTIL ================= */
+const $ = id => document.getElementById(id);
+const LS = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+            set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}, del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function rid(n){const a='ABCDEFGHJKMNPQRSTUVWXYZ23456789',b=new Uint32Array(n);crypto.getRandomValues(b);return Array.from(b,x=>a[x%a.length]).join('');}
+function rollDie(){const b=new Uint32Array(1);do{crypto.getRandomValues(b)}while(b[0]>=4294967292);return b[0]%6+1;}
+function cleanName(s){return String(s||'').replace(/[<>]/g,'').trim().slice(0,14);}
+function getCid(){let c=LS.get('ludo-cid',null);if(!c){c=rid(12);LS.set('ludo-cid',c);}return c;}
+const Q = new URLSearchParams(location.search);
+const App = {role:null,myColor:null,myName:'',S:null,view:null,code:null,peer:null,conns:new Map(),hostConn:null,
+  debug:Q.has('debug'),fast:Q.has('fast'),rx:[],offlineSince:{},animPending:0,left:false};
+const D = ms => App.fast ? 0 : ms;
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+let toastT=null;
+function toast(t,ms=2200){const el=$('toast');el.textContent=t;el.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>el.style.display='none',ms);}
+function modal(html){$('ovBox').innerHTML=html;$('ov').classList.add('on');}
+function closeModal(){$('ov').classList.remove('on');$('ovBox').innerHTML='';}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));App.screen=id;
+  $('menuBtn').style.display=(id==='scrGame'||id==='scrLobby')?'block':'none';}
+function setNet(st){$('net').className=st||'';}
+let actx=null;
+function beep(f=520,d=0.05,v=0.05){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d);}catch(e){}}
+function shareLink(){return location.origin+location.pathname+'?room='+App.code;}
+
+/* ================= BOARD RENDER ================= */
+function boardSVG(){
+  const L=[],R=(x,y,w,h,f,x2='')=>L.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" ${x2}/>`);
+  const ST='stroke="#8f98a8" stroke-width="0.04"', starts=Object.values(START);
+  R(0,0,15,15,'#fff');
+  TRACK.forEach(([r,c],i)=>{let f='#fff';for(const col of COLORS)if(START[col]===i)f=HEX[col];R(c,r,1,1,f,ST);
+    if(SAFE.has(i))L.push(`<text x="${c+.5}" y="${r+.8}" font-size=".85" text-anchor="middle" fill="${starts.includes(i)?'#fff':'#9aa3b5'}">★</text>`);});
+  for(const col of COLORS)HOMECOL[col].forEach(([r,c])=>R(c,r,1,1,HEX[col],ST));
+  for(const col of COLORS){const [r0,c0]=YARD[col];R(c0,r0,6,6,HEX[col]);
+    L.push(`<rect x="${c0+.7}" y="${r0+.7}" width="4.6" height="4.6" rx=".5" fill="#fff"/>`);
+    for(const [dy,dx] of YSPOT)L.push(`<circle cx="${c0+dx}" cy="${r0+dy}" r=".72" fill="${HEX[col]}" fill-opacity=".3" stroke="${HEX[col]}" stroke-width=".1"/>`);}
+  L.push(`<polygon points="6,6 6,9 7.5,7.5" fill="${HEX.red}"/><polygon points="6,6 9,6 7.5,7.5" fill="${HEX.green}"/><polygon points="9,6 9,9 7.5,7.5" fill="${HEX.yellow}"/><polygon points="6,9 9,9 7.5,7.5" fill="${HEX.blue}"/>`);
+  return `<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:100%">${L.join('')}</svg>`;
+}
+function tokXY(color,i,p){
+  if(p<0){const [r0,c0]=YARD[color],[dy,dx]=YSPOT[i];return {x:c0+dx,y:r0+dy,k:'y'+color+i};}
+  if(p<=50){const [r,c]=TRACK[(START[color]+p)%52];return {x:c+.5,y:r+.5,k:r+','+c};}
+  if(p<=55){const [r,c]=HOMECOL[color][p-51];return {x:c+.5,y:r+.5,k:r+','+c};}
+  const f=FIN[color];return {x:f[0],y:f[1],k:'f'+color};
+}
+const STACK={1:[[0,0]],2:[[-.2,0],[.2,0]],3:[[-.2,-.15],[.2,-.15],[0,.2]],4:[[-.2,-.2],[.2,-.2],[-.2,.2],[.2,.2]]};
+function placeTok(el,x,y,scale){el.style.left=((x-.4)/15*100)+'%';el.style.top=((y-.4)/15*100)+'%';el.style.transform=`scale(${scale})`;}
+function buildTokens(){const box=$('tokens');box.innerHTML='';
+  for(const c of COLORS)for(let i=0;i<4;i++){const el=document.createElement('div');el.className='tok';el.id=`t-${c}-${i}`;
+    el.innerHTML=`<i style="background:${HEX[c]}"></i>`;el.style.display='none';el.addEventListener('click',()=>onTokenTap(c,i));box.appendChild(el);}}
+function legal(S,color,d){const r=[];(S.tokens[color]||[]).forEach((p,i)=>{if(p===-1){if(d===6)r.push(i);}else if(p<HOME&&p+d<=HOME)r.push(i);});return r;}
+function controls(color){
+  if(App.role==='guest')return color===App.myColor;
+  const s=App.S&&App.S.seats.find(x=>x.color===color);return !!s&&s.clientId==='me';
+}
+function renderTokens(s){
+  const groups={};
+  for(const seat of s.seats){const t=s.tokens[seat.color];if(!t)continue;
+    t.forEach((p,i)=>{const pos=tokXY(seat.color,i,p);(groups[pos.k]=groups[pos.k]||[]).push({c:seat.color,i,pos});});}
+  for(const c of COLORS)for(let i=0;i<4;i++)$(`t-${c}-${i}`).style.display='none';
+  const mv=(s.phase==='playing'&&s.awaiting&&s.dice&&controls(s.turn))?legal(s,s.turn,s.dice.v):[];
+  for(const k in groups){const g=groups[k],offs=STACK[Math.min(g.length,4)]||STACK[4],sc=g.length===1?1:(g.length===2?.78:.62);
+    g.forEach((o,j)=>{const el=$(`t-${o.c}-${o.i}`);el.style.display='block';const off=offs[j%4];
+      placeTok(el,o.pos.x+off[0],o.pos.y+off[1],sc);el.classList.toggle('mv',o.c===s.turn&&mv.includes(o.i));el.classList.remove('moving');});}
+}
+const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+function drawDice(v){const d=$('dice');if(!d.children.length)d.innerHTML='<div class="pip"></div>'.repeat(9);
+  const on=FACES[v]||[];[...d.children].forEach((p,i)=>p.classList.toggle('on',on.includes(i)));}
+function renderGame(s){
+  const strip=$('strip');strip.innerHTML='';
+  for(const c of COLORS){const seat=s.seats.find(x=>x.color===c);if(!seat)continue;
+    const rk=s.rank.indexOf(c);const el=document.createElement('div');el.className=`chip bg-${c}`+(s.turn===c&&s.phase==='playing'?' turn':'');
+    const tags=[];if(controls(c)&&App.role!=='local')tags.push('YOU');if(seat.isHost)tags.push('HOST');if(!seat.connected)tags.push('⚠ offline');
+    if(rk>=0)tags.push(['🥇','🥈','🥉','4th'][rk]);
+    el.innerHTML=`<div class="n">${esc(seat.name)}</div><div>${tags.join(' ')||'&nbsp;'}</div>`;strip.appendChild(el);}
+  renderTokens(s);
+  const turnSeat=s.seats.find(x=>x.color===s.turn);const d=$('dice');
+  d.style.borderColor=HEX[s.turn]||'#999';
+  const mine=turnSeat&&controls(s.turn);
+  const fresh=s.dice&&s.dice.color===s.turn&&(s.awaiting||s.locked);
+  drawDice(s.dice?s.dice.v:6);
+  const canRoll=s.phase==='playing'&&mine&&!s.awaiting&&!s.locked&&App.rollSentSeq!==s.seq;
+  d.classList.toggle('can',!!canRoll);d.classList.toggle('dim',!fresh&&!canRoll);d.classList.remove('rolling');
+  if(s.phase==='playing'){
+    $('turnName').innerHTML=turnSeat?`<span style="color:${HEX[s.turn]}">●</span> ${esc(turnSeat.name)}${mine&&App.role!=='local'?' (you)':''}`:'–';
+    let hint=s.msg||'';
+    if(canRoll)hint='👉 Tap the dice to roll';else if(mine&&s.awaiting)hint=`Rolled ${s.dice.v} – tap a glowing token`;
+    $('msg').textContent=hint;
+  } else if(s.phase==='over'){$('turnName').textContent='Game over';$('msg').textContent=s.msg||'';}
+  const off=turnSeat&&!turnSeat.connected&&s.phase==='playing';
+  $('hostTools').style.display=(App.role==='host'&&off)?'flex':'none';
+  if(s.phase==='over')showGameOver(s);
+}
+/* animations */
+function onView(s){
+  const prev=App.lastQueued;App.lastQueued=s;App.animPending++;
+  App.animQ=(App.animQ||Promise.resolve()).then(()=>present(prev,s)).catch(e=>console.error(e)).then(()=>{App.animPending--;});
+}
+async function present(prev,s){
+  if(s.phase==='lobby'){App.view=s;if(App.screen!=='scrLobby'){closeModal();showScreen('scrLobby');}renderLobby(s);return;}
+  if(App.screen!=='scrGame'){showScreen('scrGame');closeModal();}
+  else if(s.phase==='playing'&&App.view&&App.view.phase==='over')closeModal();
+  const animate=prev&&prev.phase==='playing'&&App.animPending<=2&&!App.fast;
+  if(animate&&s.dice&&(!prev.dice||prev.dice.id!==s.dice.id)){await animDice(s.dice,prev);}
+  if(animate&&s.lastMove&&(!prev.lastMove||prev.lastMove.id!==s.lastMove.id)){await animMove(s.lastMove);}
+  const wasMine=App.view&&App.view.phase==='playing'&&controls(App.view.turn);
+  App.view=s;renderGame(s);
+  if(s.phase==='playing'&&controls(s.turn)&&!wasMine&&App.role!=='local'){try{navigator.vibrate&&navigator.vibrate(120)}catch(e){}beep(880,.08);}
+}
+async function animDice(dice,prev){
+  const d=$('dice');d.style.borderColor=HEX[dice.color];d.classList.remove('can','dim');d.classList.add('rolling');
+  for(let k=0;k<7;k++){drawDice(1+Math.floor(Math.random()*6));beep(300+Math.random()*300,.03,.03);await sleep(75);}
+  d.classList.remove('rolling');drawDice(dice.v);await sleep(250);
+}
+async function animMove(mv){
+  const el=$(`t-${mv.color}-${mv.i}`);if(!el)return;el.classList.add('moving');el.classList.remove('mv');
+  const steps=[];if(mv.from===-1)steps.push(0);else for(let p=mv.from+1;p<=mv.to;p++)steps.push(p);
+  for(const p of steps){const pos=tokXY(mv.color,mv.i,p);placeTok(el,pos.x,pos.y,1);beep(640,.025,.03);await sleep(140);}
+  if(mv.captured&&mv.captured.length){beep(200,.2,.06);await sleep(120);}
+}
+
+/* ================= AUTHORITY (host / local) ================= */
+function newState(){return {phase:'lobby',seats:[],tokens:{},turn:null,dice:null,awaiting:false,locked:false,sixes:0,rank:[],lastMove:null,msg:'',seq:0,rollId:0,moveId:0,pending:[]};}
+function seatOf(color){return App.S.seats.find(x=>x.color===color);}
+function ordered(S){return COLORS.map(c=>S.seats.find(x=>x.color===c)).filter(Boolean);}
+function pub(S){
+  const p=JSON.parse(JSON.stringify(S));
+  p.seats=S.seats.map(x=>({color:x.color,name:x.name,connected:!!x.connected,isHost:App.role==='host'&&x.clientId==='me'}));
+  delete p.sixes;
+  p.pending=[];if(App.role==='host'&&S.phase==='lobby'){for(const [cid,g] of App.conns)if(!S.seats.find(x=>x.clientId===cid))p.pending.push(g.name);}
+  return p; // NOTE: contains only public game data – never any dice-control info
+}
+function commit(){
+  const S=App.S;S.seq++;
+  const P=pub(S);
+  if(App.role==='host'){LS.set('ludo-host',{code:App.code,S,name:App.myName,ts:Date.now()});
+    for(const [cid,g] of App.conns){const seat=S.seats.find(x=>x.clientId===cid);sendTo(g.conn,{t:'state',s:P,you:seat?seat.color:null});}}
+  if(App.role==='local')LS.set('ludo-local',{S,ts:Date.now()});
+  onView(P);
+}
+function startGame(){
+  const S=App.S;if(S.seats.length<2)return toast('Need at least 2 players');
+  S.phase='playing';S.tokens={};for(const x of S.seats)S.tokens[x.color]=[-1,-1,-1,-1];
+  const os=ordered(S);S.turn=os[rollDie()%os.length].color;
+  Object.assign(S,{rank:[],dice:null,awaiting:false,locked:false,sixes:0,lastMove:null});
+  S.msg=`${seatOf(S.turn).name} starts`;commit();
+}
+function advance(S){const alive=ordered(S).filter(x=>!S.rank.includes(x.color));if(!alive.length)return;
+  const idx=COLORS.indexOf(S.turn);for(let k=1;k<=4;k++){const c=COLORS[(idx+k)%4];if(alive.find(x=>x.color===c)){S.turn=c;break;}}
+  S.sixes=0;S.awaiting=false;S.locked=false;}
+function passTurn(expectRoll){const S=App.S;if(S.phase!=='playing'||S.rollId!==expectRoll)return;advance(S);S.msg=`${seatOf(S.turn).name}'s turn`;commit();}
+function doRoll(cid){
+  const S=App.S;if(!S||S.phase!=='playing'||S.awaiting||S.locked)return;
+  const seat=seatOf(S.turn);if(!seat||seat.clientId!==cid)return;
+  const forced=Admin.take(S.turn);const v=forced!=null?forced:rollDie();
+  S.rollId++;S.dice={v,id:S.rollId,color:S.turn};
+  S.sixes=v===6?S.sixes+1:0;
+  const rid_=S.rollId;
+  if(S.sixes>=3&&forced==null){S.locked=true;S.msg=`${seat.name} rolled three 6s – turn lost`;commit();setTimeout(()=>passTurn(rid_),D(1500));return;}
+  const L=legal(S,S.turn,v);
+  if(!L.length){S.locked=true;S.msg=`${seat.name} rolled ${v} – no move`;commit();setTimeout(()=>passTurn(rid_),D(1500));return;}
+  S.awaiting=true;S.msg=`${seat.name} rolled ${v}`;commit();
+  if(new Set(L.map(i=>S.tokens[S.turn][i])).size===1){const who=seat.clientId;setTimeout(()=>{if(S.rollId===rid_&&S.awaiting)doMove(who,L[0]);},D(1100));}
+}
+function doMove(cid,i){
+  const S=App.S;if(!S||S.phase!=='playing'||!S.awaiting)return;
+  const color=S.turn,seat=seatOf(color);if(!seat||seat.clientId!==cid)return;
+  const d=S.dice.v;if(!legal(S,color,d).includes(i))return;
+  const from=S.tokens[color][i],to=from===-1?0:from+d;S.tokens[color][i]=to;
+  const captured=[];
+  if(to<=50){const abs=(START[color]+to)%52;
+    if(!SAFE.has(abs))for(const c of Object.keys(S.tokens)){if(c===color)continue;
+      S.tokens[c].forEach((p,j)=>{if(p>=0&&p<=50&&(START[c]+p)%52===abs){captured.push({color:c,i:j,from:p});S.tokens[c][j]=-1;}});}}
+  S.moveId++;S.lastMove={id:S.moveId,color,i,from,to,captured};S.awaiting=false;
+  let extra=d===6||captured.length>0||to===HOME;
+  let msg=`${seat.name} moved ${d}`;
+  if(captured.length)msg=`💥 ${seat.name} cut ${[...new Set(captured.map(c=>seatOf(c.color).name))].join(', ')}!`;
+  else if(to===HOME)msg=`🏠 ${seat.name}'s token reached home!`;
+  if(S.tokens[color].every(p=>p===HOME)&&!S.rank.includes(color)){
+    S.rank.push(color);msg=`🏆 ${seat.name} finished #${S.rank.length}!`;extra=false;
+    const alive=ordered(S).filter(x=>!S.rank.includes(x.color));
+    if(alive.length<=1){if(alive[0])S.rank.push(alive[0].color);S.phase='over';S.msg=msg;commit();return;}
+  }
+  if(extra){S.msg=msg+' – roll again';}else{advance(S);S.msg=msg;}
+  commit();
+}
+function skipTurn(){const S=App.S;if(!S||S.phase!=='playing')return;const s=seatOf(S.turn);advance(S);S.msg=`${s?s.name:''} skipped (offline)`;commit();}
+
+/* ================= SECRET DICE CONTROL (host/local device only) ================= */
+const Admin={unlocked:false,force:{},taps:[],
+  take(color){const f=this.force[color];if(!f)return null;if(!f.always)delete this.force[color];if($('adminPanel'))renderAdmin();return f.v;},
+  pin(){return LS.get('ludo-apin',CFG.ADMIN_PIN_DEFAULT);}};
+$('title').addEventListener('click',()=>{
+  if(App.role!=='host'&&App.role!=='local')return;           // guests can never open it
+  const now=Date.now();Admin.taps=Admin.taps.filter(t=>now-t<3000);Admin.taps.push(now);
+  if(Admin.taps.length>=CFG.ADMIN_TAPS){Admin.taps=[];Admin.unlocked?renderAdmin():askPin();}
+});
+function askPin(){
+  modal(`<h2>🔒 Enter PIN</h2><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><div class="row"><button id="pinOk" class="green" style="flex:1">OK</button><button class="alt" id="pinCancel">Cancel</button></div>`);
+  const go=()=>{if($('pinIn').value===Admin.pin()){Admin.unlocked=true;renderAdmin();}else{closeModal();toast('Wrong PIN');}};
+  $('pinOk').onclick=go;$('pinIn').onkeydown=e=>{if(e.key==='Enter')go();};$('pinCancel').onclick=closeModal;setTimeout(()=>{const i=$('pinIn');if(i)i.focus();},50);
+}
+function renderAdmin(){
+  const S=App.S;if(!S)return;
+  const rows=ordered(S).map(seat=>{const f=Admin.force[seat.color];
+    const btn=(v,l)=>`<button data-c="${seat.color}" data-v="${v}" class="${(f?f.v:0)===v?'sel':''}">${l}</button>`;
+    return `<div class="arow"><div><span style="color:${HEX[seat.color]}">●</span> <b>${esc(seat.name)}</b> <span class="muted">${f?('next: '+f.v+(f.always?' (every roll)':' (once)')):'random'}</span></div>
+      <div class="abtns">${btn(0,'🎲')}${[1,2,3,4,5,6].map(v=>btn(v,v)).join('')}</div>
+      <label class="muted"><input type="checkbox" data-al="${seat.color}" ${f&&f.always?'checked':''} style="width:auto"> keep for every roll</label></div>`;}).join('');
+  modal(`<div id="adminPanel" style="display:flex;flex-direction:column;gap:10px"><h2>⚙️ Dice control</h2>
+    <div class="muted">Only on this device. Other players just see a normal roll. 🎲 = random.</div>${rows||'<div class="muted">No players yet.</div>'}
+    <div class="row"><button class="alt" id="apChg" style="flex:1">Change PIN</button><button class="green" id="apClose" style="flex:1">Close</button></div></div>`);
+  $('ovBox').querySelectorAll('.abtns button').forEach(b=>b.onclick=()=>{const c=b.dataset.c,v=+b.dataset.v;
+    const al=$('ovBox').querySelector(`input[data-al="${c}"]`).checked;if(!v)delete Admin.force[c];else Admin.force[c]={v,always:al};renderAdmin();});
+  $('ovBox').querySelectorAll('input[data-al]').forEach(cb=>cb.onchange=()=>{const f=Admin.force[cb.dataset.al];if(f){f.always=cb.checked;renderAdmin();}});
+  $('apClose').onclick=closeModal;
+  $('apChg').onclick=()=>{const p=prompt('New PIN (4-8 digits):');if(p&&/^\d{4,8}$/.test(p)){LS.set('ludo-apin',p);toast('PIN changed');}else if(p)toast('PIN must be 4-8 digits');};
+}
+
+/* ================= HOST NETWORKING ================= */
+function sendTo(conn,m){try{if(conn&&conn.open)conn.send(m);}catch(e){}}
+function peerReady(cb){if(window.Peer)return cb();let done=false;const f=()=>{if(!done&&window.Peer){done=true;cb();}};
+  window.addEventListener('peerjs-ready',f,{once:true});setTimeout(()=>{f();if(!done)toast('Could not load online library. Check internet.',4000);},6000);}
+function hostCreate(){
+  App.role='host';App.code=rid(5);App.S=newState();App.S.code=App.code;
+  pickColor('me',null);showScreen('scrLobby');openHostPeer(0);startHeartbeat();
+}
+function hostResume(saved){
+  App.role='host';App.code=saved.code;App.myName=saved.name||App.myName;App.S=saved.S;App.resuming=true;
+  for(const x of App.S.seats)if(x.clientId!=='me')x.connected=false;
+  App.S.awaiting=App.S.awaiting&&App.S.dice?App.S.awaiting:false;
+  if(App.S.locked){App.S.locked=false;advance(App.S);}
+  openHostPeer(0);startHeartbeat();commit();
+}
+function openHostPeer(attempt){
+  peerReady(()=>{
+    if(App.peer&&!App.peer.destroyed)App.peer.destroy();
+    setNet('reconnecting');
+    const peer=new Peer(CFG.PEER_PREFIX+App.code,PEER_OPTS());App.peer=peer;
+    peer.on('open',()=>{setNet('online');App.resuming=false;$('roomTag').textContent='Room '+App.code;renderLobbyShare();});
+    peer.on('connection',c=>hostHandleConn(c));
+    peer.on('disconnected',()=>{if(peer!==App.peer)return;setNet('reconnecting');setTimeout(()=>{if(!peer.destroyed&&peer.disconnected)try{peer.reconnect()}catch(e){}},2000);});
+    peer.on('error',e=>{if(peer!==App.peer)return;console.warn('peer error',e.type);
+      if(e.type==='unavailable-id'){
+        if(App.resuming&&attempt<20){setTimeout(()=>openHostPeer(attempt+1),2500);}
+        else if(App.S.phase==='lobby'&&!App.S.seats.some(x=>x.clientId!=='me')){App.code=rid(5);App.S.code=App.code;LS.del('ludo-host');openHostPeer(0);renderLobbyShare();}
+        else setTimeout(()=>openHostPeer(attempt+1),3000);
+      } else if(['network','server-error','socket-error','socket-closed'].includes(e.type)){setNet('offline');
+        setTimeout(()=>{if(peer===App.peer&&!peer.destroyed){if(peer.disconnected)try{peer.reconnect()}catch(x){openHostPeer(attempt+1)}}else if(peer===App.peer)openHostPeer(attempt+1);},3000);}
+    });
+  });
+}
+function hostHandleConn(conn){
+  conn.on('data',d=>hostMsg(conn,d));
+  conn.on('close',()=>hostConnClosed(conn));conn.on('error',()=>hostConnClosed(conn));
+}
+function hostMsg(conn,m){
+  if(!m||typeof m!=='object')return;const S=App.S;
+  if(m.t==='hello'){
+    const cid=String(m.clientId||'').slice(0,40),name=cleanName(m.name);if(!cid||cid==='me'||!name)return;
+    conn._cid=cid;const old=App.conns.get(cid);if(old&&old.conn!==conn){old.conn._replaced=true;try{old.conn.close()}catch(e){}}
+    App.conns.set(cid,{conn,name,lastSeen:Date.now()});
+    let seat=S.seats.find(x=>x.clientId===cid);
+    if(!seat&&S.phase!=='lobby'){const nm=name.toLowerCase(),cands=S.seats.filter(x=>!x.connected&&x.clientId!=='me'&&x.name.toLowerCase()===nm);
+      seat=cands.find(x=>x.color===m.color)||cands[0];if(seat)seat.clientId=cid;}
+    if(!seat&&S.phase!=='lobby'){sendTo(conn,{t:'reject',msg:'This game has already started. To rejoin, enter exactly the same name you used before.'});
+      App.conns.delete(cid);setTimeout(()=>{try{conn.close()}catch(e){}},1000);return;}
+    if(!seat&&S.phase==='lobby'&&S.seats.length>=4){sendTo(conn,{t:'reject',msg:'This room is full (4 players).'});
+      App.conns.delete(cid);setTimeout(()=>{try{conn.close()}catch(e){}},1000);return;}
+    if(seat){const was=seat.connected;seat.connected=true;delete App.offlineSince[seat.color];if(S.phase==='lobby')seat.name=name;if(!was)toast(`${seat.name} ${S.phase==='lobby'?'joined':'reconnected'}`);}
+    else toast(`${name} joined – choosing color`);
+    if(!seat&&S.phase==='lobby'&&m.color&&COLORS.includes(m.color)&&!S.seats.find(x=>x.color===m.color)&&S.seats.length<4){S.seats.push({color:m.color,name,clientId:cid,connected:true});}
+    sendTo(conn,{t:'welcome',code:App.code});commit();return;
+  }
+  const cid=conn._cid;const g=cid&&App.conns.get(cid);if(!g||g.conn!==conn)return;g.lastSeen=Date.now();
+  switch(m.t){
+    case 'pong':break;
+    case 'pick':pickColor(cid,m.color);break;
+    case 'roll':doRoll(cid);break;
+    case 'move':doMove(cid,m.i|0);break;
+    case 'leave':{const seat=S.seats.find(x=>x.clientId===cid);App.conns.delete(cid);
+      if(seat){if(S.phase==='lobby')S.seats=S.seats.filter(x=>x!==seat);else{seat.connected=false;App.offlineSince[seat.color]=Date.now();}toast(`${seat.name} left`);}commit();break;}
+  }
+}
+function hostConnClosed(conn){
+  const cid=conn._cid;if(!cid||conn._replaced)return;const g=App.conns.get(cid);if(!g||g.conn!==conn)return;
+  App.conns.delete(cid);const seat=App.S.seats.find(x=>x.clientId===cid);
+  if(seat&&seat.connected){seat.connected=false;App.offlineSince[seat.color]=Date.now();toast(`${seat.name} disconnected`);}
+  commit();
+}
+function pickColor(cid,color){
+  const S=App.S;if(S.phase!=='lobby')return;
+  const name=cid==='me'?App.myName:(App.conns.get(cid)||{}).name;if(!name)return;
+  const mine=S.seats.find(x=>x.clientId===cid);
+  if(!color){if(mine)return;color=COLORS.find(c=>!S.seats.find(x=>x.color===c));if(!color)return;}
+  if(!COLORS.includes(color))return;
+  const taken=S.seats.find(x=>x.color===color);
+  if(taken&&taken!==mine){if(cid!=='me'){const g=App.conns.get(cid);g&&sendTo(g.conn,{t:'error',msg:'That color is taken'});}else toast('That color is taken');return;}
+  if(mine)mine.color=color;else{if(S.seats.length>=4)return;S.seats.push({color,name,clientId:cid,connected:true});}
+  commit();
+}
+function kickSeat(color){const S=App.S,seat=seatOf(color);if(!seat||seat.clientId==='me'||S.phase!=='lobby')return;
+  const g=App.conns.get(seat.clientId);if(g){sendTo(g.conn,{t:'kicked'});App.conns.delete(seat.clientId);setTimeout(()=>{try{g.conn.close()}catch(e){}},500);}
+  S.seats=S.seats.filter(x=>x!==seat);commit();}
+function startHeartbeat(){
+  clearInterval(App.hb);
+  App.hb=setInterval(()=>{if(App.role!=='host')return;const now=Date.now();
+    for(const [cid,g] of [...App.conns]){sendTo(g.conn,{t:'ping'});if(now-g.lastSeen>15000){try{g.conn.close()}catch(e){}hostConnClosed(g.conn);}}
+    const S=App.S;if(S&&S.phase==='playing'){const s=seatOf(S.turn);
+      if(s&&!s.connected&&s.clientId!=='me'){const since=App.offlineSince[s.color]||(App.offlineSince[s.color]=now);
+        if(now-since>45000&&!S.locked){App.offlineSince[s.color]=now;skipTurn();}}}
+  },4000);
+}
+function hostLeave(){for(const g of App.conns.values())sendTo(g.conn,{t:'hostLeft'});LS.del('ludo-host');
+  setTimeout(()=>{try{App.peer&&App.peer.destroy()}catch(e){}location.href=location.pathname;},400);}
+window.addEventListener('pagehide',()=>{if(App.role==='host')for(const g of App.conns.values())sendTo(g.conn,{t:'hostAway'});});
+
+/* ================= GUEST NETWORKING ================= */
+function guestJoin(code,name){
+  App.role='guest';App.code=code.toUpperCase();App.myName=name;App.myId=getCid();App.left=false;App.everConnected=false;App.retryStart=null;
+  const prev=LS.get('ludo-guest',{});
+  LS.set('ludo-guest',{code:App.code,name,color:prev.code===App.code?prev.color:null,ts:Date.now()});
+  $('roomTag').textContent='Room '+App.code;
+  showScreen('scrLobby');renderLobby({phase:'lobby',seats:[],pending:[]});$('lobStatus').textContent='Connecting to host…';
+  peerReady(()=>guestPeer(()=>connectHost()));
+  clearInterval(App.wd);App.wd=setInterval(()=>{if(App.left)return;const c=App.hostConn;
+    if(c&&c.open&&Date.now()-App.lastHostMsg>13000){App.hostConn=null;try{c.close()}catch(e){}guestConnFailed();}},3000);
+}
+function guestPeer(cb){
+  const p0=App.peer;if(p0&&!p0.destroyed&&!p0.disconnected){p0.open?cb():p0.once('open',cb);return;}
+  if(p0&&!p0.destroyed&&p0.disconnected){try{p0.reconnect();p0.once('open',cb);return;}catch(e){}}
+  const p=new Peer(PEER_OPTS());App.peer=p;p.once('open',cb);
+  p.on('disconnected',()=>{if(p!==App.peer||App.left)return;setTimeout(()=>{if(!p.destroyed&&p.disconnected)try{p.reconnect()}catch(e){}},2000);});
+  p.on('error',e=>{if(p!==App.peer)return;console.warn('peer error',e.type);
+    if(e.type==='peer-unavailable'){const c=App.hostConn;if(c&&!c.open){App.hostConn=null;try{c.close()}catch(x){}}guestConnFailed();}
+    else if(['network','server-error','socket-error','socket-closed'].includes(e.type)){setNet('offline');if(!p.open){try{p.destroy()}catch(x){}App.peer=null;}guestConnFailed();}});
+}
+function connectHost(){
+  if(App.left)return;const conn=App.peer.connect(CFG.PEER_PREFIX+App.code,{reliable:true});App.hostConn=conn;let opened=false;
+  setTimeout(()=>{if(!opened&&App.hostConn===conn){App.hostConn=null;try{conn.close()}catch(e){}guestConnFailed();}},10000);
+  conn.on('open',()=>{opened=true;App.lastHostMsg=Date.now();App.retryStart=null;setNet('online');$('banner').style.display='none';
+    const g=LS.get('ludo-guest',{});conn.send({t:'hello',clientId:App.myId,name:App.myName,color:g.color||null});});
+  conn.on('data',d=>{if(App.hostConn===conn)guestMsg(d);});
+  conn.on('close',()=>{if(App.hostConn===conn){App.hostConn=null;if(opened)guestConnFailed();}});
+}
+function sendHost(m){const c=App.hostConn;if(c&&c.open){try{c.send(m)}catch(e){}}else toast('Not connected – reconnecting…');}
+function guestConnFailed(){
+  if(App.left||App.reconnT)return;
+  if(!App.retryStart)App.retryStart=Date.now();
+  const limit=App.everConnected?180000:25000;
+  if(Date.now()-App.retryStart>limit){
+    App.left=true;setNet('offline');
+    guestEnd(App.everConnected?(App.hostAway?'The host left the game (or their phone went offline).':'Lost connection to the host.'):'Room not found. Check the code, and make sure the host keeps the game open.');return;}
+  setNet('reconnecting');
+  if(App.everConnected){const b=$('banner');b.style.display='block';b.textContent=App.hostAway?'Host disconnected – waiting for host to come back…':'Connection lost – reconnecting…';}
+  App.reconnT=setTimeout(()=>{App.reconnT=null;if(App.left)return;peerReady(()=>guestPeer(()=>connectHost()));},3000);
+}
+function guestMsg(m){
+  if(!m||typeof m!=='object')return;App.lastHostMsg=Date.now();
+  if(App.debug){App.rx.push(m);if(App.rx.length>400)App.rx.shift();}
+  switch(m.t){
+    case 'ping':sendHost({t:'pong'});break;
+    case 'welcome':App.everConnected=true;App.hostAway=false;$('banner').style.display='none';break;
+    case 'state':{App.myColor=m.you||null;App.rollSentSeq=null;const g=LS.get('ludo-guest',{});g.color=App.myColor||g.color;g.ts=Date.now();LS.set('ludo-guest',g);onView(m.s);break;}
+    case 'error':toast(m.msg||'Error');break;
+    case 'reject':App.left=true;guestEnd(m.msg);break;
+    case 'kicked':App.left=true;LS.del('ludo-guest');guestEnd('The host removed you from the room.');break;
+    case 'hostAway':App.hostAway=true;break;
+    case 'hostLeft':App.left=true;LS.del('ludo-guest');guestEnd('The host ended the game.');break;
+  }
+}
+function guestEnd(msg){setNet('offline');try{App.peer&&App.peer.destroy()}catch(e){}
+  modal(`<h2>ℹ️ ${esc(msg)}</h2><button class="green" id="geHome">Home</button>${App.left&&LS.get('ludo-guest',null)?'<button class="alt" id="geRetry">Try again</button>':''}`);
+  $('geHome').onclick=()=>{location.href=location.pathname;};
+  if($('geRetry'))$('geRetry').onclick=()=>{closeModal();App.peer=null;guestJoin(App.code,App.myName);};}
+function guestLeave(){App.left=true;sendHost({t:'leave'});LS.del('ludo-guest');setTimeout(()=>{try{App.peer&&App.peer.destroy()}catch(e){}location.href=location.pathname;},300);}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&App.role==='guest'&&!App.left){
+  const c=App.hostConn;if(!c||!c.open){if(App.reconnT){clearTimeout(App.reconnT);App.reconnT=null;}App.retryStart=App.retryStart||Date.now();guestPeer(()=>connectHost());}}});
+
+/* ================= LOBBY UI ================= */
+function renderLobbyShare(){
+  $('lobCode').textContent=App.code||'-----';
+  const isHost=App.role==='host';$('shareBox').style.display=isHost?'flex':'none';
+  if(isHost){$('lobLink').textContent=shareLink();$('fileWarn').style.display=location.protocol==='file:'?'block':'none';}
+}
+function renderLobby(s){
+  renderLobbyShare();
+  const isHost=App.role==='host';const myColor=isHost?(App.S.seats.find(x=>x.clientId==='me')||{}).color:App.myColor;
+  const box=$('slots');box.innerHTML='';
+  for(const c of COLORS){const seat=s.seats.find(x=>x.color===c);const el=document.createElement('div');
+    el.className=`slot bg-${c}`+(seat?'':' free')+(c===myColor?' mine':'');
+    if(seat){el.innerHTML=`<div class="nm">${esc(seat.name)}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':'<span class="badge">offline</span>'}</div>`+
+      (isHost&&!seat.isHost?`<span class="x" data-k="${c}">✕</span>`:'');}
+    else el.innerHTML=`<div class="nm">${CNAME[c]}</div><div style="font-size:13px">Tap to pick</div>`;
+    el.onclick=ev=>{if(ev.target.dataset.k){kickSeat(ev.target.dataset.k);ev.stopPropagation();return;}
+      if(seat)return;if(isHost)pickColor('me',c);else sendHost({t:'pick',color:c});};
+    box.appendChild(el);}
+  $('lobPending').textContent=s.pending&&s.pending.length?('Choosing color: '+s.pending.join(', ')):'';
+  $('lobHead').textContent=myColor?'Players (tap a free color to switch)':'Pick your color';
+  const n=s.seats.length;
+  $('btnStart').style.display=isHost?'block':'none';$('btnStart').disabled=n<2;
+  $('lobStatus').textContent=isHost?(n<2?'Share the link – waiting for at least 1 more player…':`${n} players ready. Press Start when everyone has joined.`)
+    :(App.hostConn&&App.hostConn.open?(myColor?'Waiting for the host to start…':'Pick a color above'):'Connecting to host…');
+}
+$('btnStart').onclick=()=>{if(App.role==='host'){const S=App.S;if(App.conns.size>0&&[...App.conns.keys()].some(c=>!S.seats.find(x=>x.clientId===c))&&!confirm('Someone is still choosing a color. Start anyway?'))return;startGame();}};
+$('btnCopy').onclick=async()=>{try{await navigator.clipboard.writeText(shareLink());toast('Link copied');}catch(e){prompt('Copy this link:',shareLink());}};
+$('btnWa').onclick=()=>{window.open('https://wa.me/?text='+encodeURIComponent(`Let's play Ludo! Join my room ${App.code}: ${shareLink()}`),'_blank');};
+$('btnShare').onclick=async()=>{const data={title:'Ludo',text:`Join my Ludo room ${App.code}`,url:shareLink()};
+  if(navigator.share){try{await navigator.share(data);}catch(e){}}else $('btnCopy').onclick();};
+$('btnLobLeave').onclick=()=>leaveGame();
+
+/* ================= GAME UI ================= */
+$('dice').addEventListener('click',()=>{const s=App.view;if(!s||s.phase!=='playing'||s.awaiting||s.locked||!controls(s.turn))return;
+  if(App.role==='guest'){if(App.rollSentSeq===s.seq)return;App.rollSentSeq=s.seq;sendHost({t:'roll'});$('dice').classList.remove('can');}
+  else doRoll(App.S.seats.find(x=>x.color===s.turn).clientId);});
+function onTokenTap(c,i){const s=App.view;if(!s||!s.awaiting||s.turn!==c||!controls(c))return;
+  if(App.role==='guest'){sendHost({t:'move',i});$(`t-${c}-${i}`).classList.remove('mv');}else doMove(seatOf(c).clientId,i);}
+$('btnSkip').onclick=()=>{if(App.role==='host'&&confirm('Skip this offline player\'s turn?'))skipTurn();};
+function showGameOver(s){
+  const medals=['🥇','🥈','🥉','4️⃣'];
+  const list=s.rank.map((c,k)=>{const seat=s.seats.find(x=>x.color===c);return `<div class="rank bg-${c}">${medals[k]} <b>${esc(seat?seat.name:c)}</b></div>`;}).join('');
+  let btns='';
+  if(App.role==='host')btns='<button class="green" id="goAgain">Play again (same room)</button><button class="alt" id="goLeave">End room</button>';
+  else if(App.role==='local')btns='<button class="green" id="goAgain">Play again</button><button class="alt" id="goLeave">Home</button>';
+  else btns='<div class="muted">Waiting for host to start a new game…</div><button class="alt" id="goLeave">Leave</button>';
+  modal(`<h2>🏆 Game over</h2>${list}${btns}`);
+  if($('goAgain'))$('goAgain').onclick=()=>{closeModal();if(App.role==='host'){App.S.phase='lobby';App.S.tokens={};App.S.msg='';commit();}else startGame();};
+  $('goLeave').onclick=()=>leaveGame(true);
+}
+function leaveGame(noConfirm){
+  if(!noConfirm&&!confirm(App.role==='host'?'End this room for everyone?':'Leave the game?'))return;
+  if(App.role==='host')hostLeave();else if(App.role==='guest')guestLeave();else{LS.del('ludo-local');location.href=location.pathname;}
+}
+$('menuBtn').onclick=()=>{
+  const items=[];if(App.role==='host'&&App.code)items.push('<button class="alt" id="mShare">Share room link</button>');
+  items.push(`<button class="red" id="mLeave">${App.role==='host'?'End room':'Leave game'}</button><button class="alt" id="mClose">Close</button>`);
+  modal(`<h2>Menu</h2>${App.code?`<div class="muted">Room ${App.code}</div>`:''}${items.join('')}`);
+  if($('mShare'))$('mShare').onclick=()=>{closeModal();$('btnShare').onclick();};
+  $('mLeave').onclick=()=>{closeModal();leaveGame();};$('mClose').onclick=closeModal;
+};
+
+/* ================= LOCAL (pass & play) ================= */
+const localSel={red:true,green:true,yellow:false,blue:false};
+function renderLocalRows(){const box=$('localRows');box.innerHTML='';
+  for(const c of COLORS){const r=document.createElement('div');r.className='lrow'+(localSel[c]?' on':'');
+    r.innerHTML=`<div class="sw" style="background:${HEX[c]}"></div><input maxlength="14" id="ln-${c}" value="${esc(LS.get('ludo-ln-'+c,CNAME[c]))}" ${localSel[c]?'':'disabled'}>`;
+    r.querySelector('.sw').onclick=()=>{localSel[c]=!localSel[c];renderLocalRows();};box.appendChild(r);}}
+$('btnLocal').onclick=()=>{renderLocalRows();showScreen('scrLocal');};
+$('btnLocalBack').onclick=()=>showScreen('scrHome');
+$('btnLocalStart').onclick=()=>{const cs=COLORS.filter(c=>localSel[c]);if(cs.length<2)return toast('Select at least 2 players');
+  App.role='local';App.S=newState();
+  for(const c of cs){const n=cleanName($('ln-'+c).value)||CNAME[c];LS.set('ludo-ln-'+c,n);App.S.seats.push({color:c,name:n,clientId:'me',connected:true});}
+  $('roomTag').textContent='Pass & Play';startGame();};
+
+/* ================= HOME ================= */
+function needName(inp){const n=cleanName($(inp).value);if(!n){toast('Please enter your name');$(inp).focus();return null;}LS.set('ludo-name',n);App.myName=n;return n;}
+$('btnCreate').onclick=()=>{if(!needName('nameIn'))return;hostCreate();};
+$('btnJoinCode').onclick=()=>{const code=$('codeIn').value.trim().toUpperCase();if(code.length<4)return toast('Enter the room code');if(!needName('nameIn'))return;guestJoin(code,App.myName);};
+$('btnJoin').onclick=()=>{if(!needName('joinName'))return;guestJoin(App.pendingCode,App.myName);};
+$('btnJoinBack').onclick=()=>{history.replaceState(null,'',location.pathname);initHome();};
+function initHome(){
+  showScreen('scrHome');$('nameIn').value=LS.get('ludo-name','');
+  const rb=$('resumeBox');rb.innerHTML='';const items=[];
+  const h=LS.get('ludo-host',null);if(h&&Date.now()-h.ts<6*3600e3)items.push(['host',`▶ Resume my room ${esc(h.code)}`]);else LS.del('ludo-host');
+  const l=LS.get('ludo-local',null);if(l&&l.S&&l.S.phase==='playing'&&Date.now()-l.ts<24*3600e3)items.push(['local','▶ Continue pass & play game']);
+  const g=LS.get('ludo-guest',null);if(g&&Date.now()-g.ts<6*3600e3)items.push(['guest',`▶ Rejoin room ${esc(g.code)} as ${esc(g.name)}`]);
+  rb.style.display=items.length?'flex':'none';
+  for(const [k,t] of items){const b=document.createElement('button');b.className='green';b.innerHTML=t;rb.appendChild(b);
+    b.onclick=()=>{if(k==='host'){App.myName=h.name;hostResume(h);}else if(k==='local'){App.role='local';App.S=l.S;App.S.locked=false;$('roomTag').textContent='Pass & Play';commit();}
+      else guestJoin(g.code,g.name);};}
+}
+buildTokens();$('board').innerHTML=boardSVG();drawDice(6);
+(function boot(){
+  const room=(Q.get('room')||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(room){App.pendingCode=room;$('joinCode').textContent=room;const g=LS.get('ludo-guest',{});
+    $('joinName').value=(g.code===room&&g.name)||LS.get('ludo-name','');showScreen('scrJoin');
+    if(g.code===room&&g.name)$('btnJoin').textContent='Rejoin as '+g.name;}
+  else initHome();
+  if(location.protocol==='file:')$('offlineNote').textContent='Tip: for online play, open this game from its https:// web address.';
+})();
+</script>
+</body>
+</html>

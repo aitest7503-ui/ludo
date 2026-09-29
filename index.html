@@ -14,8 +14,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
 :root{--font:"Baloo 2",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--disp:"Lilita One","Baloo 2",system-ui,sans-serif;
-  --bw:min(calc(100vw - 16px),calc(100vh - 330px),520px)}
-@supports (height:100dvh){:root{--bw:min(calc(100vw - 16px),calc(100dvh - 330px),520px)}}
+  --bw:min(calc(100vw - 16px),calc(100vh - 370px),520px)}
+@supports (height:100dvh){:root{--bw:min(calc(100vw - 16px),calc(100dvh - 370px),520px)}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:#170a4d}
 html,body{margin:0;min-height:100%;color:#fff;font-family:var(--font);overscroll-behavior:none}
@@ -251,6 +251,36 @@ input:focus{border-color:#ffc81a;box-shadow:inset 0 3px 0 rgba(40,0,120,.1),0 0 
 .rank.win{transform:scale(1.04);box-shadow:0 4px 0 rgba(0,0,0,.25),0 0 0 3px #ffd54a,0 0 20px rgba(255,213,74,.8)}
 .rank .rw{font-family:var(--disp);font-size:13px;background:#ffd54a;color:#6a3a00;padding:1px 8px;border-radius:8px;text-shadow:none}
 .rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:14.5px;font-weight:600;line-height:1.35}
+/* coins */
+.coin{display:inline-block;width:1em;height:1em;border-radius:50%;vertical-align:-.14em;position:relative;flex:0 0 auto;
+  background:radial-gradient(circle at 35% 30%,#fff7c2 0,#ffd84a 30%,#f2a900 70%,#b86f00 100%);box-shadow:inset 0 0 0 .08em #a86400,0 .06em .1em rgba(0,0,0,.35)}
+.coin::after{content:"";position:absolute;inset:.2em;border-radius:50%;border:.07em solid rgba(150,85,0,.6);box-shadow:inset .03em .05em 0 rgba(255,255,255,.6)}
+.coin.fly{position:fixed;width:26px;height:26px;z-index:160;pointer-events:none;transition:transform .85s cubic-bezier(.45,-.35,.6,1),opacity .3s .65s}
+.pcard .pcn{font-size:12.5px;font-weight:800;color:#ffe066;display:flex;align-items:center;gap:3px;text-shadow:0 1px 2px rgba(0,0,0,.5);line-height:1.3}
+.pcard.right .pcn{justify-content:flex-end}
+#potBar{width:var(--bw);min-width:280px;margin:0 auto;display:none;align-items:center;justify-content:center;gap:7px;padding:4px 14px;border-radius:18px;
+  background:linear-gradient(180deg,#ffe27a,#f5b416 55%,#d18a00);color:#5a2e00;font-family:var(--disp);font-size:19px;border:2px solid #fff3b0;
+  box-shadow:0 4px 0 #8a5200,0 8px 14px rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.7)}
+#potBar .coin{font-size:21px}
+#potRule{font-family:var(--font);font-weight:800;font-size:12.5px;background:rgba(90,46,0,.15);padding:0 8px;border-radius:10px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.chips button{font-size:16px;padding:8px 0;min-width:52px;flex:1;border-radius:14px}
+.chips button.sel,.seg button.sel{--c1:#ffe27a;--c2:#f5b416;--c3:#8a5200;color:#5a2e00;text-shadow:none;box-shadow:0 0 0 3px #fff,0 5px 0 var(--c3)}
+.seg{display:flex;gap:6px}.seg button{flex:1;font-size:14.5px;padding:10px 6px}
+.seg button:not(.sel){--c1:rgba(255,255,255,.22);--c2:rgba(255,255,255,.08);--c3:rgba(10,0,50,.45)}
+.betBal{text-align:center;font-weight:800;font-size:15px}
+.coinNote{text-align:center;font-size:12.5px;font-weight:700;color:#ffe066;opacity:.9}
+.slot .scoin{font-size:12px;font-weight:800;display:flex;align-items:center;gap:3px;white-space:nowrap;margin-top:1px}
+.lbet{width:96px;flex:0 0 96px;display:flex;flex-direction:column;gap:2px}.lbet small{font-size:12px;font-weight:800;color:#ffe066;text-align:center}
+.lbet input{padding:8px;font-size:15px;text-align:center}
+.crow{display:flex;flex-direction:column;gap:5px;padding:7px 0 2px;border-top:1px solid rgba(255,255,255,.12)}
+.crow .cn{display:flex;justify-content:space-between;align-items:center;font-size:15px}.crow .cn span{color:#ffe066;font-weight:800}
+.cbt{display:flex;gap:4px}.cbt input{flex:1;min-width:0;padding:7px 8px;font-size:15px}
+.cbt button{padding:7px 9px;font-size:14px;font-family:var(--font);font-weight:800;border-radius:10px;box-shadow:none;background:#3a2c8c;text-shadow:none}
+.cbt button::before{display:none}
+.rank .rnm{flex:1;min-width:0}.rank .rnm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank .rbal{font-size:11.5px;font-weight:800;opacity:.95;display:flex;align-items:center;gap:3px}
+.rank .pay{font-family:var(--disp);font-size:16px;color:#fff3b0;display:flex;align-items:center;gap:3px;text-shadow:0 1px 2px rgba(0,0,0,.5);white-space:nowrap}
 /* splash */
 #splash{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;pointer-events:none;
   background:radial-gradient(130% 75% at 50% 30%,#7b44f0 0%,#4a22c4 35%,#241075 70%,#170a4d 100%);animation:splashOut .45s ease-in 1.05s forwards}
@@ -365,9 +395,18 @@ input:focus{border-color:#ffc81a;box-shadow:inset 0 3px 0 rgba(40,0,120,.1),0 0 
       <div class="slots" id="slots"></div>
       <div class="muted" id="lobPending"></div>
     </div>
+    <div class="panel" id="betPanel" style="display:none">
+      <div class="ptitle">🪙 Place your bet</div>
+      <div class="betBal">Your coins: <i class="coin"></i> <b id="myBal">0</b> &nbsp;·&nbsp; Bet: <b id="myBet">–</b></div>
+      <div class="chips" id="betChips"></div>
+      <div class="row"><input id="betIn" type="number" min="0" step="10" inputmode="numeric" placeholder="Custom bet"><button id="betSet" class="orange">Bet</button></div>
+      <div id="potLine" class="muted center"></div>
+      <div id="splitBox" class="seg" style="display:none"><button id="spWin">Winner takes all</button><button id="spSplit">70 / 30 split</button></div>
+    </div>
     <div id="lobStatus" class="muted center"></div>
     <button id="btnStart" class="big green" style="display:none">▶ Start Game</button>
     <button id="btnLobLeave" class="alt">Leave</button>
+    <div class="coinNote"><i class="coin"></i> Virtual coins only — no real money value.</div>
   </section>
 
   <!-- LOCAL SETUP -->
@@ -376,6 +415,10 @@ input:focus{border-color:#ffc81a;box-shadow:inset 0 3px 0 rgba(40,0,120,.1),0 0 
       <div class="ptitle">📱 Pass &amp; Play</div>
       <div class="muted center">Tap a circle to add/remove a player (2–4).</div>
       <div id="localRows"></div>
+      <div class="lbl center">🪙 Bet for all players</div>
+      <div class="chips" id="lChips"></div>
+      <div class="seg"><button id="lspWin">Winner takes all</button><button id="lspSplit">70 / 30 split</button></div>
+      <div class="coinNote">Virtual coins only — no real money value.</div>
     </div>
     <button id="btnLocalStart" class="big green">▶ Start Game</button>
     <button id="btnLocalBack" class="alt">‹ Back</button>
@@ -384,6 +427,7 @@ input:focus{border-color:#ffc81a;box-shadow:inset 0 3px 0 rgba(40,0,120,.1),0 0 
   <!-- GAME -->
   <section id="scrGame" class="screen">
     <div id="banner"></div>
+    <div id="potBar"><span>POT</span><i class="coin"></i><b id="potAmt">0</b><span id="potRule"></span></div>
     <div class="pRow"><div class="pcard left" id="pc-red"></div><div class="pcard right" id="pc-green"></div></div>
     <div id="boardWrap"><div id="boardIn"><div id="board"></div><div id="tokens"></div><div id="fx"></div></div></div>
     <div class="pRow"><div class="pcard left" id="pc-blue"></div><div class="pcard right" id="pc-yellow"></div></div>
@@ -529,6 +573,49 @@ function showSettings(){
   $('setMusic').onclick=()=>{setMusic(!MUSIC);lbl();};$('setSfx').onclick=()=>{setSfx(!SFX);lbl();if(SFX)sfx.coin();};
   $('setRules').onclick=showRules;$('setClose').onclick=closeModal;
 }
+/* ================= VIRTUAL COINS (host / local device is the bank) ================= */
+const fmt=n=>(Number(n)||0).toLocaleString('en-US');
+const Coins={START:1000,
+  all(){return LS.get('ludo-coins',{});},
+  key(n){return cleanName(n).toLowerCase();},
+  peek(n){const a=this.all(),k=this.key(n);return a[k]?a[k].bal:this.START;},
+  get(n){const a=this.all(),k=this.key(n);if(!k)return 0;if(!a[k]){a[k]={name:cleanName(n),bal:this.START};LS.set('ludo-coins',a);}return a[k].bal;},
+  set(n,v){const a=this.all(),k=this.key(n);if(!k)return;a[k]={name:(a[k]&&a[k].name)||cleanName(n),bal:Math.max(0,Math.floor(Number(v))||0)};LS.set('ludo-coins',a);},
+  add(n,d){this.set(n,this.get(n)+d);}};
+const splitText=sp=>sp==='7030'?'70/30 split':'Winner takes all';
+function syncCoins(S){if(!S||App.role==='guest')return;if(!S.bets)S.bets={};if(!S.split)S.split=LS.get('ludo-split','win');
+  S.coins={};for(const x of S.seats)S.coins[x.color]=Coins.get(x.name);
+  for(const c of Object.keys(S.bets))if(!S.seats.find(x=>x.color===c)||(S.phase==='lobby'&&S.bets[c]>S.coins[c]))delete S.bets[c];
+  if(S.phase==='lobby'){S.pot=0;for(const c in S.bets)S.pot+=S.bets[c];}}
+function potStart(S){if(!S.bets)S.bets={};if(!S.split)S.split=LS.get('ludo-split','win');S.potBets={};S.pot=0;S.payout=null;S.settled=false;S.refunded=false;
+  for(const x of S.seats){const bal=Coins.get(x.name),b=Math.max(0,Math.min(Math.floor(S.bets[x.color]||0),bal));if(b)Coins.add(x.name,-b);S.potBets[x.color]=b;S.pot+=b;}}
+function settlePot(S){if(!S||S.settled||!S.potBets)return;const pot=S.pot||0,rk=S.rank;S.payout={};
+  if(pot>0&&rk.length){if(S.split==='7030'&&rk.length>=2){const a=Math.round(pot*.7);S.payout[rk[0]]=a;S.payout[rk[1]]=pot-a;}else S.payout[rk[0]]=pot;
+    for(const c in S.payout){const x=S.seats.find(y=>y.color===c);if(x)Coins.add(x.name,S.payout[c]);}}
+  S.settled=true;}
+function refundPot(S){if(!S||S.settled||!S.potBets||S.phase!=='playing')return false;
+  for(const x of S.seats){const b=S.potBets[x.color]||0;if(b)Coins.add(x.name,b);}S.settled=true;S.refunded=true;return true;}
+function refundSaved(key){const sv=LS.get(key,null);if(sv&&sv.S&&refundPot(sv.S))LS.del(key);}
+function moveBet(from,to){const S=App.S;if(S&&S.bets&&S.bets[from]!=null){S.bets[to]=S.bets[from];delete S.bets[from];}}
+function setBet(cid,amount){const S=App.S;if(!S||S.phase!=='lobby')return;const seat=S.seats.find(x=>x.clientId===cid);if(!seat)return;
+  const err=m=>{if(cid==='me')toast(m);else{const g=App.conns.get(cid);g&&sendTo(g.conn,{t:'error',msg:m});}};
+  const v=Math.floor(Number(amount));if(!isFinite(v)||v<0)return err('Enter a valid bet (0 or more)');
+  const bal=Coins.get(seat.name);if(v>bal)return err(`Bet cannot exceed your balance (${fmt(bal)} coins)`);
+  if(!S.bets)S.bets={};S.bets[seat.color]=v;commit();}
+function setSplit(v){LS.set('ludo-split',v);if(App.S&&App.S.phase==='lobby'&&App.role==='host'){App.S.split=v;commit();}}
+function confirmBets(){const S=App.S;const miss=S.seats.filter(x=>!S.bets||S.bets[x.color]==null).map(x=>x.name);
+  return !miss.length||confirm(`${miss.join(', ')} ha${miss.length>1?'ve':'s'}n't placed a bet – they will play with 0 bet. Start anyway?`);}
+function myBet(v){const s=App.view;if(!s||s.phase!=='lobby')return;v=Math.floor(Number(v));if(!isFinite(v)||v<0)return toast('Enter a valid bet (0 or more)');
+  const my=App.role==='host'?(App.S.seats.find(x=>x.clientId==='me')||{}).color:App.myColor;if(!my)return toast('Pick a color first');
+  const bal=(s.coins||{})[my]||0;if(v>bal)return toast(`Bet cannot exceed your balance (${fmt(bal)} coins)`);
+  if(App.role==='host')setBet('me',v);else sendHost({t:'bet',amount:v});}
+function coinShower(payout){if(App.fast||!payout)return;const pb=$('potBar'),r0=pb.getBoundingClientRect();let delay=0;
+  for(const c of Object.keys(payout)){if(!payout[c])continue;const tgt=document.querySelector(`.rank .pay[data-c="${c}"]`)||document.querySelector(`#pc-${c} .av`);if(!tgt)continue;
+    const r1=tgt.getBoundingClientRect();
+    for(let k=0;k<12;k++){const el=document.createElement('i');el.className='coin fly';const x0=r0.left+r0.width/2-13+(Math.random()-.5)*60,y0=r0.top+r0.height/2-13;
+      el.style.left=x0+'px';el.style.top=y0+'px';document.body.appendChild(el);const dx=r1.left+r1.width/2-13-x0,dy=r1.top+r1.height/2-13-y0,t=delay+k*75;
+      setTimeout(()=>{el.style.transform=`translate(${dx}px,${dy}px) scale(.75) rotate(${360+Math.random()*360}deg)`;el.style.opacity='0';if(k%3===0)sfx.coin();},t);setTimeout(()=>el.remove(),t+1100);}
+    delay+=600;}}
 /* avatars + effects */
 const AVS=['🦁','🐯','🐼','🦊','🐸','🐵','🐨','🐶','🐱','🦄','🐻','🐰','🐷','🐮','🐧','🐲','🦉','🐙'];
 function avatarFor(name){let h=7;for(const ch of String(name||'?').toLowerCase())h=(h*31+ch.codePointAt(0))>>>0;return AVS[h%AVS.length];}
@@ -621,7 +708,7 @@ function drawDice(v){const c=$('dice').querySelector('.cube');if(!c)return;const
 function moveDice(color){const d=$('dice'),card=color&&$('pc-'+color);if(!card)return;const slot=card.querySelector('.dslot');
   if(slot&&d.parentNode!==slot)slot.appendChild(d);d.style.setProperty('--pc',HEX[color]);}
 function buildCards(){for(const c of COLORS){const el=$('pc-'+c);el.style.setProperty('--pc',HEX[c]);el.dataset.c=c;
-  el.innerHTML=`<div class="av"><i class="ring"></i><span class="emo"></span><span class="medal"></span></div><div class="pinfo"><div class="pn"></div><div class="pt"></div><div class="pdots">${'<b></b>'.repeat(4)}</div></div><div class="dslot"></div>`;}}
+  el.innerHTML=`<div class="av"><i class="ring"></i><span class="emo"></span><span class="medal"></span></div><div class="pinfo"><div class="pn"></div><div class="pt"></div><div class="pcn"><i class="coin"></i><span class="cv">0</span></div><div class="pdots">${'<b></b>'.repeat(4)}</div></div><div class="dslot"></div>`;}}
 function renderGame(s){
   const AV=avMap(s.seats);
   for(const c of COLORS){const el=$('pc-'+c),seat=s.seats.find(x=>x.color===c);
@@ -633,8 +720,12 @@ function renderGame(s){
     el.querySelector('.pt').innerHTML=tags.map(t=>`<span class="tag">${t}</span>`).join('');
     el.querySelector('.emo').textContent=AV[c];
     el.querySelector('.medal').textContent=rk>=0?['🥇','🥈','🥉','4️⃣'][rk]:'';
+    el.querySelector('.cv').textContent=fmt((s.coins||{})[c]);el.querySelector('.pcn').style.display=s.coins?'flex':'none';
     const home=(s.tokens[c]||[]).filter(p=>p===HOME).length;el.querySelectorAll('.pdots b').forEach((b,k)=>b.classList.toggle('on',k<home));}
   renderTokens(s);
+  $('potBar').style.display=(s.pot>0&&s.potBets)?'flex':'none';$('potAmt').textContent=fmt(s.pot);
+  $('potRule').textContent=s.phase==='over'&&s.settled?'Paid out!':splitText(s.split);
+  if(s.phase!=='over')App.payAnim=false;
   const turnSeat=s.seats.find(x=>x.color===s.turn);const d=$('dice');
   if(turnSeat&&s.phase==='playing')moveDice(s.turn);
   const mine=turnSeat&&controls(s.turn);
@@ -666,7 +757,7 @@ async function present(prev,s){
   if(animate&&s.lastMove&&(!prev.lastMove||prev.lastMove.id!==s.lastMove.id)){await animMove(s.lastMove);}
   const wasMine=App.view&&App.view.phase==='playing'&&controls(App.view.turn);
   App.view=s;renderGame(s);
-  if(prev&&prev.phase==='playing'&&s.phase==='over'){confetti(5000);sfx.win();}
+  if(prev&&prev.phase==='playing'&&s.phase==='over'){confetti(5000);sfx.win();if(s.payout)setTimeout(()=>coinShower(s.payout),500);}
   else if(prev&&prev.phase==='playing'&&s.phase==='playing'&&s.rank.length>(prev.rank||[]).length){confetti(2500);sfx.home();}
   if(s.phase==='playing'&&controls(s.turn)&&!wasMine&&App.role!=='local'){try{navigator.vibrate&&navigator.vibrate(120)}catch(e){}sfx.turn();}
 }
@@ -701,7 +792,7 @@ function pub(S){
   return p; // NOTE: contains only public game data – never any dice-control info
 }
 function commit(){
-  const S=App.S;S.seq++;
+  const S=App.S;syncCoins(S);S.seq++;
   const P=pub(S);
   if(App.role==='host'){LS.set('ludo-host',{code:App.code,S,name:App.myName,ts:Date.now()});
     for(const [cid,g] of App.conns){const seat=S.seats.find(x=>x.clientId===cid);sendTo(g.conn,{t:'state',s:P,you:seat?seat.color:null});}}
@@ -710,6 +801,7 @@ function commit(){
 }
 function startGame(){
   const S=App.S;if(S.seats.length<2)return toast('Need at least 2 players');
+  potStart(S);
   S.phase='playing';S.tokens={};for(const x of S.seats)S.tokens[x.color]=[-1,-1,-1,-1];
   const os=ordered(S);S.turn=os[rollDie()%os.length].color;
   Object.assign(S,{rank:[],dice:null,awaiting:false,locked:false,sixes:0,lastMove:null});
@@ -749,7 +841,7 @@ function doMove(cid,i){
   if(S.tokens[color].every(p=>p===HOME)&&!S.rank.includes(color)){
     S.rank.push(color);msg=`🏆 ${seat.name} finished #${S.rank.length}!`;extra=false;
     const alive=ordered(S).filter(x=>!S.rank.includes(x.color));
-    if(alive.length<=1){if(alive[0])S.rank.push(alive[0].color);S.phase='over';S.msg=msg;commit();return;}
+    if(alive.length<=1){if(alive[0])S.rank.push(alive[0].color);S.phase='over';settlePot(S);S.msg=msg;commit();return;}
   }
   if(extra){S.msg=msg+' – roll again';}else{advance(S);S.msg=msg;}
   commit();
@@ -765,6 +857,14 @@ $('title').addEventListener('click',()=>{
   const now=Date.now();Admin.taps=Admin.taps.filter(t=>now-t<3000);Admin.taps.push(now);
   if(Admin.taps.length>=CFG.ADMIN_TAPS){Admin.taps=[];Admin.unlocked?renderAdmin():askPin();}
 });
+function coinAdminHTML(){const all=Coins.all(),ks=Object.keys(all).sort((a,b)=>all[a].name.localeCompare(all[b].name));
+  const rows=ks.map(k=>`<div class="crow"><div class="cn"><b>${esc(all[k].name)}</b><span><i class="coin"></i> ${fmt(all[k].bal)}</span></div>
+    <div class="cbt"><input type="number" min="0" inputmode="numeric" placeholder="amount" data-ck="${esc(k)}"><button data-cop="add" data-ck="${esc(k)}">+</button><button data-cop="sub" data-ck="${esc(k)}">−</button><button data-cop="set" data-ck="${esc(k)}">Set</button><button data-cop="reset" data-ck="${esc(k)}">↺1000</button></div></div>`).join('');
+  return `<div class="arow" id="coinAdmin"><div><b>🪙 Coins</b> <span class="muted">all known players · this device is the bank</span></div>${rows||'<div class="muted">No players yet.</div>'}</div>`;}
+function bindCoinAdmin(){$('ovBox').querySelectorAll('button[data-cop]').forEach(b=>b.onclick=()=>{const k=b.dataset.ck,op=b.dataset.cop,all=Coins.all();if(!all[k])return;
+  const inp=$('ovBox').querySelector(`input[data-ck="${CSS.escape(k)}"]`),raw=inp?inp.value.trim():'',v=Math.floor(Number(raw));let bal=all[k].bal;
+  if(op==='reset')bal=Coins.START;else{if(raw===''||!isFinite(v)||v<0)return toast('Enter an amount');bal=op==='add'?bal+v:op==='sub'?Math.max(0,bal-v):v;}
+  all[k].bal=bal;LS.set('ludo-coins',all);if(App.S)commit();renderAdmin();toast(`${all[k].name}: ${fmt(bal)} coins`);});}
 function askPin(){
   modal(`<h2>🔒 Enter PIN</h2><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><div class="row"><button id="pinOk" class="green" style="flex:1">OK</button><button class="alt" id="pinCancel">Cancel</button></div>`);
   const go=()=>{if($('pinIn').value===Admin.pin()){Admin.unlocked=true;renderAdmin();}else{closeModal();toast('Wrong PIN');}};
@@ -779,11 +879,13 @@ function renderAdmin(){
       <label class="muted"><input type="checkbox" data-al="${seat.color}" ${f&&f.always?'checked':''} style="width:auto"> keep for every roll</label></div>`;}).join('');
   modal(`<div id="adminPanel" style="display:flex;flex-direction:column;gap:10px"><h2>⚙️ Dice control</h2>
     <div class="muted">Only on this device. Other players just see a normal roll. 🎲 = random.</div>${rows||'<div class="muted">No players yet.</div>'}
+    ${coinAdminHTML()}
     <div class="row"><button class="alt" id="apChg" style="flex:1">Change PIN</button><button class="green" id="apClose" style="flex:1">Close</button></div></div>`);
   $('ovBox').querySelectorAll('.abtns button').forEach(b=>b.onclick=()=>{const c=b.dataset.c,v=+b.dataset.v;
     const al=$('ovBox').querySelector(`input[data-al="${c}"]`).checked;if(!v)delete Admin.force[c];else Admin.force[c]={v,always:al};renderAdmin();});
   $('ovBox').querySelectorAll('input[data-al]').forEach(cb=>cb.onchange=()=>{const f=Admin.force[cb.dataset.al];if(f){f.always=cb.checked;renderAdmin();}});
-  $('apClose').onclick=closeModal;
+  $('apClose').onclick=()=>{closeModal();if(App.view&&App.view.phase==='over')showGameOver(App.view);};
+  bindCoinAdmin();
   $('apChg').onclick=()=>{const p=prompt('New PIN (4-8 digits):');if(p&&/^\d{4,8}$/.test(p)){LS.set('ludo-apin',p);toast('PIN changed');}else if(p)toast('PIN must be 4-8 digits');};
 }
 
@@ -848,6 +950,7 @@ function hostMsg(conn,m){
     case 'pick':pickColor(cid,m.color);break;
     case 'roll':doRoll(cid);break;
     case 'move':doMove(cid,m.i|0);break;
+    case 'bet':setBet(cid,m.amount);break;
     case 'leave':{const seat=S.seats.find(x=>x.clientId===cid);App.conns.delete(cid);
       if(seat){if(S.phase==='lobby')S.seats=S.seats.filter(x=>x!==seat);else{seat.connected=false;App.offlineSince[seat.color]=Date.now();}toast(`${seat.name} left`);}commit();break;}
   }
@@ -866,7 +969,7 @@ function pickColor(cid,color){
   if(!COLORS.includes(color))return;
   const taken=S.seats.find(x=>x.color===color);
   if(taken&&taken!==mine){if(cid!=='me'){const g=App.conns.get(cid);g&&sendTo(g.conn,{t:'error',msg:'That color is taken'});}else toast('That color is taken');return;}
-  if(mine)mine.color=color;else{if(S.seats.length>=4)return;S.seats.push({color,name,clientId:cid,connected:true});}
+  if(mine){moveBet(mine.color,color);mine.color=color;}else{if(S.seats.length>=4)return;S.seats.push({color,name,clientId:cid,connected:true});}
   commit();
 }
 function kickSeat(color){const S=App.S,seat=seatOf(color);if(!seat||seat.clientId==='me'||S.phase!=='lobby')return;
@@ -948,6 +1051,17 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
   const c=App.hostConn;if(!c||!c.open){if(App.reconnT){clearTimeout(App.reconnT);App.reconnT=null;}App.retryStart=App.retryStart||Date.now();guestPeer(()=>connectHost());}}});
 
 /* ================= LOBBY UI ================= */
+function renderBets(s,myColor,isHost){
+  const bp=$('betPanel');bp.style.display=myColor?'flex':'none';if(!myColor)return;
+  const bal=(s.coins||{})[myColor]||0,cur=(s.bets||{})[myColor];
+  $('myBal').textContent=fmt(bal);$('myBet').textContent=cur!=null?fmt(cur):'–';
+  $('betChips').innerHTML=[0,50,100,250,500].map(v=>`<button data-v="${v}" class="${cur===v?'sel':'alt'}" ${v>bal?'disabled':''}>${v?fmt(v):'0'}</button>`).join('');
+  $('betChips').querySelectorAll('button').forEach(b=>b.onclick=()=>myBet(+b.dataset.v));
+  $('potLine').innerHTML=`Pot so far: <i class="coin"></i> <b>${fmt(s.pot)}</b> · ${splitText(s.split)}`;
+  $('splitBox').style.display=isHost?'flex':'none';$('spWin').className=s.split!=='7030'?'sel':'';$('spSplit').className=s.split==='7030'?'sel':'';}
+$('betSet').onclick=()=>{const v=$('betIn').value.trim();if(v==='')return toast('Enter a bet amount');myBet(v);$('betIn').value='';};
+$('betIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('betSet').onclick();});
+$('spWin').onclick=()=>setSplit('win');$('spSplit').onclick=()=>setSplit('7030');
 function renderLobbyShare(){
   $('lobCode').textContent=App.code||'-----';
   const isHost=App.role==='host';$('shareBox').style.display=isHost?'flex':'none';
@@ -959,7 +1073,7 @@ function renderLobby(s){
   const box=$('slots');box.innerHTML='';const AV=avMap(s.seats);
   for(const c of COLORS){const seat=s.seats.find(x=>x.color===c);const el=document.createElement('div');
     el.className=`slot bg-${c}`+(seat?'':' free')+(c===myColor?' mine':'');
-    if(seat){el.innerHTML=`<div class="sav">${AV[c]}</div><div class="sinfo"><div class="nm">${esc(seat.name)}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':'<span class="badge">offline</span>'}</div></div>`+
+    if(seat){el.innerHTML=`<div class="sav">${AV[c]}</div><div class="sinfo"><div class="nm">${esc(seat.name)}</div><div class="scoin"><i class="coin"></i>${fmt((s.coins||{})[c])} · ${(s.bets||{})[c]!=null?'Bet '+fmt(s.bets[c]):'No bet yet'}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':'<span class="badge">offline</span>'}</div></div>`+
       (isHost&&!seat.isHost?`<span class="x" data-k="${c}">✕</span>`:'');}
     else el.innerHTML=`<div class="sav empty">+</div><div class="sinfo"><div class="nm">${CNAME[c]}</div><div class="tp">Tap to pick</div></div>`;
     el.onclick=ev=>{if(ev.target.dataset.k){kickSeat(ev.target.dataset.k);ev.stopPropagation();return;}
@@ -967,12 +1081,13 @@ function renderLobby(s){
     box.appendChild(el);}
   $('lobPending').textContent=s.pending&&s.pending.length?('Choosing color: '+s.pending.join(', ')):'';
   $('lobHead').textContent=myColor?'Players (tap a free color to switch)':'Pick your color';
+  renderBets(s,myColor,isHost);
   const n=s.seats.length;
   $('btnStart').style.display=isHost?'block':'none';$('btnStart').disabled=n<2;
   $('lobStatus').textContent=isHost?(n<2?'Share the link – waiting for at least 1 more player…':`${n} players ready. Press Start when everyone has joined.`)
     :(App.hostConn&&App.hostConn.open?(myColor?'Waiting for the host to start…':'Pick a color above'):'Connecting to host…');
 }
-$('btnStart').onclick=()=>{if(App.role==='host'){const S=App.S;if(App.conns.size>0&&[...App.conns.keys()].some(c=>!S.seats.find(x=>x.clientId===c))&&!confirm('Someone is still choosing a color. Start anyway?'))return;startGame();}};
+$('btnStart').onclick=()=>{if(App.role==='host'){const S=App.S;if(App.conns.size>0&&[...App.conns.keys()].some(c=>!S.seats.find(x=>x.clientId===c))&&!confirm('Someone is still choosing a color. Start anyway?'))return;if(!confirmBets())return;startGame();}};
 $('btnCopy').onclick=async()=>{try{await navigator.clipboard.writeText(shareLink());toast('Link copied');}catch(e){prompt('Copy this link:',shareLink());}};
 $('btnWa').onclick=()=>{window.open('https://wa.me/?text='+encodeURIComponent(`Let's play Ludo Raja! 👑🎲 Join my room ${App.code}: ${shareLink()}`),'_blank');};
 $('btnShare').onclick=async()=>{const data={title:'Ludo Raja',text:`Join my Ludo Raja room ${App.code}`,url:shareLink()};
@@ -989,12 +1104,17 @@ $('btnSkip').onclick=()=>{if(App.role==='host'&&confirm('Skip this offline playe
 function showGameOver(s){
   const medals=['🥇','🥈','🥉','4️⃣'],AV=avMap(s.seats);
   const list=s.rank.map((c,k)=>{const seat=s.seats.find(x=>x.color===c),nm=seat?seat.name:c;
-    return `<div class="rank bg-${c}${k===0?' win':''}"><span class="rpos">${medals[k]}</span><span class="rav">${AV[c]||avatarFor(nm)}</span><b>${esc(nm)}</b>${k===0?'<span class="rw">RAJA!</span>':''}</div>`;}).join('');
+    const pay=(s.payout||{})[c]||0,bal=(s.coins||{})[c];
+    return `<div class="rank bg-${c}${k===0?' win':''}"><span class="rpos">${medals[k]}</span><span class="rav">${AV[c]||avatarFor(nm)}</span><div class="rnm"><b>${esc(nm)}</b>${bal!=null?`<div class="rbal"><i class="coin"></i>${fmt(bal)}</div>`:''}</div>${k===0?'<span class="rw">RAJA!</span>':''}${pay?`<span class="pay" data-c="${c}" data-v="${pay}">+<i class="coin"></i><span class="pv">${fmt(pay)}</span></span>`:''}</div>`;}).join('');
   let btns='';
   if(App.role==='host')btns='<button class="green" id="goAgain">Play again (same room)</button><button class="alt" id="goLeave">End room</button>';
   else if(App.role==='local')btns='<button class="green" id="goAgain">Play again</button><button class="alt" id="goLeave">Home</button>';
   else btns='<div class="muted center">Waiting for host to start a new game…</div><button class="alt" id="goLeave">Leave</button>';
-  modal(`<div class="rankScr"><svg class="crown"><use href="#crown"/></svg><h2>🏆 Results</h2>${list}</div>${btns}`);
+  if($('adminPanel'))return;   // don't cover the host's open panel; results re-appear on close
+  const potTxt=s.pot>0?`<div class="muted center">Pot <i class="coin"></i> <b>${fmt(s.pot)}</b> · ${splitText(s.split)}</div>`:'';
+  modal(`<div class="rankScr"><svg class="crown"><use href="#crown"/></svg><h2>🏆 Results</h2>${potTxt}${list}</div>${btns}`);
+  if(!App.payAnim&&!App.fast){App.payAnim=true;document.querySelectorAll('#ovBox .pay').forEach(p=>{const v=+p.dataset.v,pv=p.querySelector('.pv'),t0=performance.now();
+    (function f(t){const k=Math.min(1,(t-t0)/1400);pv.textContent=fmt(Math.round(v*k));if(k<1)requestAnimationFrame(f);})(t0);});}
   if($('goAgain'))$('goAgain').onclick=()=>{closeModal();if(App.role==='host'){App.S.phase='lobby';App.S.tokens={};App.S.msg='';commit();}else startGame();};
   $('goLeave').onclick=()=>leaveGame(true);
 }
@@ -1011,6 +1131,7 @@ function showRules(){
 }
 function leaveGame(noConfirm){
   if(!noConfirm&&!confirm(App.role==='host'?'End this room for everyone?':'Leave the game?'))return;
+  if(App.role!=='guest'&&App.S&&App.S.phase==='playing')refundPot(App.S);   // abandoned before finishing -> refund bets
   if(App.role==='host')hostLeave();else if(App.role==='guest')guestLeave();else{LS.del('ludo-local');location.href=location.pathname;}
 }
 $('menuBtn').onclick=()=>{
@@ -1028,9 +1149,17 @@ $('menuBtn').onclick=()=>{
 const localSel={red:true,green:true,yellow:false,blue:false};
 function renderLocalRows(){const box=$('localRows');box.innerHTML='';
   for(const c of COLORS){const r=document.createElement('div');r.className='lrow'+(localSel[c]?' on':'');
-    r.innerHTML=`<div class="sw" style="--pc:${HEX[c]}">${localSel[c]?'✔':'+'}</div><input maxlength="14" id="ln-${c}" value="${esc(LS.get('ludo-ln-'+c,CNAME[c]))}" ${localSel[c]?'':'disabled'}>`;
+    const nm0=LS.get('ludo-ln-'+c,CNAME[c]);
+    r.innerHTML=`<div class="sw" style="--pc:${HEX[c]}">${localSel[c]?'✔':'+'}</div><input maxlength="14" id="ln-${c}" value="${esc(nm0)}" ${localSel[c]?'':'disabled'}>`+
+      `<div class="lbet"><small><i class="coin"></i> <span id="lbal-${c}">${fmt(Coins.peek(nm0))}</span></small><input id="lb-${c}" type="number" min="0" step="10" inputmode="numeric" value="${LS.get('ludo-lb-'+c,0)}" ${localSel[c]?'':'disabled'}></div>`;
+    r.querySelector('#ln-'+c).addEventListener('input',e=>{$('lbal-'+c).textContent=fmt(Coins.peek(cleanName(e.target.value)||CNAME[c]));});
+    r.querySelector('#lb-'+c).addEventListener('input',e=>LS.set('ludo-lb-'+c,e.target.value));
     r.querySelector('.sw').onclick=()=>{localSel[c]=!localSel[c];renderLocalRows();};box.appendChild(r);}}
-$('btnLocal').onclick=()=>{renderLocalRows();showScreen('scrLocal');};
+function renderLocalBetUI(){const sp=LS.get('ludo-split','win');$('lspWin').className=sp!=='7030'?'sel':'';$('lspSplit').className=sp==='7030'?'sel':'';
+  $('lChips').innerHTML=[0,50,100,250,500].map(v=>`<button class="alt" data-v="${v}">${v?fmt(v):'0'}</button>`).join('');
+  $('lChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{for(const c of COLORS)if(localSel[c]){$('lb-'+c).value=b.dataset.v;LS.set('ludo-lb-'+c,b.dataset.v);}});}
+$('lspWin').onclick=()=>{LS.set('ludo-split','win');renderLocalBetUI();};$('lspSplit').onclick=()=>{LS.set('ludo-split','7030');renderLocalBetUI();};
+$('btnLocal').onclick=()=>{renderLocalRows();renderLocalBetUI();showScreen('scrLocal');};
 $('btnLocalBack').onclick=()=>showScreen('scrHome');
 function updMeAv(){const n=cleanName($('nameIn').value);$('meAv').textContent=n?avatarFor(n):'🙂';}
 $('btnOnline').onclick=()=>{showScreen('scrOnline');updMeAv();};
@@ -1039,21 +1168,24 @@ $('nameIn').addEventListener('input',updMeAv);
 $('codeIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('btnJoinCode').onclick();});
 $('btnRules').onclick=showRules;$('btnSettings').onclick=showSettings;
 $('btnLocalStart').onclick=()=>{const cs=COLORS.filter(c=>localSel[c]);if(cs.length<2)return toast('Select at least 2 players');
-  App.role='local';App.S=newState();
+  const bets={};for(const c of cs){const n=cleanName($('ln-'+c).value)||CNAME[c],raw=$('lb-'+c).value.trim(),v=raw===''?0:Math.floor(Number(raw)),bal=Coins.peek(n);
+    if(!isFinite(v)||v<0||v>bal)return toast(`${n}: bet must be between 0 and ${fmt(bal)}`);bets[c]=v;LS.set('ludo-lb-'+c,v);}
+  refundSaved('ludo-local');
+  App.role='local';App.S=newState();App.S.bets=bets;App.S.split=LS.get('ludo-split','win');
   for(const c of cs){const n=cleanName($('ln-'+c).value)||CNAME[c];LS.set('ludo-ln-'+c,n);App.S.seats.push({color:c,name:n,clientId:'me',connected:true});}
   $('roomTag').textContent='Pass & Play';startGame();};
 
 /* ================= HOME ================= */
 function needName(inp){const n=cleanName($(inp).value);if(!n){toast('Please enter your name');$(inp).focus();return null;}LS.set('ludo-name',n);App.myName=n;return n;}
-$('btnCreate').onclick=()=>{if(!needName('nameIn'))return;hostCreate();};
+$('btnCreate').onclick=()=>{if(!needName('nameIn'))return;refundSaved('ludo-host');hostCreate();};
 $('btnJoinCode').onclick=()=>{const code=$('codeIn').value.trim().toUpperCase();if(code.length<4)return toast('Enter the room code');if(!needName('nameIn'))return;guestJoin(code,App.myName);};
 $('btnJoin').onclick=()=>{if(!needName('joinName'))return;guestJoin(App.pendingCode,App.myName);};
 $('btnJoinBack').onclick=()=>{history.replaceState(null,'',location.pathname);initHome();};
 function initHome(){
   showScreen('scrHome');$('nameIn').value=LS.get('ludo-name','');
   const rb=$('resumeBox');rb.innerHTML='';const items=[];
-  const h=LS.get('ludo-host',null);if(h&&Date.now()-h.ts<6*3600e3)items.push(['host',`▶ Resume my room ${esc(h.code)}`]);else LS.del('ludo-host');
-  const l=LS.get('ludo-local',null);if(l&&l.S&&l.S.phase==='playing'&&Date.now()-l.ts<24*3600e3)items.push(['local','▶ Continue pass & play game']);
+  const h=LS.get('ludo-host',null);if(h&&Date.now()-h.ts<6*3600e3)items.push(['host',`▶ Resume my room ${esc(h.code)}`]);else{if(h&&h.S)refundPot(h.S);LS.del('ludo-host');}
+  const l=LS.get('ludo-local',null);if(l&&l.S&&l.S.phase==='playing'&&Date.now()-l.ts<24*3600e3)items.push(['local','▶ Continue pass & play game']);else if(l&&l.S&&refundPot(l.S))LS.del('ludo-local');
   const g=LS.get('ludo-guest',null);if(g&&Date.now()-g.ts<6*3600e3)items.push(['guest',`▶ Rejoin room ${esc(g.code)} as ${esc(g.name)}`]);
   rb.style.display=items.length?'flex':'none';
   for(const [k,t] of items){const b=document.createElement('button');b.className='green';b.innerHTML=t;rb.appendChild(b);

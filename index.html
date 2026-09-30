@@ -55,6 +55,10 @@ body[data-scr=scrHome] header,body[data-scr=scrJoin] header{display:none}
 #roomTag:not(:empty){}
 #net{width:12px;height:12px;border-radius:50%;background:#777;display:none;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
 #net.online{background:#3ddc6b;display:block;box-shadow:0 0 0 2px rgba(255,255,255,.35),0 0 8px #3ddc6b}#net.reconnecting{background:#ffb300;display:block}#net.offline{background:#ff3b3b;display:block}
+#netPill{display:none;font-size:11px;font-weight:800;color:#3a1d00;background:#ffb300;border-radius:10px;padding:2px 8px;margin-left:6px;white-space:nowrap;animation:npulse 1.2s ease-in-out infinite}@keyframes npulse{50%{opacity:.55}}
+.pcard{min-width:0;position:relative}.pcard .pt{display:flex;flex-wrap:wrap;gap:2px 0;white-space:nowrap;max-height:32px}.pcard.right .pt{justify-content:flex-end}.pcard .pt .tag{line-height:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pcard[data-st]::after{position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);z-index:4;pointer-events:none;white-space:nowrap;font-size:11px;font-weight:800;padding:1px 9px;border-radius:9px;box-shadow:0 2px 5px rgba(0,0,0,.4)}
+.pcard[data-st=recon]::after{content:'⟳ reconnecting…';background:#ffb300;color:#3a1d00;animation:npulse 1.2s ease-in-out infinite}.pcard[data-st=off]::after{content:'⚠ offline';background:#ff5252;color:#fff}
 #menuBtn{display:none;width:42px;height:42px;padding:0;font-size:22px;border-radius:14px;--c1:#8a5cff;--c2:#5b2fe0;--c3:#35149c}
 /* ---------- screens ---------- */
 .screen{display:none;flex:1;flex-direction:column;padding:12px 14px 18px;gap:14px}
@@ -694,7 +698,7 @@ html.jungle #heroPins{height:56px}html.jungle #heroPins span{width:40px;height:5
   <header>
     <div id="title" class="brand sm" aria-label="Ludo Raja"><svg class="crown"><use href="#crown"/></svg><div class="word"><span class="lr">L</span><span class="lg">U</span><span class="ly">D</span><span class="lb">O</span><span class="gap"></span><span class="lr">R</span><span class="lg">A</span><span class="ly">J</span><span class="lb">A</span></div></div>
     <div id="roomTag"></div>
-    <div id="net" title="connection"></div>
+    <div id="net" title="connection"></div><div id="netPill" role="status"></div>
     <button id="menuBtn" aria-label="menu">☰</button>
   </header>
 
@@ -859,12 +863,26 @@ const CFG = {
   // Optional: add a TURN relay (e.g. a free Metered.ca or Cloudflare TURN account) for players on very strict
   // mobile networks, e.g. {urls:'turn:YOUR-HOST:443?transport=tcp', username:'USER', credential:'PASS'}
   ICE_SERVERS: [
-    {urls:'stun:stun.cloudflare.com:3478'},
     {urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']},
+    {urls:'stun:stun.cloudflare.com:3478'},
     {urls:'stun:global.stun.twilio.com:3478'},
   ],
+  // TURN relay for very strict mobile NATs. Checked 30-Sep-2026: the old free "Open Relay" static credentials
+  // (openrelay.metered.ca / openrelayproject) are rejected by the server and PeerJS's public TURN hosts no longer
+  // exist, so no TURN is enabled by default (STUN only). To enable one, either paste servers here, e.g.
+  //   {urls:['turn:HOST:3478','turn:HOST:443?transport=tcp','turns:HOST:443?transport=tcp'],username:'USER',credential:'PASS'}
+  // or set TURN_CREDENTIALS_URL to an endpoint returning a JSON array of iceServers (e.g. a free Metered.ca account:
+  // 'https://YOURAPP.metered.live/api/v1/turn/credentials?apiKey=KEY'). Used for game data AND live voice.
+  TURN_SERVERS: [],
+  TURN_CREDENTIALS_URL: '',
+  // connection health (ms): heartbeat, link considered dead, one connect try, host grace before "offline", auto-skip
+  NET: {HB:2500, DEAD:7000, OPEN_TIMEOUT:9000, GRACE:12000, AUTOSKIP:30000},
 };
-const PEER_OPTS = () => ({debug:1, config:{iceServers:CFG.ICE_SERVERS}});
+let TURN_FETCHED=[];
+function iceServers(){return [...CFG.ICE_SERVERS,...(CFG.TURN_SERVERS||[]),...TURN_FETCHED];}
+const PEER_OPTS = () => ({debug:1, config:Object.assign({iceServers:iceServers()},CFG.ICE_POLICY?{iceTransportPolicy:CFG.ICE_POLICY}:{})});
+(function(){const u=CFG.TURN_CREDENTIALS_URL;if(!u||!window.fetch)return;const ac=window.AbortController?new AbortController():null;const t=setTimeout(()=>{try{ac&&ac.abort()}catch(e){}},4000);
+  fetch(u,ac?{signal:ac.signal}:{}).then(x=>x.json()).then(j=>{const a=Array.isArray(j)?j:(j&&j.iceServers)||[];TURN_FETCHED=a.filter(x=>x&&x.urls);}).catch(()=>{}).finally(()=>clearTimeout(t));})();
 /* ================= BOARD GEOMETRY ================= */
 const COLORS = ['red','green','yellow','blue'];
 const CNAME = {red:'Red',green:'Green',yellow:'Yellow',blue:'Blue'};
@@ -897,7 +915,7 @@ function cleanName(s){return String(s||'').replace(/[<>]/g,'').trim().slice(0,14
 function getCid(){let c=LS.get('ludo-cid',null);if(!c){c=rid(12);LS.set('ludo-cid',c);}return c;}
 const Q = new URLSearchParams(location.search);
 const App = {role:null,myColor:null,myName:'',S:null,view:null,code:null,peer:null,conns:new Map(),hostConn:null,
-  debug:Q.has('debug'),fast:Q.has('fast'),rx:[],offlineSince:{},animPending:0,left:false};
+  debug:Q.has('debug'),fast:Q.has('fast'),rx:[],offlineSince:{},lostAt:{},gNet:null,gAttempt:0,animPending:0,left:false};
 const D = ms => App.fast ? 0 : ms;
 const sleep = ms => new Promise(r=>setTimeout(r,ms));
 let toastT=null;
@@ -905,8 +923,14 @@ function toast(t,ms=2200){const el=$('toast');el.textContent=t;el.style.display=
 function modal(html){$('ovBox').innerHTML=html;$('ov').classList.add('on');}
 function closeModal(){$('ov').classList.remove('on');$('ovBox').innerHTML='';}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));App.screen=id;document.body.dataset.scr=id;
-  $('menuBtn').style.display=(id==='scrGame'||id==='scrLobby')?'block':'none';}
+  $('menuBtn').style.display=(id==='scrGame'||id==='scrLobby')?'block':'none';try{wakeSync()}catch(e){}}
 function setNet(st){$('net').className=st||'';}
+var WL={l:null,busy:false};
+function wakeWant(){return document.visibilityState==='visible'&&(App.screen==='scrGame'||(App.screen==='scrLobby'&&(App.role==='host'||App.role==='guest')))&&!(App.view&&App.view.phase==='over');}
+function wakeSync(){try{if(!('wakeLock' in navigator))return;const want=wakeWant();
+  if(want&&!WL.l&&!WL.busy){WL.busy=true;navigator.wakeLock.request('screen').then(l=>{WL.l=l;l.addEventListener('release',()=>{if(WL.l===l)WL.l=null;});if(!wakeWant())wakeSync();}).catch(()=>{}).finally(()=>{WL.busy=false;});}
+  else if(!want&&WL.l){const l=WL.l;WL.l=null;l.release().catch(()=>{});}}catch(e){}}
+document.addEventListener('visibilitychange',()=>wakeSync());setInterval(wakeSync,4000);
 let actx=null,sfxBus=null,musBus=null,noiseBuf=null;
 let SFX=LS.get('ludo-sfx',LS.get('ludo-snd',true)),MUSIC=LS.get('ludo-music',true);
 function AC(){try{if(!actx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;actx=new C();
@@ -1826,7 +1850,7 @@ function renderGame(s){
     el.classList.toggle('empty',!seat);if(!seat){el.classList.remove('turn');continue;}
     const rk=s.rank.indexOf(c);
     el.classList.toggle('turn',s.turn===c&&s.phase==='playing');el.classList.toggle('off',!seat.connected);el.classList.toggle('done',rk>=0);
-    const tags=[];if(controls(c)&&App.role!=='local')tags.push('YOU');if(seat.isHost)tags.push('HOST');if(!seat.connected)tags.push('⚠ offline');
+    const tags=[];if(controls(c)&&App.role!=='local')tags.push('YOU');if(seat.isHost)tags.push('HOST');const meRecon=App.role==='guest'&&c===App.myColor&&App.everConnected&&App.gNet!=='online';const st=meRecon||(!seat.connected&&seat.recon)?'recon':!seat.connected?'off':'';if(st)el.dataset.st=st;else delete el.dataset.st;
     el.querySelector('.pn').textContent=seat.name;
     el.querySelector('.pt').innerHTML=jPwTag(s,c)+tags.map(t=>`<span class="tag">${t}</span>`).join('');
     jEmo(el.querySelector('.emo'),s,c,AV[c]);
@@ -1899,7 +1923,7 @@ function seatOf(color){return App.S.seats.find(x=>x.color===color);}
 function ordered(S){return COLORS.map(c=>S.seats.find(x=>x.color===c)).filter(Boolean);}
 function pub(S){
   const p=JSON.parse(JSON.stringify(S));
-  p.seats=S.seats.map(x=>({color:x.color,name:x.name,connected:!!x.connected,vp:x.vp==='f'?'f':'m',pid:x.connected&&x.pid||null,mic:!!(x.connected&&x.mic),isHost:App.role==='host'&&x.clientId==='me',animal:jValidA(x.animal)}));
+  p.seats=S.seats.map(x=>({color:x.color,name:x.name,connected:!!x.connected,vp:x.vp==='f'?'f':'m',pid:x.connected&&x.pid||null,mic:!!(x.connected&&x.mic),isHost:App.role==='host'&&x.clientId==='me',animal:jValidA(x.animal),recon:!!(x.recon&&!x.connected)}));
   delete p.sixes;
   p.pending=[];if(App.role==='host'&&S.phase==='lobby'){for(const [cid,g] of App.conns)if(!S.seats.find(x=>x.clientId===cid))p.pending.push(g.name);}
   return p; // NOTE: contains only public game data – never any dice-control info
@@ -2028,7 +2052,7 @@ function hostCreate(){
 }
 function hostResume(saved){
   App.role='host';App.code=saved.code;App.myName=saved.name||App.myName;App.S=saved.S;App.resuming=true;
-  for(const x of App.S.seats)if(x.clientId!=='me')x.connected=false;
+  for(const x of App.S.seats)if(x.clientId!=='me'){x.connected=false;x.recon=true;App.lostAt[x.color]=Date.now();}
   App.S.awaiting=App.S.awaiting&&App.S.dice?App.S.awaiting:false;
   if(App.S.locked){App.S.locked=false;advance(App.S);}
   openHostPeer(0);startHeartbeat();commit();
@@ -2040,11 +2064,12 @@ function openHostPeer(attempt){
     const peer=new Peer(CFG.PEER_PREFIX+App.code,PEER_OPTS());App.peer=peer;lvHookPeer(peer);
     peer.on('open',()=>{setNet('online');App.resuming=false;$('roomTag').textContent='Room '+App.code;renderLobbyShare();});
     peer.on('connection',c=>hostHandleConn(c));
-    peer.on('disconnected',()=>{if(peer!==App.peer)return;setNet('reconnecting');setTimeout(()=>{if(!peer.destroyed&&peer.disconnected)try{peer.reconnect()}catch(e){}},2000);});
+    peer.on('disconnected',()=>{if(peer!==App.peer)return;setNet('reconnecting');setTimeout(()=>{if(peer===App.peer&&!peer.destroyed&&peer.disconnected){App.sigTry=Date.now();try{peer.reconnect()}catch(e){}}},1500);});
     peer.on('error',e=>{if(peer!==App.peer)return;console.warn('peer error',e.type);
       if(e.type==='unavailable-id'){
         if(App.resuming&&attempt<20){setTimeout(()=>openHostPeer(attempt+1),2500);}
         else if(App.S.phase==='lobby'&&!App.S.seats.some(x=>x.clientId!=='me')){App.code=rid(5);App.S.code=App.code;LS.del('ludo-host');openHostPeer(0);renderLobbyShare();}
+        else if(peer._lastServerId&&!peer.destroyed){App.sigTry=Date.now();}
         else setTimeout(()=>openHostPeer(attempt+1),3000);
       } else if(['network','server-error','socket-error','socket-closed'].includes(e.type)){setNet('offline');
         setTimeout(()=>{if(peer===App.peer&&!peer.destroyed){if(peer.disconnected)try{peer.reconnect()}catch(x){openHostPeer(attempt+1)}}else if(peer===App.peer)openHostPeer(attempt+1);},3000);}
@@ -2057,6 +2082,7 @@ function hostHandleConn(conn){
 }
 function hostMsg(conn,m){
   if(!m||typeof m!=='object')return;const S=App.S;
+  if(m.t==='probe'){sendTo(conn,{t:'probeOk'});setTimeout(()=>{try{conn.close()}catch(e){}},600);return;}
   if(m.t==='hello'){
     const cid=String(m.clientId||'').slice(0,40),name=cleanName(m.name);if(!cid||cid==='me'||!name)return;
     conn._cid=cid;const old=App.conns.get(cid);if(old&&old.conn!==conn){old.conn._replaced=true;try{old.conn.close()}catch(e){}}
@@ -2068,7 +2094,7 @@ function hostMsg(conn,m){
       App.conns.delete(cid);setTimeout(()=>{try{conn.close()}catch(e){}},1000);return;}
     if(!seat&&S.phase==='lobby'&&S.seats.length>=4){sendTo(conn,{t:'reject',msg:'This room is full (4 players).'});
       App.conns.delete(cid);setTimeout(()=>{try{conn.close()}catch(e){}},1000);return;}
-    if(seat){const was=seat.connected;seat.connected=true;delete App.offlineSince[seat.color];if(S.phase==='lobby')seat.name=name;if(!was)toast(`${seat.name} ${S.phase==='lobby'?'joined':'reconnected'}`);}
+    if(seat){const was=seat.connected;seat.connected=true;seat.recon=false;delete App.offlineSince[seat.color];delete App.lostAt[seat.color];if(App.autoSkip&&App.autoSkip.color===seat.color)App.autoSkip=null;if(S.phase==='lobby')seat.name=name;if(!was)toast(`${seat.name} ${S.phase==='lobby'?'joined':'reconnected'}`);}
     else toast(`${name} joined – choosing color`);
     if(!seat&&S.phase==='lobby'&&m.color&&COLORS.includes(m.color)&&!S.seats.find(x=>x.color===m.color)&&S.seats.length<4){S.seats.push({color:m.color,name,clientId:cid,connected:true});}
     sendTo(conn,{t:'welcome',code:App.code});commit();return;
@@ -2076,6 +2102,7 @@ function hostMsg(conn,m){
   const cid=conn._cid;const g=cid&&App.conns.get(cid);if(!g||g.conn!==conn)return;g.lastSeen=Date.now();
   switch(m.t){
     case 'pong':break;
+    case 'ping':sendTo(conn,{t:'pong'});break;
     case 'pick':pickColor(cid,m.color);break;
     case 'roll':doRoll(cid);break;
     case 'move':doMove(cid,m.i|0,m.n==null?null:m.n|0);break;
@@ -2085,13 +2112,14 @@ function hostMsg(conn,m){
     case 'vp':g.vp=m.vp==='f'?'f':'m';commit();break;
     case 'mic':if(g.mic!==!!m.on){g.mic=!!m.on;commit();}break;
     case 'leave':{const seat=S.seats.find(x=>x.clientId===cid);App.conns.delete(cid);
-      if(seat){if(S.phase==='lobby')S.seats=S.seats.filter(x=>x!==seat);else{seat.connected=false;App.offlineSince[seat.color]=Date.now();}toast(`${seat.name} left`);}commit();break;}
+      if(seat){if(S.phase==='lobby')S.seats=S.seats.filter(x=>x!==seat);else{seat.connected=false;seat.recon=false;delete App.lostAt[seat.color];App.offlineSince[seat.color]=Date.now();}toast(`${seat.name} left`);}commit();break;}
   }
 }
 function hostConnClosed(conn){
   const cid=conn._cid;if(!cid||conn._replaced)return;const g=App.conns.get(cid);if(!g||g.conn!==conn)return;
-  App.conns.delete(cid);const seat=App.S.seats.find(x=>x.clientId===cid);
-  if(seat&&seat.connected){seat.connected=false;App.offlineSince[seat.color]=Date.now();toast(`${seat.name} disconnected`);}
+  App.conns.delete(cid);try{conn.close()}catch(e){}const seat=App.S.seats.find(x=>x.clientId===cid);
+  // don't flip to "offline" on a blip: show "reconnecting…" for CFG.NET.GRACE first (hostTick finishes the job)
+  if(seat&&seat.connected){seat.connected=false;seat.recon=true;App.lostAt[seat.color]=Date.now();toast(`${seat.name}: connection lost – reconnecting…`);}
   commit();
 }
 function pickColor(cid,color){
@@ -2108,64 +2136,140 @@ function pickColor(cid,color){
 function kickSeat(color){const S=App.S,seat=seatOf(color);if(!seat||seat.clientId==='me'||S.phase!=='lobby')return;
   const g=App.conns.get(seat.clientId);if(g){sendTo(g.conn,{t:'kicked'});App.conns.delete(seat.clientId);setTimeout(()=>{try{g.conn.close()}catch(e){}},500);}
   S.seats=S.seats.filter(x=>x!==seat);commit();}
-function startHeartbeat(){
-  clearInterval(App.hb);
-  App.hb=setInterval(()=>{if(App.role!=='host')return;const now=Date.now();
-    for(const [cid,g] of [...App.conns]){sendTo(g.conn,{t:'ping'});if(now-g.lastSeen>15000){try{g.conn.close()}catch(e){}hostConnClosed(g.conn);}}
-    const S=App.S;if(S&&S.phase==='playing'){const s=seatOf(S.turn);
-      if(s&&!s.connected&&s.clientId!=='me'){const since=App.offlineSince[s.color]||(App.offlineSince[s.color]=now);
-        if(now-since>45000&&!S.locked){App.offlineSince[s.color]=now;skipTurn();}}}
-  },4000);
+function startHeartbeat(){clearInterval(App.hb);App.hbLast=0;App.hTickAt=Date.now();App.hb=setInterval(hostTick,1000);}
+function hostTick(){
+  if(App.role!=='host'||!App.S)return;const now=Date.now(),N=CFG.NET,S=App.S,gap=now-(App.hTickAt||now);App.hTickAt=now;
+  // our own page was frozen/asleep: give every guest a fresh window instead of dropping them all at once
+  if(gap>4000){for(const g of App.conns.values())g.lastSeen=Math.max(g.lastSeen,now-N.DEAD+3000);App.hbLast=0;}
+  if(now-(App.hbLast||0)>=N.HB){App.hbLast=now;
+    for(const [cid,g] of [...App.conns]){sendTo(g.conn,{t:'ping'});if(now-g.lastSeen>N.DEAD||!g.conn.open&&now-g.lastSeen>1500)hostConnClosed(g.conn);}}
+  let dirty=false;
+  for(const x of S.seats){if(x.clientId==='me'||x.connected||!x.recon)continue;
+    if(now-(App.lostAt[x.color]||now)>N.GRACE){x.recon=false;App.offlineSince[x.color]=now;toast(`${x.name} is offline`);dirty=true;}}
+  // auto-skip a truly offline player's turn after N.AUTOSKIP (the manual button stays available)
+  const ts=S.phase==='playing'?seatOf(S.turn):null,b=$('btnSkip');
+  if(ts&&ts.clientId!=='me'&&!ts.connected){
+    if(ts.recon){App.autoSkip=null;if(b)b.textContent=`Skip ${ts.name}'s turn (reconnecting…)`;}
+    else{if(!App.autoSkip||App.autoSkip.color!==S.turn)App.autoSkip={color:S.turn,since:now};
+      const left=Math.ceil((N.AUTOSKIP-(now-App.autoSkip.since))/1000);
+      if(b)b.textContent=left>0?`Skip ${ts.name}'s turn (auto in ${left}s)`:`Skipping ${ts.name}…`;
+      if(left<=0&&!S.locked){App.autoSkip=null;skipTurn();dirty=false;}}
+  } else App.autoSkip=null;
+  // signalling health: keep the host registered on the PeerJS server so guests can always rejoin
+  const p=App.peer;
+  if(p&&!p.destroyed&&p.disconnected&&now-(App.sigTry||0)>6000){App.sigTry=now;try{p.reconnect()}catch(e){}}
+  const lost=S.seats.some(x=>x.clientId!=='me'&&!x.connected&&App.lostAt[x.color]&&now-App.lostAt[x.color]>10000);
+  if(lost&&p&&p.open&&!App.probe&&now-(App.probeAt||0)>60000)hostProbe();
+  if(dirty)commit();
 }
+// A guest that can't get back in may mean our PeerJS signalling socket died silently (half-open TCP on mobile).
+// Probe it from a throw-away peer; if the server can't route to us, re-register (existing data links are kept).
+function hostProbe(){if(!window.Peer)return;App.probeAt=Date.now();let done=false,pr=null;
+  const fin=bad=>{if(done)return;done=true;clearTimeout(t);try{pr&&pr.destroy()}catch(e){}App.probe=null;if(bad&&App.role==='host'){console.warn('signalling probe failed – re-registering');hostSigRefresh();}};
+  const t=setTimeout(()=>fin(pr&&pr.open),9000);
+  try{pr=new Peer(PEER_OPTS());}catch(e){done=true;return;}App.probe=pr;
+  pr.on('open',()=>{const c=pr.connect(CFG.PEER_PREFIX+App.code,{reliable:true});c.on('open',()=>{try{c.send({t:'probe'})}catch(e){}});c.on('data',d=>{if(d&&d.t==='probeOk')fin(false);});});
+  pr.on('error',e=>{if(e.type==='peer-unavailable')fin(true);else if(!pr.open)fin(false);});}
+function hostSigRefresh(){const p=App.peer;if(!p||p.destroyed)return;App.sigTry=Date.now();try{p.disconnect()}catch(e){}
+  setTimeout(()=>{if(p===App.peer&&!p.destroyed&&p.disconnected){App.sigTry=Date.now();try{p.reconnect()}catch(e){}}},800);}
+function hostKick(why){if(App.role!=='host'||!App.S)return;App.hbLast=0;const p=App.peer;
+  if(why==='net'){hostSigRefresh();return;}
+  if(p&&!p.destroyed&&p.disconnected){App.sigTry=Date.now();try{p.reconnect()}catch(e){}}}
 function hostLeave(){for(const g of App.conns.values())sendTo(g.conn,{t:'hostLeft'});LS.del('ludo-host');
   setTimeout(()=>{try{App.peer&&App.peer.destroy()}catch(e){}location.href=location.pathname;},400);}
 window.addEventListener('pagehide',()=>{if(App.role==='host')for(const g of App.conns.values())sendTo(g.conn,{t:'hostAway'});});
 
 /* ================= GUEST NETWORKING ================= */
+// Robust link to the host: app-level heartbeat both ways; a link that is closed OR silent for CFG.NET.DEAD ms is
+// treated as dead; auto-reconnect with backoff (a fresh PeerJS peer after a failed try, so a silently-dead signalling
+// socket can't block us); instant re-checks on visibility / online / network-type change / page resume.
+// Rejoining is the normal hello with the same client id -> host restores seat, animal, coins and resends full state.
 function guestJoin(code,name){
-  App.role='guest';App.code=code.toUpperCase();App.myName=name;if(!App.myAnimal)App.myAnimal=jDefAnimal(name);App.myId=getCid();App.left=false;App.everConnected=false;App.retryStart=null;
+  App.role='guest';App.code=code.toUpperCase();App.myName=name;if(!App.myAnimal)App.myAnimal=jDefAnimal(name);App.myId=getCid();App.left=false;App.everConnected=false;App.retryStart=null;App.gAttempt=0;App.gTry=null;
   const prev=LS.get('ludo-guest',{});
   LS.set('ludo-guest',{code:App.code,name,color:prev.code===App.code?prev.color:null,ts:Date.now()});
   $('roomTag').textContent='Room '+App.code;
   showScreen('scrLobby');renderLobby({phase:'lobby',seats:[],pending:[]});$('lobStatus').textContent='Connecting to host…';
-  peerReady(()=>guestPeer(()=>connectHost()));
-  clearInterval(App.wd);App.wd=setInterval(()=>{if(App.left)return;const c=App.hostConn;
-    if(c&&c.open&&Date.now()-App.lastHostMsg>13000){App.hostConn=null;try{c.close()}catch(e){}guestConnFailed();}},3000);
+  gSetNet('connecting');clearTimeout(App.reconnT);App.reconnT=null;
+  peerReady(()=>gAttempt());
+  clearInterval(App.wd);App.gTickAt=Date.now();App.wd=setInterval(gTick,1000);
 }
-function guestPeer(cb){
-  const p0=App.peer;if(p0&&!p0.destroyed&&!p0.disconnected){p0.open?cb():p0.once('open',cb);return;}
-  if(p0&&!p0.destroyed&&p0.disconnected){try{p0.reconnect();p0.once('open',cb);return;}catch(e){}}
-  const p=new Peer(PEER_OPTS());App.peer=p;lvHookPeer(p);p.once('open',cb);
-  p.on('disconnected',()=>{if(p!==App.peer||App.left)return;setTimeout(()=>{if(!p.destroyed&&p.disconnected)try{p.reconnect()}catch(e){}},2000);});
-  p.on('error',e=>{if(p!==App.peer)return;console.warn('peer error',e.type);
-    if(e.type==='peer-unavailable'){if(App.hostConn&&App.hostConn.open)return;const c=App.hostConn;if(c&&!c.open){App.hostConn=null;try{c.close()}catch(x){}}guestConnFailed();}
-    else if(['network','server-error','socket-error','socket-closed'].includes(e.type)){setNet('offline');if(!p.open){try{p.destroy()}catch(x){}App.peer=null;}guestConnFailed();}});
+function gSetNet(st){App.gNet=st;setNet(st==='online'?'online':st==='offline'?'offline':'reconnecting');
+  const guest=App.role==='guest',pill=$('netPill');
+  if(pill){pill.textContent=st==='reconnecting'?'Reconnecting…':st==='connecting'?'Connecting…':'';pill.style.display=guest&&(st==='reconnecting'||st==='connecting')?'block':'none';}
+  const b=$('banner');
+  if(st==='reconnecting'&&App.everConnected){b.style.display='block';b.textContent=App.hostAway?'Host disconnected – waiting for the host to come back…':'Connection lost – reconnecting automatically…';}
+  else if(st==='online')b.style.display='none';
+  const el=App.myColor&&$('pc-'+App.myColor);
+  if(el&&App.view){const me=App.view.seats.find(x=>x.color===App.myColor);if(st!=='online'&&App.everConnected)el.dataset.st='recon';else if(me&&me.connected)delete el.dataset.st;}
+  if(st!=='online')$('dice').classList.remove('can');}
+function gBackoff(){return [500,1000,2000,3000,5000][Math.min(Math.max(App.gAttempt-1,0),4)]+Math.random()*400;}
+function gSchedule(ms){clearTimeout(App.reconnT);App.reconnT=setTimeout(()=>{App.reconnT=null;gAttempt();},ms);}
+function gProbe(ms){const c=App.hostConn;App.gProbeFrom=Date.now();App.gProbeBy=Date.now()+ms;try{c&&c.open&&c.send({t:'ping'})}catch(e){}}
+function gTick(){
+  if(App.role!=='guest'||App.left)return;const now=Date.now(),N=CFG.NET,gap=now-(App.gTickAt||now);App.gTickAt=now;
+  const c=App.hostConn;
+  if(App.gNet==='online'&&c){
+    if(gap>4000)App.lastHostMsg=Math.max(App.lastHostMsg||0,now-N.DEAD+2500);   // we were frozen: short window to hear from the host
+    if(now-(App.gPingAt||0)>=N.HB){App.gPingAt=now;try{c.open&&c.send({t:'ping'})}catch(e){}}
+    if(!c.open)return gDead('closed');
+    if(now-(App.lastHostMsg||0)>N.DEAD)return gDead('silent');
+    if(App.gProbeBy){if((App.lastHostMsg||0)>=App.gProbeFrom)App.gProbeBy=0;else if(now>App.gProbeBy)return gDead('probe');}
+  }
+  // safety net: never sit disconnected with nothing scheduled
+  if(App.gNet!=='online'&&!App.reconnT&&!App.gTry)gSchedule(gBackoff());
 }
-function connectHost(){
-  if(App.left)return;const conn=App.peer.connect(CFG.PEER_PREFIX+App.code,{reliable:true});App.hostConn=conn;let opened=false;
-  setTimeout(()=>{if(!opened&&App.hostConn===conn){App.hostConn=null;try{conn.close()}catch(e){}guestConnFailed();}},10000);
-  conn.on('open',()=>{opened=true;App.lastHostMsg=Date.now();App.retryStart=null;setNet('online');$('banner').style.display='none';
-    const g=LS.get('ludo-guest',{});conn.send({t:'hello',clientId:App.myId,name:App.myName,color:g.color||null,vp:curVp(),mic:!!LV.micOn,animal:App.myAnimal||null});});
-  conn.on('data',d=>{if(App.hostConn===conn)guestMsg(d);});
-  conn.on('close',()=>{if(App.hostConn===conn){App.hostConn=null;if(opened)guestConnFailed();}});
+function gDead(why){
+  if(App.left||App.role!=='guest')return;console.warn('host link dead:',why);
+  const c=App.hostConn;App.hostConn=null;if(c){c._dead=true;try{c.close()}catch(e){}}
+  App.gProbeBy=0;if(!App.retryStart)App.retryStart=Date.now();
+  gSetNet(App.everConnected?'reconnecting':'connecting');
+  if(!App.reconnT&&!App.gTry)gSchedule(App.gAttempt?gBackoff():150);
 }
-function sendHost(m){const c=App.hostConn;if(c&&c.open){try{c.send(m)}catch(e){}}else toast('Not connected – reconnecting…');}
-function guestConnFailed(){
-  if(App.left||App.reconnT)return;
-  if(!App.retryStart)App.retryStart=Date.now();
-  const limit=App.everConnected?180000:25000;
-  if(Date.now()-App.retryStart>limit){
-    App.left=true;setNet('offline');
+function gNewPeer(){const p=new Peer(PEER_OPTS());App.peer=p;lvHookPeer(p);
+  p.on('disconnected',()=>{if(p!==App.peer||App.left||p.destroyed)return;setTimeout(()=>{if(p===App.peer&&!p.destroyed&&p.disconnected)try{p.reconnect()}catch(e){}},1500);});
+  p.on('error',e=>{if(p!==App.peer||p._retired)return;console.warn('peer error',e.type);const tr=App.gTry;
+    if(tr&&!(App.hostConn&&App.hostConn.open&&App.gNet==='online')&&['peer-unavailable','network','server-error','socket-error','socket-closed','unavailable-id','webrtc','negotiation-failed','disconnected'].includes(e.type))tr.fail(e.type);});
+  return p;}
+function gAttempt(){
+  if(App.left||App.role!=='guest'||App.gTry)return;
+  const limit=App.everConnected?600000:30000;
+  if(App.retryStart&&Date.now()-App.retryStart>limit){App.left=true;gSetNet('offline');
     guestEnd(App.everConnected?(App.hostAway?'The host left the game (or their phone went offline).':'Lost connection to the host.'):'Room not found. Check the code, and make sure the host keeps the game open.');return;}
-  setNet('reconnecting');
-  if(App.everConnected){const b=$('banner');b.style.display='block';b.textContent=App.hostAway?'Host disconnected – waiting for host to come back…':'Connection lost – reconnecting…';}
-  App.reconnT=setTimeout(()=>{App.reconnT=null;if(App.left)return;peerReady(()=>guestPeer(()=>connectHost()));},3000);
+  if(!window.Peer){gSchedule(1500);return;}
+  const n=++App.gAttempt,tr={n};App.gTry=tr;
+  tr.fail=why=>{if(App.gTry!==tr)return;App.gTry=null;clearTimeout(tr.t);console.warn('connect try',n,'failed:',why);
+    const c=tr.conn;if(c){c._dead=true;if(App.hostConn===c)App.hostConn=null;try{c.close()}catch(e){}}
+    if(!App.retryStart)App.retryStart=Date.now();gSetNet(App.everConnected?'reconnecting':'connecting');gSchedule(gBackoff());};
+  tr.t=setTimeout(()=>tr.fail('timeout'),CFG.NET.OPEN_TIMEOUT);
+  // first try reuses a healthy-looking peer (fast); any retry starts a fresh one (new signalling socket, new ICE)
+  let p=App.peer;const healthy=p&&!p.destroyed&&p.open&&!p.disconnected;
+  if(!(healthy&&n===1)){if(p&&!p.destroyed){p._retired=true;try{p.destroy()}catch(e){}}try{p=gNewPeer();}catch(e){tr.fail('peer');return;}}
+  const go=()=>{if(App.gTry===tr)gConnect(tr);};
+  if(p.open)go();else p.once('open',go);
 }
+function gConnect(tr){
+  let conn;try{conn=App.peer.connect(CFG.PEER_PREFIX+App.code,{reliable:true});}catch(e){return tr.fail('connect');}
+  if(!conn)return tr.fail('connect');tr.conn=conn;App.hostConn=conn;
+  conn.on('open',()=>{if(App.hostConn!==conn)return;App.lastHostMsg=Date.now();
+    const g=LS.get('ludo-guest',{});try{conn.send({t:'hello',clientId:App.myId,name:App.myName,color:g.color||null,vp:curVp(),mic:!!LV.micOn,animal:App.myAnimal||null});}catch(e){tr.fail('send');}});
+  conn.on('data',d=>{if(App.hostConn!==conn)return;if(App.gTry===tr&&d&&(d.t==='welcome'||d.t==='state'))gOnline(tr);guestMsg(d);});
+  conn.on('close',()=>{if(conn._dead)return;if(App.gTry===tr)tr.fail('closed');else if(App.hostConn===conn)gDead('closed');});
+  conn.on('error',()=>{if(conn._dead)return;if(App.gTry===tr)tr.fail('error');else if(App.hostConn===conn)gDead('error');});
+}
+function gOnline(tr){App.gTry=null;clearTimeout(tr.t);App.gAttempt=0;App.retryStart=null;App.lastHostMsg=Date.now();App.gProbeBy=0;gSetNet('online');}
+function connectHost(){gKick('manual');}
+function sendHost(m){const c=App.hostConn;if(c&&c.open&&App.gNet==='online'){try{c.send(m)}catch(e){gDead('send');}}else{toast('Not connected – reconnecting…');gKick('send');}}
+function guestConnFailed(){gDead('failed');}
+// something happened that often kills links (screen back on, network back, network switched): check right now
+function gKick(why){if(App.role!=='guest'||App.left)return;
+  if(App.gNet==='online'){if(App.hostConn&&App.hostConn.open)gProbe(3000);else gDead('kick-'+why);}
+  else if(!App.gTry){App.gAttempt=Math.min(App.gAttempt,1);gSchedule(50);}}
 function guestMsg(m){
   if(!m||typeof m!=='object')return;App.lastHostMsg=Date.now();
   if(App.debug){App.rx.push(m);if(App.rx.length>400)App.rx.shift();}
   switch(m.t){
-    case 'ping':sendHost({t:'pong'});break;
+    case 'ping':{const c=App.hostConn;try{c&&c.open&&c.send({t:'pong'})}catch(e){}break;}
     case 'welcome':App.everConnected=true;App.hostAway=false;$('banner').style.display='none';break;
     case 'state':{App.myColor=m.you||null;App.rollSentSeq=null;const g=LS.get('ludo-guest',{});g.color=App.myColor||g.color;g.ts=Date.now();LS.set('ludo-guest',g);onView(m.s);break;}
     case 'chat':if(m.c!==App.myColor)chatShow(m);break;
@@ -2176,13 +2280,18 @@ function guestMsg(m){
     case 'hostLeft':App.left=true;LS.del('ludo-guest');guestEnd('The host ended the game.');break;
   }
 }
-function guestEnd(msg){setNet('offline');try{App.peer&&App.peer.destroy()}catch(e){}
+function guestEnd(msg){setNet('offline');clearTimeout(App.reconnT);App.reconnT=null;if(App.gTry){clearTimeout(App.gTry.t);App.gTry=null;}const pill=$('netPill');if(pill)pill.style.display='none';try{App.peer&&App.peer.destroy()}catch(e){}
   modal(`<h2>ℹ️ ${esc(msg)}</h2><button class="green" id="geHome">Home</button>${App.left&&LS.get('ludo-guest',null)?'<button class="alt" id="geRetry">Try again</button>':''}`);
   $('geHome').onclick=()=>{location.href=location.pathname;};
   if($('geRetry'))$('geRetry').onclick=()=>{closeModal();App.peer=null;guestJoin(App.code,App.myName);};}
-function guestLeave(){App.left=true;sendHost({t:'leave'});LS.del('ludo-guest');setTimeout(()=>{try{App.peer&&App.peer.destroy()}catch(e){}location.href=location.pathname;},300);}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&App.role==='guest'&&!App.left){
-  const c=App.hostConn;if(!c||!c.open){if(App.reconnT){clearTimeout(App.reconnT);App.reconnT=null;}App.retryStart=App.retryStart||Date.now();guestPeer(()=>connectHost());}}});
+function guestLeave(){App.left=true;const c=App.hostConn;try{c&&c.open&&c.send({t:'leave'})}catch(e){}LS.del('ludo-guest');setTimeout(()=>{try{App.peer&&App.peer.destroy()}catch(e){}location.href=location.pathname;},300);}
+function netKick(why){gKick(why);hostKick(why);}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')netKick('visible');});
+window.addEventListener('online',()=>netKick('online'));
+window.addEventListener('offline',()=>{if(App.role==='guest'&&!App.left&&App.gNet==='online')gDead('offline');});
+window.addEventListener('pageshow',e=>{if(e.persisted)netKick('pageshow');});
+document.addEventListener('resume',()=>netKick('resume'));
+try{const nc=navigator.connection;if(nc&&nc.addEventListener){let lt=nc.type;nc.addEventListener('change',()=>{if(nc.type!==lt){lt=nc.type;netKick('net');}});}}catch(e){}
 
 /* ================= LOBBY UI ================= */
 function renderBets(s,myColor,isHost){
@@ -2207,7 +2316,7 @@ function renderLobby(s){
   const box=$('slots');box.innerHTML='';const AV=avMap(s.seats);
   for(const c of COLORS){const seat=s.seats.find(x=>x.color===c);const el=document.createElement('div');
     el.className=`slot bg-${c}`+(seat?'':' free')+(c===myColor?' mine':'');
-    if(seat){el.innerHTML=`<div class="sav">${jSav(s,c,AV[c])}<i class="vring"></i></div><span class="spkBtn" data-spk="${c}" role="button">🔊</span><div class="sinfo"><div class="nm">${esc(seat.name)}</div><div class="scoin"><i class="coin"></i>${fmt((s.coins||{})[c])} · ${(s.bets||{})[c]!=null?'Bet '+fmt(s.bets[c]):'No bet yet'}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':'<span class="badge">offline</span>'}</div></div>`+
+    if(seat){el.innerHTML=`<div class="sav">${jSav(s,c,AV[c])}<i class="vring"></i></div><span class="spkBtn" data-spk="${c}" role="button">🔊</span><div class="sinfo"><div class="nm">${esc(seat.name)}</div><div class="scoin"><i class="coin"></i>${fmt((s.coins||{})[c])} · ${(s.bets||{})[c]!=null?'Bet '+fmt(s.bets[c]):'No bet yet'}</div><div>${c===myColor?'<span class="badge">YOU</span>':''}${seat.isHost?'<span class="badge">HOST</span>':''}${seat.connected?'':`<span class="badge">${seat.recon?'reconnecting…':'offline'}</span>`}</div></div>`+
       (isHost&&!seat.isHost?`<span class="x" data-k="${c}">✕</span>`:'');}
     else el.innerHTML=`<div class="sav empty">+</div><div class="sinfo"><div class="nm">${CNAME[c]}</div><div class="tp">Tap to pick</div></div>`;
     el.onclick=ev=>{if(ev.target.dataset.k){kickSeat(ev.target.dataset.k);ev.stopPropagation();return;}
@@ -2232,7 +2341,7 @@ $('btnLobLeave').onclick=()=>leaveGame();
 
 /* ================= GAME UI ================= */
 $('dice').addEventListener('click',()=>{const s=App.view;if(!s||s.phase!=='playing'||s.awaiting||s.locked||!controls(s.turn))return;
-  if(App.role==='guest'){if(App.rollSentSeq===s.seq)return;App.rollSentSeq=s.seq;sendHost({t:'roll'});$('dice').classList.remove('can');}
+  if(App.role==='guest'){if(App.gNet!=='online'){toast('Reconnecting to the host… please wait');gKick('tap');return;}if(App.rollSentSeq===s.seq)return;App.rollSentSeq=s.seq;sendHost({t:'roll'});$('dice').classList.remove('can');}
   else doRoll(App.S.seats.find(x=>x.color===s.turn).clientId);});
 function onTokenTap(c,i){const s=App.view;if(!s||!s.awaiting||s.turn!==c||!controls(c))return;
   if(!legal(s,c,s.dice.v).includes(i))return;const o=moveOpts(s,c,i,s.dice.v);if(o.length>1)return chooseSteps(c,i,o);sendMove(c,i,null);}
